@@ -1,6 +1,6 @@
-# Generic ORM — Python Demo App
+# Alloy — Python Demo App
 
-A todo-list application built with Flask, demonstrating the [Generic ORM](https://github.com/notactuallytreyanastasio/generic_orm) compiled from Temper to Python.
+A todo-list application built with Flask, demonstrating the [Alloy](https://github.com/notactuallytreyanastasio/alloy) compiled from Temper to Python.
 
 ## Stack
 
@@ -9,7 +9,7 @@ A todo-list application built with Flask, demonstrating the [Generic ORM](https:
 | Framework | Flask 3.1 |
 | Templates | Jinja2 |
 | Database | SQLite via stdlib sqlite3 |
-| ORM | [Generic ORM](https://github.com/notactuallytreyanastasio/generic_orm) (vendored) |
+| ORM | [Alloy](https://github.com/notactuallytreyanastasio/alloy) (vendored) |
 | Port | 5001 |
 
 ## ORM Usage
@@ -52,4 +52,4 @@ The `vendor/` directory contains the ORM compiled from Temper to Python 3 module
 
 ---
 
-Part of the [Generic ORM](https://github.com/notactuallytreyanastasio/generic_orm) project — write once in Temper, secure everywhere.
+Part of the [Alloy](https://github.com/notactuallytreyanastasio/alloy) project — write once in Temper, secure everywhere.
