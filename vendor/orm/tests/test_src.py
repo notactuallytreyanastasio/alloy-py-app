@@ -4,2199 +4,2483 @@ from unittest import TestCase as TestCase46
 from types import MappingProxyType as MappingProxyType32
 from typing import Sequence as Sequence29
 from datetime import date as date26
-from orm.src import SafeIdentifier, safe_identifier, TableDef, FieldDef, StringField, IntField, FloatField, BoolField, map_constructor_9706, pair_9710, changeset, Changeset, mapped_has_9683, len_9686, list_get_9694, str_cat_9688, list_for_each_9680, SqlFragment, from_, Query, SqlBuilder, col, SqlInt32, SqlString, count_all, count_col, sum_col, avg_col, min_col, max_col, union_sql, union_all_sql, intersect_sql, except_sql, subquery, exists_sql, date_9713, SqlPart
-def csid_459(name_604: 'str27') -> 'SafeIdentifier':
-    t_5286: 'SafeIdentifier'
-    t_5286 = safe_identifier(name_604)
-    return t_5286
-def user_table_460() -> 'TableDef':
-    return TableDef(csid_459('users'), (FieldDef(csid_459('name'), StringField(), False), FieldDef(csid_459('email'), StringField(), False), FieldDef(csid_459('age'), IntField(), True), FieldDef(csid_459('score'), FloatField(), True), FieldDef(csid_459('active'), BoolField(), True)))
+from orm.src import SafeIdentifier, safe_identifier, TableDef, FieldDef, StringField, IntField, FloatField, BoolField, map_constructor_10960, pair_10964, changeset, Changeset, mapped_has_10937, len_10940, list_get_10948, str_cat_10942, list_for_each_10934, SqlFragment, from_, Query, SqlBuilder, col, SqlInt32, SqlString, count_all, count_col, sum_col, avg_col, min_col, max_col, union_sql, union_all_sql, intersect_sql, except_sql, subquery, exists_sql, update, UpdateQuery, SqlBoolean, delete_from, DeleteQuery, date_10967, SqlPart
+def csid_503(name_648: 'str27') -> 'SafeIdentifier':
+    t_6032: 'SafeIdentifier'
+    t_6032 = safe_identifier(name_648)
+    return t_6032
+def user_table_504() -> 'TableDef':
+    return TableDef(csid_503('users'), (FieldDef(csid_503('name'), StringField(), False), FieldDef(csid_503('email'), StringField(), False), FieldDef(csid_503('age'), IntField(), True), FieldDef(csid_503('score'), FloatField(), True), FieldDef(csid_503('active'), BoolField(), True)))
 class TestCase45(TestCase46):
-    def test___castWhitelistsAllowedFields__1404(self) -> None:
+    def test___castWhitelistsAllowedFields__1546(self) -> None:
         'cast whitelists allowed fields'
         test_24: Test = Test()
         try:
-            params_608: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('name', 'Alice'), pair_9710('email', 'alice@example.com'), pair_9710('admin', 'true')))
-            t_9397: 'TableDef' = user_table_460()
-            t_9398: 'SafeIdentifier' = csid_459('name')
-            t_9399: 'SafeIdentifier' = csid_459('email')
-            cs_609: 'Changeset' = changeset(t_9397, params_608).cast((t_9398, t_9399))
-            t_9402: 'bool33' = mapped_has_9683(cs_609.changes, 'name')
-            def fn_9392() -> 'str27':
+            params_652: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('name', 'Alice'), pair_10964('email', 'alice@example.com'), pair_10964('admin', 'true')))
+            t_10651: 'TableDef' = user_table_504()
+            t_10652: 'SafeIdentifier' = csid_503('name')
+            t_10653: 'SafeIdentifier' = csid_503('email')
+            cs_653: 'Changeset' = changeset(t_10651, params_652).cast((t_10652, t_10653))
+            t_10656: 'bool33' = mapped_has_10937(cs_653.changes, 'name')
+            def fn_10646() -> 'str27':
                 return 'name should be in changes'
-            test_24.assert_(t_9402, fn_9392)
-            t_9406: 'bool33' = mapped_has_9683(cs_609.changes, 'email')
-            def fn_9391() -> 'str27':
+            test_24.assert_(t_10656, fn_10646)
+            t_10660: 'bool33' = mapped_has_10937(cs_653.changes, 'email')
+            def fn_10645() -> 'str27':
                 return 'email should be in changes'
-            test_24.assert_(t_9406, fn_9391)
-            t_9412: 'bool33' = not mapped_has_9683(cs_609.changes, 'admin')
-            def fn_9390() -> 'str27':
+            test_24.assert_(t_10660, fn_10645)
+            t_10666: 'bool33' = not mapped_has_10937(cs_653.changes, 'admin')
+            def fn_10644() -> 'str27':
                 return 'admin must be dropped (not in whitelist)'
-            test_24.assert_(t_9412, fn_9390)
-            t_9414: 'bool33' = cs_609.is_valid
-            def fn_9389() -> 'str27':
+            test_24.assert_(t_10666, fn_10644)
+            t_10668: 'bool33' = cs_653.is_valid
+            def fn_10643() -> 'str27':
                 return 'should still be valid'
-            test_24.assert_(t_9414, fn_9389)
+            test_24.assert_(t_10668, fn_10643)
         finally:
             test_24.soft_fail_to_hard()
 class TestCase47(TestCase46):
-    def test___castIsReplacingNotAdditiveSecondCallResetsWhitelist__1405(self) -> None:
+    def test___castIsReplacingNotAdditiveSecondCallResetsWhitelist__1547(self) -> None:
         'cast is replacing not additive \u2014 second call resets whitelist'
         test_25: Test = Test()
         try:
-            params_611: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('name', 'Alice'), pair_9710('email', 'alice@example.com')))
-            t_9375: 'TableDef' = user_table_460()
-            t_9376: 'SafeIdentifier' = csid_459('name')
-            cs_612: 'Changeset' = changeset(t_9375, params_611).cast((t_9376,)).cast((csid_459('email'),))
-            t_9383: 'bool33' = not mapped_has_9683(cs_612.changes, 'name')
-            def fn_9371() -> 'str27':
+            params_655: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('name', 'Alice'), pair_10964('email', 'alice@example.com')))
+            t_10629: 'TableDef' = user_table_504()
+            t_10630: 'SafeIdentifier' = csid_503('name')
+            cs_656: 'Changeset' = changeset(t_10629, params_655).cast((t_10630,)).cast((csid_503('email'),))
+            t_10637: 'bool33' = not mapped_has_10937(cs_656.changes, 'name')
+            def fn_10625() -> 'str27':
                 return 'name must be excluded by second cast'
-            test_25.assert_(t_9383, fn_9371)
-            t_9386: 'bool33' = mapped_has_9683(cs_612.changes, 'email')
-            def fn_9370() -> 'str27':
+            test_25.assert_(t_10637, fn_10625)
+            t_10640: 'bool33' = mapped_has_10937(cs_656.changes, 'email')
+            def fn_10624() -> 'str27':
                 return 'email should be present'
-            test_25.assert_(t_9386, fn_9370)
+            test_25.assert_(t_10640, fn_10624)
         finally:
             test_25.soft_fail_to_hard()
 class TestCase48(TestCase46):
-    def test___castIgnoresEmptyStringValues__1406(self) -> None:
+    def test___castIgnoresEmptyStringValues__1548(self) -> None:
         'cast ignores empty string values'
         test_26: Test = Test()
         try:
-            params_614: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('name', ''), pair_9710('email', 'bob@example.com')))
-            t_9357: 'TableDef' = user_table_460()
-            t_9358: 'SafeIdentifier' = csid_459('name')
-            t_9359: 'SafeIdentifier' = csid_459('email')
-            cs_615: 'Changeset' = changeset(t_9357, params_614).cast((t_9358, t_9359))
-            t_9364: 'bool33' = not mapped_has_9683(cs_615.changes, 'name')
-            def fn_9353() -> 'str27':
+            params_658: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('name', ''), pair_10964('email', 'bob@example.com')))
+            t_10611: 'TableDef' = user_table_504()
+            t_10612: 'SafeIdentifier' = csid_503('name')
+            t_10613: 'SafeIdentifier' = csid_503('email')
+            cs_659: 'Changeset' = changeset(t_10611, params_658).cast((t_10612, t_10613))
+            t_10618: 'bool33' = not mapped_has_10937(cs_659.changes, 'name')
+            def fn_10607() -> 'str27':
                 return 'empty name should not be in changes'
-            test_26.assert_(t_9364, fn_9353)
-            t_9367: 'bool33' = mapped_has_9683(cs_615.changes, 'email')
-            def fn_9352() -> 'str27':
+            test_26.assert_(t_10618, fn_10607)
+            t_10621: 'bool33' = mapped_has_10937(cs_659.changes, 'email')
+            def fn_10606() -> 'str27':
                 return 'email should be in changes'
-            test_26.assert_(t_9367, fn_9352)
+            test_26.assert_(t_10621, fn_10606)
         finally:
             test_26.soft_fail_to_hard()
 class TestCase49(TestCase46):
-    def test___validateRequiredPassesWhenFieldPresent__1407(self) -> None:
+    def test___validateRequiredPassesWhenFieldPresent__1549(self) -> None:
         'validateRequired passes when field present'
         test_27: Test = Test()
         try:
-            params_617: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('name', 'Alice'),))
-            t_9339: 'TableDef' = user_table_460()
-            t_9340: 'SafeIdentifier' = csid_459('name')
-            cs_618: 'Changeset' = changeset(t_9339, params_617).cast((t_9340,)).validate_required((csid_459('name'),))
-            t_9344: 'bool33' = cs_618.is_valid
-            def fn_9336() -> 'str27':
+            params_661: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('name', 'Alice'),))
+            t_10593: 'TableDef' = user_table_504()
+            t_10594: 'SafeIdentifier' = csid_503('name')
+            cs_662: 'Changeset' = changeset(t_10593, params_661).cast((t_10594,)).validate_required((csid_503('name'),))
+            t_10598: 'bool33' = cs_662.is_valid
+            def fn_10590() -> 'str27':
                 return 'should be valid'
-            test_27.assert_(t_9344, fn_9336)
-            t_9350: 'bool33' = len_9686(cs_618.errors) == 0
-            def fn_9335() -> 'str27':
+            test_27.assert_(t_10598, fn_10590)
+            t_10604: 'bool33' = len_10940(cs_662.errors) == 0
+            def fn_10589() -> 'str27':
                 return 'no errors expected'
-            test_27.assert_(t_9350, fn_9335)
+            test_27.assert_(t_10604, fn_10589)
         finally:
             test_27.soft_fail_to_hard()
 class TestCase50(TestCase46):
-    def test___validateRequiredFailsWhenFieldMissing__1408(self) -> None:
+    def test___validateRequiredFailsWhenFieldMissing__1550(self) -> None:
         'validateRequired fails when field missing'
         test_28: Test = Test()
         try:
-            params_620: 'MappingProxyType32[str27, str27]' = map_constructor_9706(())
-            t_9315: 'TableDef' = user_table_460()
-            t_9316: 'SafeIdentifier' = csid_459('name')
-            cs_621: 'Changeset' = changeset(t_9315, params_620).cast((t_9316,)).validate_required((csid_459('name'),))
-            t_9322: 'bool33' = not cs_621.is_valid
-            def fn_9313() -> 'str27':
+            params_664: 'MappingProxyType32[str27, str27]' = map_constructor_10960(())
+            t_10569: 'TableDef' = user_table_504()
+            t_10570: 'SafeIdentifier' = csid_503('name')
+            cs_665: 'Changeset' = changeset(t_10569, params_664).cast((t_10570,)).validate_required((csid_503('name'),))
+            t_10576: 'bool33' = not cs_665.is_valid
+            def fn_10567() -> 'str27':
                 return 'should be invalid'
-            test_28.assert_(t_9322, fn_9313)
-            t_9327: 'bool33' = len_9686(cs_621.errors) == 1
-            def fn_9312() -> 'str27':
+            test_28.assert_(t_10576, fn_10567)
+            t_10581: 'bool33' = len_10940(cs_665.errors) == 1
+            def fn_10566() -> 'str27':
                 return 'should have one error'
-            test_28.assert_(t_9327, fn_9312)
-            t_9333: 'bool33' = list_get_9694(cs_621.errors, 0).field == 'name'
-            def fn_9311() -> 'str27':
+            test_28.assert_(t_10581, fn_10566)
+            t_10587: 'bool33' = list_get_10948(cs_665.errors, 0).field == 'name'
+            def fn_10565() -> 'str27':
                 return 'error should name the field'
-            test_28.assert_(t_9333, fn_9311)
+            test_28.assert_(t_10587, fn_10565)
         finally:
             test_28.soft_fail_to_hard()
 class TestCase51(TestCase46):
-    def test___validateLengthPassesWithinRange__1409(self) -> None:
+    def test___validateLengthPassesWithinRange__1551(self) -> None:
         'validateLength passes within range'
         test_29: Test = Test()
         try:
-            params_623: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('name', 'Alice'),))
-            t_9303: 'TableDef' = user_table_460()
-            t_9304: 'SafeIdentifier' = csid_459('name')
-            cs_624: 'Changeset' = changeset(t_9303, params_623).cast((t_9304,)).validate_length(csid_459('name'), 2, 50)
-            t_9308: 'bool33' = cs_624.is_valid
-            def fn_9300() -> 'str27':
+            params_667: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('name', 'Alice'),))
+            t_10557: 'TableDef' = user_table_504()
+            t_10558: 'SafeIdentifier' = csid_503('name')
+            cs_668: 'Changeset' = changeset(t_10557, params_667).cast((t_10558,)).validate_length(csid_503('name'), 2, 50)
+            t_10562: 'bool33' = cs_668.is_valid
+            def fn_10554() -> 'str27':
                 return 'should be valid'
-            test_29.assert_(t_9308, fn_9300)
+            test_29.assert_(t_10562, fn_10554)
         finally:
             test_29.soft_fail_to_hard()
 class TestCase52(TestCase46):
-    def test___validateLengthFailsWhenTooShort__1410(self) -> None:
+    def test___validateLengthFailsWhenTooShort__1552(self) -> None:
         'validateLength fails when too short'
         test_30: Test = Test()
         try:
-            params_626: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('name', 'A'),))
-            t_9291: 'TableDef' = user_table_460()
-            t_9292: 'SafeIdentifier' = csid_459('name')
-            cs_627: 'Changeset' = changeset(t_9291, params_626).cast((t_9292,)).validate_length(csid_459('name'), 2, 50)
-            t_9298: 'bool33' = not cs_627.is_valid
-            def fn_9288() -> 'str27':
+            params_670: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('name', 'A'),))
+            t_10545: 'TableDef' = user_table_504()
+            t_10546: 'SafeIdentifier' = csid_503('name')
+            cs_671: 'Changeset' = changeset(t_10545, params_670).cast((t_10546,)).validate_length(csid_503('name'), 2, 50)
+            t_10552: 'bool33' = not cs_671.is_valid
+            def fn_10542() -> 'str27':
                 return 'should be invalid'
-            test_30.assert_(t_9298, fn_9288)
+            test_30.assert_(t_10552, fn_10542)
         finally:
             test_30.soft_fail_to_hard()
 class TestCase53(TestCase46):
-    def test___validateLengthFailsWhenTooLong__1411(self) -> None:
+    def test___validateLengthFailsWhenTooLong__1553(self) -> None:
         'validateLength fails when too long'
         test_31: Test = Test()
         try:
-            params_629: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('name', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),))
-            t_9279: 'TableDef' = user_table_460()
-            t_9280: 'SafeIdentifier' = csid_459('name')
-            cs_630: 'Changeset' = changeset(t_9279, params_629).cast((t_9280,)).validate_length(csid_459('name'), 2, 10)
-            t_9286: 'bool33' = not cs_630.is_valid
-            def fn_9276() -> 'str27':
+            params_673: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('name', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'),))
+            t_10533: 'TableDef' = user_table_504()
+            t_10534: 'SafeIdentifier' = csid_503('name')
+            cs_674: 'Changeset' = changeset(t_10533, params_673).cast((t_10534,)).validate_length(csid_503('name'), 2, 10)
+            t_10540: 'bool33' = not cs_674.is_valid
+            def fn_10530() -> 'str27':
                 return 'should be invalid'
-            test_31.assert_(t_9286, fn_9276)
+            test_31.assert_(t_10540, fn_10530)
         finally:
             test_31.soft_fail_to_hard()
 class TestCase54(TestCase46):
-    def test___validateIntPassesForValidInteger__1412(self) -> None:
+    def test___validateIntPassesForValidInteger__1554(self) -> None:
         'validateInt passes for valid integer'
         test_32: Test = Test()
         try:
-            params_632: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('age', '30'),))
-            t_9268: 'TableDef' = user_table_460()
-            t_9269: 'SafeIdentifier' = csid_459('age')
-            cs_633: 'Changeset' = changeset(t_9268, params_632).cast((t_9269,)).validate_int(csid_459('age'))
-            t_9273: 'bool33' = cs_633.is_valid
-            def fn_9265() -> 'str27':
+            params_676: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('age', '30'),))
+            t_10522: 'TableDef' = user_table_504()
+            t_10523: 'SafeIdentifier' = csid_503('age')
+            cs_677: 'Changeset' = changeset(t_10522, params_676).cast((t_10523,)).validate_int(csid_503('age'))
+            t_10527: 'bool33' = cs_677.is_valid
+            def fn_10519() -> 'str27':
                 return 'should be valid'
-            test_32.assert_(t_9273, fn_9265)
+            test_32.assert_(t_10527, fn_10519)
         finally:
             test_32.soft_fail_to_hard()
 class TestCase55(TestCase46):
-    def test___validateIntFailsForNonInteger__1413(self) -> None:
+    def test___validateIntFailsForNonInteger__1555(self) -> None:
         'validateInt fails for non-integer'
         test_33: Test = Test()
         try:
-            params_635: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('age', 'not-a-number'),))
-            t_9256: 'TableDef' = user_table_460()
-            t_9257: 'SafeIdentifier' = csid_459('age')
-            cs_636: 'Changeset' = changeset(t_9256, params_635).cast((t_9257,)).validate_int(csid_459('age'))
-            t_9263: 'bool33' = not cs_636.is_valid
-            def fn_9253() -> 'str27':
+            params_679: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('age', 'not-a-number'),))
+            t_10510: 'TableDef' = user_table_504()
+            t_10511: 'SafeIdentifier' = csid_503('age')
+            cs_680: 'Changeset' = changeset(t_10510, params_679).cast((t_10511,)).validate_int(csid_503('age'))
+            t_10517: 'bool33' = not cs_680.is_valid
+            def fn_10507() -> 'str27':
                 return 'should be invalid'
-            test_33.assert_(t_9263, fn_9253)
+            test_33.assert_(t_10517, fn_10507)
         finally:
             test_33.soft_fail_to_hard()
 class TestCase56(TestCase46):
-    def test___validateFloatPassesForValidFloat__1414(self) -> None:
+    def test___validateFloatPassesForValidFloat__1556(self) -> None:
         'validateFloat passes for valid float'
         test_34: Test = Test()
         try:
-            params_638: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('score', '9.5'),))
-            t_9245: 'TableDef' = user_table_460()
-            t_9246: 'SafeIdentifier' = csid_459('score')
-            cs_639: 'Changeset' = changeset(t_9245, params_638).cast((t_9246,)).validate_float(csid_459('score'))
-            t_9250: 'bool33' = cs_639.is_valid
-            def fn_9242() -> 'str27':
+            params_682: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('score', '9.5'),))
+            t_10499: 'TableDef' = user_table_504()
+            t_10500: 'SafeIdentifier' = csid_503('score')
+            cs_683: 'Changeset' = changeset(t_10499, params_682).cast((t_10500,)).validate_float(csid_503('score'))
+            t_10504: 'bool33' = cs_683.is_valid
+            def fn_10496() -> 'str27':
                 return 'should be valid'
-            test_34.assert_(t_9250, fn_9242)
+            test_34.assert_(t_10504, fn_10496)
         finally:
             test_34.soft_fail_to_hard()
 class TestCase57(TestCase46):
-    def test___validateInt64_passesForValid64_bitInteger__1415(self) -> None:
+    def test___validateInt64_passesForValid64_bitInteger__1557(self) -> None:
         'validateInt64 passes for valid 64-bit integer'
         test_35: Test = Test()
         try:
-            params_641: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('age', '9999999999'),))
-            t_9234: 'TableDef' = user_table_460()
-            t_9235: 'SafeIdentifier' = csid_459('age')
-            cs_642: 'Changeset' = changeset(t_9234, params_641).cast((t_9235,)).validate_int64(csid_459('age'))
-            t_9239: 'bool33' = cs_642.is_valid
-            def fn_9231() -> 'str27':
+            params_685: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('age', '9999999999'),))
+            t_10488: 'TableDef' = user_table_504()
+            t_10489: 'SafeIdentifier' = csid_503('age')
+            cs_686: 'Changeset' = changeset(t_10488, params_685).cast((t_10489,)).validate_int64(csid_503('age'))
+            t_10493: 'bool33' = cs_686.is_valid
+            def fn_10485() -> 'str27':
                 return 'should be valid'
-            test_35.assert_(t_9239, fn_9231)
+            test_35.assert_(t_10493, fn_10485)
         finally:
             test_35.soft_fail_to_hard()
 class TestCase58(TestCase46):
-    def test___validateInt64_failsForNonInteger__1416(self) -> None:
+    def test___validateInt64_failsForNonInteger__1558(self) -> None:
         'validateInt64 fails for non-integer'
         test_36: Test = Test()
         try:
-            params_644: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('age', 'not-a-number'),))
-            t_9222: 'TableDef' = user_table_460()
-            t_9223: 'SafeIdentifier' = csid_459('age')
-            cs_645: 'Changeset' = changeset(t_9222, params_644).cast((t_9223,)).validate_int64(csid_459('age'))
-            t_9229: 'bool33' = not cs_645.is_valid
-            def fn_9219() -> 'str27':
+            params_688: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('age', 'not-a-number'),))
+            t_10476: 'TableDef' = user_table_504()
+            t_10477: 'SafeIdentifier' = csid_503('age')
+            cs_689: 'Changeset' = changeset(t_10476, params_688).cast((t_10477,)).validate_int64(csid_503('age'))
+            t_10483: 'bool33' = not cs_689.is_valid
+            def fn_10473() -> 'str27':
                 return 'should be invalid'
-            test_36.assert_(t_9229, fn_9219)
+            test_36.assert_(t_10483, fn_10473)
         finally:
             test_36.soft_fail_to_hard()
 class TestCase59(TestCase46):
-    def test___validateBoolAcceptsTrue1_yesOn__1417(self) -> None:
+    def test___validateBoolAcceptsTrue1_yesOn__1559(self) -> None:
         'validateBool accepts true/1/yes/on'
         test_37: Test = Test()
         try:
-            def fn_9216(v_647: 'str27') -> 'None':
-                params_648: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('active', v_647),))
-                t_9208: 'TableDef' = user_table_460()
-                t_9209: 'SafeIdentifier' = csid_459('active')
-                cs_649: 'Changeset' = changeset(t_9208, params_648).cast((t_9209,)).validate_bool(csid_459('active'))
-                t_9213: 'bool33' = cs_649.is_valid
-                def fn_9205() -> 'str27':
-                    return str_cat_9688('should accept: ', v_647)
-                test_37.assert_(t_9213, fn_9205)
-            list_for_each_9680(('true', '1', 'yes', 'on'), fn_9216)
+            def fn_10470(v_691: 'str27') -> 'None':
+                params_692: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('active', v_691),))
+                t_10462: 'TableDef' = user_table_504()
+                t_10463: 'SafeIdentifier' = csid_503('active')
+                cs_693: 'Changeset' = changeset(t_10462, params_692).cast((t_10463,)).validate_bool(csid_503('active'))
+                t_10467: 'bool33' = cs_693.is_valid
+                def fn_10459() -> 'str27':
+                    return str_cat_10942('should accept: ', v_691)
+                test_37.assert_(t_10467, fn_10459)
+            list_for_each_10934(('true', '1', 'yes', 'on'), fn_10470)
         finally:
             test_37.soft_fail_to_hard()
 class TestCase60(TestCase46):
-    def test___validateBoolAcceptsFalse0_noOff__1418(self) -> None:
+    def test___validateBoolAcceptsFalse0_noOff__1560(self) -> None:
         'validateBool accepts false/0/no/off'
         test_38: Test = Test()
         try:
-            def fn_9202(v_651: 'str27') -> 'None':
-                params_652: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('active', v_651),))
-                t_9194: 'TableDef' = user_table_460()
-                t_9195: 'SafeIdentifier' = csid_459('active')
-                cs_653: 'Changeset' = changeset(t_9194, params_652).cast((t_9195,)).validate_bool(csid_459('active'))
-                t_9199: 'bool33' = cs_653.is_valid
-                def fn_9191() -> 'str27':
-                    return str_cat_9688('should accept: ', v_651)
-                test_38.assert_(t_9199, fn_9191)
-            list_for_each_9680(('false', '0', 'no', 'off'), fn_9202)
+            def fn_10456(v_695: 'str27') -> 'None':
+                params_696: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('active', v_695),))
+                t_10448: 'TableDef' = user_table_504()
+                t_10449: 'SafeIdentifier' = csid_503('active')
+                cs_697: 'Changeset' = changeset(t_10448, params_696).cast((t_10449,)).validate_bool(csid_503('active'))
+                t_10453: 'bool33' = cs_697.is_valid
+                def fn_10445() -> 'str27':
+                    return str_cat_10942('should accept: ', v_695)
+                test_38.assert_(t_10453, fn_10445)
+            list_for_each_10934(('false', '0', 'no', 'off'), fn_10456)
         finally:
             test_38.soft_fail_to_hard()
 class TestCase61(TestCase46):
-    def test___validateBoolRejectsAmbiguousValues__1419(self) -> None:
+    def test___validateBoolRejectsAmbiguousValues__1561(self) -> None:
         'validateBool rejects ambiguous values'
         test_39: Test = Test()
         try:
-            def fn_9188(v_655: 'str27') -> 'None':
-                params_656: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('active', v_655),))
-                t_9179: 'TableDef' = user_table_460()
-                t_9180: 'SafeIdentifier' = csid_459('active')
-                cs_657: 'Changeset' = changeset(t_9179, params_656).cast((t_9180,)).validate_bool(csid_459('active'))
-                t_9186: 'bool33' = not cs_657.is_valid
-                def fn_9176() -> 'str27':
-                    return str_cat_9688('should reject ambiguous: ', v_655)
-                test_39.assert_(t_9186, fn_9176)
-            list_for_each_9680(('TRUE', 'Yes', 'maybe', '2', 'enabled'), fn_9188)
+            def fn_10442(v_699: 'str27') -> 'None':
+                params_700: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('active', v_699),))
+                t_10433: 'TableDef' = user_table_504()
+                t_10434: 'SafeIdentifier' = csid_503('active')
+                cs_701: 'Changeset' = changeset(t_10433, params_700).cast((t_10434,)).validate_bool(csid_503('active'))
+                t_10440: 'bool33' = not cs_701.is_valid
+                def fn_10430() -> 'str27':
+                    return str_cat_10942('should reject ambiguous: ', v_699)
+                test_39.assert_(t_10440, fn_10430)
+            list_for_each_10934(('TRUE', 'Yes', 'maybe', '2', 'enabled'), fn_10442)
         finally:
             test_39.soft_fail_to_hard()
 class TestCase62(TestCase46):
-    def test___toInsertSqlEscapesBobbyTables__1420(self) -> None:
+    def test___toInsertSqlEscapesBobbyTables__1562(self) -> None:
         'toInsertSql escapes Bobby Tables'
         test_40: Test = Test()
         try:
-            params_659: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('name', "Robert'); DROP TABLE users;--"), pair_9710('email', 'bobby@evil.com')))
-            t_9164: 'TableDef' = user_table_460()
-            t_9165: 'SafeIdentifier' = csid_459('name')
-            t_9166: 'SafeIdentifier' = csid_459('email')
-            cs_660: 'Changeset' = changeset(t_9164, params_659).cast((t_9165, t_9166)).validate_required((csid_459('name'), csid_459('email')))
-            t_5087: 'SqlFragment'
-            t_5087 = cs_660.to_insert_sql()
-            sql_frag_661: 'SqlFragment' = t_5087
-            s_662: 'str27' = sql_frag_661.to_string()
-            t_9173: 'bool33' = s_662.find("''") >= 0
-            def fn_9160() -> 'str27':
-                return str_cat_9688('single quote must be doubled: ', s_662)
-            test_40.assert_(t_9173, fn_9160)
+            params_703: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('name', "Robert'); DROP TABLE users;--"), pair_10964('email', 'bobby@evil.com')))
+            t_10418: 'TableDef' = user_table_504()
+            t_10419: 'SafeIdentifier' = csid_503('name')
+            t_10420: 'SafeIdentifier' = csid_503('email')
+            cs_704: 'Changeset' = changeset(t_10418, params_703).cast((t_10419, t_10420)).validate_required((csid_503('name'), csid_503('email')))
+            t_5833: 'SqlFragment'
+            t_5833 = cs_704.to_insert_sql()
+            sql_frag_705: 'SqlFragment' = t_5833
+            s_706: 'str27' = sql_frag_705.to_string()
+            t_10427: 'bool33' = s_706.find("''") >= 0
+            def fn_10414() -> 'str27':
+                return str_cat_10942('single quote must be doubled: ', s_706)
+            test_40.assert_(t_10427, fn_10414)
         finally:
             test_40.soft_fail_to_hard()
 class TestCase63(TestCase46):
-    def test___toInsertSqlProducesCorrectSqlForStringField__1421(self) -> None:
+    def test___toInsertSqlProducesCorrectSqlForStringField__1563(self) -> None:
         'toInsertSql produces correct SQL for string field'
         test_41: Test = Test()
         try:
-            params_664: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('name', 'Alice'), pair_9710('email', 'a@example.com')))
-            t_9144: 'TableDef' = user_table_460()
-            t_9145: 'SafeIdentifier' = csid_459('name')
-            t_9146: 'SafeIdentifier' = csid_459('email')
-            cs_665: 'Changeset' = changeset(t_9144, params_664).cast((t_9145, t_9146)).validate_required((csid_459('name'), csid_459('email')))
-            t_5066: 'SqlFragment'
-            t_5066 = cs_665.to_insert_sql()
-            sql_frag_666: 'SqlFragment' = t_5066
-            s_667: 'str27' = sql_frag_666.to_string()
-            t_9153: 'bool33' = s_667.find('INSERT INTO users') >= 0
-            def fn_9140() -> 'str27':
-                return str_cat_9688('has INSERT INTO: ', s_667)
-            test_41.assert_(t_9153, fn_9140)
-            t_9157: 'bool33' = s_667.find("'Alice'") >= 0
-            def fn_9139() -> 'str27':
-                return str_cat_9688('has quoted name: ', s_667)
-            test_41.assert_(t_9157, fn_9139)
+            params_708: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('name', 'Alice'), pair_10964('email', 'a@example.com')))
+            t_10398: 'TableDef' = user_table_504()
+            t_10399: 'SafeIdentifier' = csid_503('name')
+            t_10400: 'SafeIdentifier' = csid_503('email')
+            cs_709: 'Changeset' = changeset(t_10398, params_708).cast((t_10399, t_10400)).validate_required((csid_503('name'), csid_503('email')))
+            t_5812: 'SqlFragment'
+            t_5812 = cs_709.to_insert_sql()
+            sql_frag_710: 'SqlFragment' = t_5812
+            s_711: 'str27' = sql_frag_710.to_string()
+            t_10407: 'bool33' = s_711.find('INSERT INTO users') >= 0
+            def fn_10394() -> 'str27':
+                return str_cat_10942('has INSERT INTO: ', s_711)
+            test_41.assert_(t_10407, fn_10394)
+            t_10411: 'bool33' = s_711.find("'Alice'") >= 0
+            def fn_10393() -> 'str27':
+                return str_cat_10942('has quoted name: ', s_711)
+            test_41.assert_(t_10411, fn_10393)
         finally:
             test_41.soft_fail_to_hard()
 class TestCase64(TestCase46):
-    def test___toInsertSqlProducesCorrectSqlForIntField__1422(self) -> None:
+    def test___toInsertSqlProducesCorrectSqlForIntField__1564(self) -> None:
         'toInsertSql produces correct SQL for int field'
         test_42: Test = Test()
         try:
-            params_669: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('name', 'Bob'), pair_9710('email', 'b@example.com'), pair_9710('age', '25')))
-            t_9126: 'TableDef' = user_table_460()
-            t_9127: 'SafeIdentifier' = csid_459('name')
-            t_9128: 'SafeIdentifier' = csid_459('email')
-            t_9129: 'SafeIdentifier' = csid_459('age')
-            cs_670: 'Changeset' = changeset(t_9126, params_669).cast((t_9127, t_9128, t_9129)).validate_required((csid_459('name'), csid_459('email')))
-            t_5049: 'SqlFragment'
-            t_5049 = cs_670.to_insert_sql()
-            sql_frag_671: 'SqlFragment' = t_5049
-            s_672: 'str27' = sql_frag_671.to_string()
-            t_9136: 'bool33' = s_672.find('25') >= 0
-            def fn_9121() -> 'str27':
-                return str_cat_9688('age rendered unquoted: ', s_672)
-            test_42.assert_(t_9136, fn_9121)
+            params_713: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('name', 'Bob'), pair_10964('email', 'b@example.com'), pair_10964('age', '25')))
+            t_10380: 'TableDef' = user_table_504()
+            t_10381: 'SafeIdentifier' = csid_503('name')
+            t_10382: 'SafeIdentifier' = csid_503('email')
+            t_10383: 'SafeIdentifier' = csid_503('age')
+            cs_714: 'Changeset' = changeset(t_10380, params_713).cast((t_10381, t_10382, t_10383)).validate_required((csid_503('name'), csid_503('email')))
+            t_5795: 'SqlFragment'
+            t_5795 = cs_714.to_insert_sql()
+            sql_frag_715: 'SqlFragment' = t_5795
+            s_716: 'str27' = sql_frag_715.to_string()
+            t_10390: 'bool33' = s_716.find('25') >= 0
+            def fn_10375() -> 'str27':
+                return str_cat_10942('age rendered unquoted: ', s_716)
+            test_42.assert_(t_10390, fn_10375)
         finally:
             test_42.soft_fail_to_hard()
 class TestCase65(TestCase46):
-    def test___toInsertSqlBubblesOnInvalidChangeset__1423(self) -> None:
+    def test___toInsertSqlBubblesOnInvalidChangeset__1565(self) -> None:
         'toInsertSql bubbles on invalid changeset'
         test_43: Test = Test()
         try:
-            params_674: 'MappingProxyType32[str27, str27]' = map_constructor_9706(())
-            t_9114: 'TableDef' = user_table_460()
-            t_9115: 'SafeIdentifier' = csid_459('name')
-            cs_675: 'Changeset' = changeset(t_9114, params_674).cast((t_9115,)).validate_required((csid_459('name'),))
-            did_bubble_676: 'bool33'
+            params_718: 'MappingProxyType32[str27, str27]' = map_constructor_10960(())
+            t_10368: 'TableDef' = user_table_504()
+            t_10369: 'SafeIdentifier' = csid_503('name')
+            cs_719: 'Changeset' = changeset(t_10368, params_718).cast((t_10369,)).validate_required((csid_503('name'),))
+            did_bubble_720: 'bool33'
             try:
-                cs_675.to_insert_sql()
-                did_bubble_676 = False
+                cs_719.to_insert_sql()
+                did_bubble_720 = False
             except Exception37:
-                did_bubble_676 = True
-            def fn_9112() -> 'str27':
+                did_bubble_720 = True
+            def fn_10366() -> 'str27':
                 return 'invalid changeset should bubble'
-            test_43.assert_(did_bubble_676, fn_9112)
+            test_43.assert_(did_bubble_720, fn_10366)
         finally:
             test_43.soft_fail_to_hard()
 class TestCase66(TestCase46):
-    def test___toInsertSqlEnforcesNonNullableFieldsIndependentlyOfIsValid__1424(self) -> None:
+    def test___toInsertSqlEnforcesNonNullableFieldsIndependentlyOfIsValid__1566(self) -> None:
         'toInsertSql enforces non-nullable fields independently of isValid'
         test_44: Test = Test()
         try:
-            strict_table_678: 'TableDef' = TableDef(csid_459('posts'), (FieldDef(csid_459('title'), StringField(), False), FieldDef(csid_459('body'), StringField(), True)))
-            params_679: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('body', 'hello'),))
-            t_9105: 'SafeIdentifier' = csid_459('body')
-            cs_680: 'Changeset' = changeset(strict_table_678, params_679).cast((t_9105,))
-            t_9107: 'bool33' = cs_680.is_valid
-            def fn_9094() -> 'str27':
+            strict_table_722: 'TableDef' = TableDef(csid_503('posts'), (FieldDef(csid_503('title'), StringField(), False), FieldDef(csid_503('body'), StringField(), True)))
+            params_723: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('body', 'hello'),))
+            t_10359: 'SafeIdentifier' = csid_503('body')
+            cs_724: 'Changeset' = changeset(strict_table_722, params_723).cast((t_10359,))
+            t_10361: 'bool33' = cs_724.is_valid
+            def fn_10348() -> 'str27':
                 return 'changeset should appear valid (no explicit validation run)'
-            test_44.assert_(t_9107, fn_9094)
-            did_bubble_681: 'bool33'
+            test_44.assert_(t_10361, fn_10348)
+            did_bubble_725: 'bool33'
             try:
-                cs_680.to_insert_sql()
-                did_bubble_681 = False
+                cs_724.to_insert_sql()
+                did_bubble_725 = False
             except Exception37:
-                did_bubble_681 = True
-            def fn_9093() -> 'str27':
+                did_bubble_725 = True
+            def fn_10347() -> 'str27':
                 return 'toInsertSql should enforce nullable regardless of isValid'
-            test_44.assert_(did_bubble_681, fn_9093)
+            test_44.assert_(did_bubble_725, fn_10347)
         finally:
             test_44.soft_fail_to_hard()
 class TestCase67(TestCase46):
-    def test___toUpdateSqlProducesCorrectSql__1425(self) -> None:
+    def test___toUpdateSqlProducesCorrectSql__1567(self) -> None:
         'toUpdateSql produces correct SQL'
         test_45: Test = Test()
         try:
-            params_683: 'MappingProxyType32[str27, str27]' = map_constructor_9706((pair_9710('name', 'Bob'),))
-            t_9084: 'TableDef' = user_table_460()
-            t_9085: 'SafeIdentifier' = csid_459('name')
-            cs_684: 'Changeset' = changeset(t_9084, params_683).cast((t_9085,)).validate_required((csid_459('name'),))
-            t_5009: 'SqlFragment'
-            t_5009 = cs_684.to_update_sql(42)
-            sql_frag_685: 'SqlFragment' = t_5009
-            s_686: 'str27' = sql_frag_685.to_string()
-            t_9091: 'bool33' = s_686 == "UPDATE users SET name = 'Bob' WHERE id = 42"
-            def fn_9081() -> 'str27':
-                return str_cat_9688('got: ', s_686)
-            test_45.assert_(t_9091, fn_9081)
+            params_727: 'MappingProxyType32[str27, str27]' = map_constructor_10960((pair_10964('name', 'Bob'),))
+            t_10338: 'TableDef' = user_table_504()
+            t_10339: 'SafeIdentifier' = csid_503('name')
+            cs_728: 'Changeset' = changeset(t_10338, params_727).cast((t_10339,)).validate_required((csid_503('name'),))
+            t_5755: 'SqlFragment'
+            t_5755 = cs_728.to_update_sql(42)
+            sql_frag_729: 'SqlFragment' = t_5755
+            s_730: 'str27' = sql_frag_729.to_string()
+            t_10345: 'bool33' = s_730 == "UPDATE users SET name = 'Bob' WHERE id = 42"
+            def fn_10335() -> 'str27':
+                return str_cat_10942('got: ', s_730)
+            test_45.assert_(t_10345, fn_10335)
         finally:
             test_45.soft_fail_to_hard()
 class TestCase68(TestCase46):
-    def test___toUpdateSqlBubblesOnInvalidChangeset__1426(self) -> None:
+    def test___toUpdateSqlBubblesOnInvalidChangeset__1568(self) -> None:
         'toUpdateSql bubbles on invalid changeset'
         test_46: Test = Test()
         try:
-            params_688: 'MappingProxyType32[str27, str27]' = map_constructor_9706(())
-            t_9074: 'TableDef' = user_table_460()
-            t_9075: 'SafeIdentifier' = csid_459('name')
-            cs_689: 'Changeset' = changeset(t_9074, params_688).cast((t_9075,)).validate_required((csid_459('name'),))
-            did_bubble_690: 'bool33'
+            params_732: 'MappingProxyType32[str27, str27]' = map_constructor_10960(())
+            t_10328: 'TableDef' = user_table_504()
+            t_10329: 'SafeIdentifier' = csid_503('name')
+            cs_733: 'Changeset' = changeset(t_10328, params_732).cast((t_10329,)).validate_required((csid_503('name'),))
+            did_bubble_734: 'bool33'
             try:
-                cs_689.to_update_sql(1)
-                did_bubble_690 = False
+                cs_733.to_update_sql(1)
+                did_bubble_734 = False
             except Exception37:
-                did_bubble_690 = True
-            def fn_9072() -> 'str27':
+                did_bubble_734 = True
+            def fn_10326() -> 'str27':
                 return 'invalid changeset should bubble'
-            test_46.assert_(did_bubble_690, fn_9072)
+            test_46.assert_(did_bubble_734, fn_10326)
         finally:
             test_46.soft_fail_to_hard()
-def sid_461(name_932: 'str27') -> 'SafeIdentifier':
-    t_4603: 'SafeIdentifier'
-    t_4603 = safe_identifier(name_932)
-    return t_4603
+def sid_505(name_1039: 'str27') -> 'SafeIdentifier':
+    t_5241: 'SafeIdentifier'
+    t_5241 = safe_identifier(name_1039)
+    return t_5241
 class TestCase69(TestCase46):
-    def test___bareFromProducesSelect__1475(self) -> None:
+    def test___bareFromProducesSelect__1644(self) -> None:
         'bare from produces SELECT *'
         test_47: Test = Test()
         try:
-            q_935: 'Query' = from_(sid_461('users'))
-            t_8681: 'bool33' = q_935.to_sql().to_string() == 'SELECT * FROM users'
-            def fn_8676() -> 'str27':
+            q_1042: 'Query' = from_(sid_505('users'))
+            t_9837: 'bool33' = q_1042.to_sql().to_string() == 'SELECT * FROM users'
+            def fn_9832() -> 'str27':
                 return 'bare query'
-            test_47.assert_(t_8681, fn_8676)
+            test_47.assert_(t_9837, fn_9832)
         finally:
             test_47.soft_fail_to_hard()
 class TestCase70(TestCase46):
-    def test___selectRestrictsColumns__1476(self) -> None:
+    def test___selectRestrictsColumns__1645(self) -> None:
         'select restricts columns'
         test_48: Test = Test()
         try:
-            t_8667: 'SafeIdentifier' = sid_461('users')
-            t_8668: 'SafeIdentifier' = sid_461('id')
-            t_8669: 'SafeIdentifier' = sid_461('name')
-            q_937: 'Query' = from_(t_8667).select((t_8668, t_8669))
-            t_8674: 'bool33' = q_937.to_sql().to_string() == 'SELECT id, name FROM users'
-            def fn_8666() -> 'str27':
+            t_9823: 'SafeIdentifier' = sid_505('users')
+            t_9824: 'SafeIdentifier' = sid_505('id')
+            t_9825: 'SafeIdentifier' = sid_505('name')
+            q_1044: 'Query' = from_(t_9823).select((t_9824, t_9825))
+            t_9830: 'bool33' = q_1044.to_sql().to_string() == 'SELECT id, name FROM users'
+            def fn_9822() -> 'str27':
                 return 'select columns'
-            test_48.assert_(t_8674, fn_8666)
+            test_48.assert_(t_9830, fn_9822)
         finally:
             test_48.soft_fail_to_hard()
 class TestCase71(TestCase46):
-    def test___whereAddsConditionWithIntValue__1477(self) -> None:
+    def test___whereAddsConditionWithIntValue__1646(self) -> None:
         'where adds condition with int value'
         test_49: Test = Test()
         try:
-            t_8655: 'SafeIdentifier' = sid_461('users')
-            t_8656: 'SqlBuilder' = SqlBuilder()
-            t_8656.append_safe('age > ')
-            t_8656.append_int32(18)
-            t_8659: 'SqlFragment' = t_8656.accumulated
-            q_939: 'Query' = from_(t_8655).where(t_8659)
-            t_8664: 'bool33' = q_939.to_sql().to_string() == 'SELECT * FROM users WHERE age > 18'
-            def fn_8654() -> 'str27':
+            t_9811: 'SafeIdentifier' = sid_505('users')
+            t_9812: 'SqlBuilder' = SqlBuilder()
+            t_9812.append_safe('age > ')
+            t_9812.append_int32(18)
+            t_9815: 'SqlFragment' = t_9812.accumulated
+            q_1046: 'Query' = from_(t_9811).where(t_9815)
+            t_9820: 'bool33' = q_1046.to_sql().to_string() == 'SELECT * FROM users WHERE age > 18'
+            def fn_9810() -> 'str27':
                 return 'where int'
-            test_49.assert_(t_8664, fn_8654)
+            test_49.assert_(t_9820, fn_9810)
         finally:
             test_49.soft_fail_to_hard()
 class TestCase72(TestCase46):
-    def test___whereAddsConditionWithBoolValue__1479(self) -> None:
+    def test___whereAddsConditionWithBoolValue__1648(self) -> None:
         'where adds condition with bool value'
         test_50: Test = Test()
         try:
-            t_8643: 'SafeIdentifier' = sid_461('users')
-            t_8644: 'SqlBuilder' = SqlBuilder()
-            t_8644.append_safe('active = ')
-            t_8644.append_boolean(True)
-            t_8647: 'SqlFragment' = t_8644.accumulated
-            q_941: 'Query' = from_(t_8643).where(t_8647)
-            t_8652: 'bool33' = q_941.to_sql().to_string() == 'SELECT * FROM users WHERE active = TRUE'
-            def fn_8642() -> 'str27':
+            t_9799: 'SafeIdentifier' = sid_505('users')
+            t_9800: 'SqlBuilder' = SqlBuilder()
+            t_9800.append_safe('active = ')
+            t_9800.append_boolean(True)
+            t_9803: 'SqlFragment' = t_9800.accumulated
+            q_1048: 'Query' = from_(t_9799).where(t_9803)
+            t_9808: 'bool33' = q_1048.to_sql().to_string() == 'SELECT * FROM users WHERE active = TRUE'
+            def fn_9798() -> 'str27':
                 return 'where bool'
-            test_50.assert_(t_8652, fn_8642)
+            test_50.assert_(t_9808, fn_9798)
         finally:
             test_50.soft_fail_to_hard()
 class TestCase73(TestCase46):
-    def test___chainedWhereUsesAnd__1481(self) -> None:
+    def test___chainedWhereUsesAnd__1650(self) -> None:
         'chained where uses AND'
         test_51: Test = Test()
         try:
-            t_8626: 'SafeIdentifier' = sid_461('users')
-            t_8627: 'SqlBuilder' = SqlBuilder()
-            t_8627.append_safe('age > ')
-            t_8627.append_int32(18)
-            t_8630: 'SqlFragment' = t_8627.accumulated
-            t_8631: 'Query' = from_(t_8626).where(t_8630)
-            t_8632: 'SqlBuilder' = SqlBuilder()
-            t_8632.append_safe('active = ')
-            t_8632.append_boolean(True)
-            q_943: 'Query' = t_8631.where(t_8632.accumulated)
-            t_8640: 'bool33' = q_943.to_sql().to_string() == 'SELECT * FROM users WHERE age > 18 AND active = TRUE'
-            def fn_8625() -> 'str27':
+            t_9782: 'SafeIdentifier' = sid_505('users')
+            t_9783: 'SqlBuilder' = SqlBuilder()
+            t_9783.append_safe('age > ')
+            t_9783.append_int32(18)
+            t_9786: 'SqlFragment' = t_9783.accumulated
+            t_9787: 'Query' = from_(t_9782).where(t_9786)
+            t_9788: 'SqlBuilder' = SqlBuilder()
+            t_9788.append_safe('active = ')
+            t_9788.append_boolean(True)
+            q_1050: 'Query' = t_9787.where(t_9788.accumulated)
+            t_9796: 'bool33' = q_1050.to_sql().to_string() == 'SELECT * FROM users WHERE age > 18 AND active = TRUE'
+            def fn_9781() -> 'str27':
                 return 'chained where'
-            test_51.assert_(t_8640, fn_8625)
+            test_51.assert_(t_9796, fn_9781)
         finally:
             test_51.soft_fail_to_hard()
 class TestCase74(TestCase46):
-    def test___orderByAsc__1484(self) -> None:
+    def test___orderByAsc__1653(self) -> None:
         'orderBy ASC'
         test_52: Test = Test()
         try:
-            t_8617: 'SafeIdentifier' = sid_461('users')
-            t_8618: 'SafeIdentifier' = sid_461('name')
-            q_945: 'Query' = from_(t_8617).order_by(t_8618, True)
-            t_8623: 'bool33' = q_945.to_sql().to_string() == 'SELECT * FROM users ORDER BY name ASC'
-            def fn_8616() -> 'str27':
+            t_9773: 'SafeIdentifier' = sid_505('users')
+            t_9774: 'SafeIdentifier' = sid_505('name')
+            q_1052: 'Query' = from_(t_9773).order_by(t_9774, True)
+            t_9779: 'bool33' = q_1052.to_sql().to_string() == 'SELECT * FROM users ORDER BY name ASC'
+            def fn_9772() -> 'str27':
                 return 'order asc'
-            test_52.assert_(t_8623, fn_8616)
+            test_52.assert_(t_9779, fn_9772)
         finally:
             test_52.soft_fail_to_hard()
 class TestCase75(TestCase46):
-    def test___orderByDesc__1485(self) -> None:
+    def test___orderByDesc__1654(self) -> None:
         'orderBy DESC'
         test_53: Test = Test()
         try:
-            t_8608: 'SafeIdentifier' = sid_461('users')
-            t_8609: 'SafeIdentifier' = sid_461('created_at')
-            q_947: 'Query' = from_(t_8608).order_by(t_8609, False)
-            t_8614: 'bool33' = q_947.to_sql().to_string() == 'SELECT * FROM users ORDER BY created_at DESC'
-            def fn_8607() -> 'str27':
+            t_9764: 'SafeIdentifier' = sid_505('users')
+            t_9765: 'SafeIdentifier' = sid_505('created_at')
+            q_1054: 'Query' = from_(t_9764).order_by(t_9765, False)
+            t_9770: 'bool33' = q_1054.to_sql().to_string() == 'SELECT * FROM users ORDER BY created_at DESC'
+            def fn_9763() -> 'str27':
                 return 'order desc'
-            test_53.assert_(t_8614, fn_8607)
+            test_53.assert_(t_9770, fn_9763)
         finally:
             test_53.soft_fail_to_hard()
 class TestCase76(TestCase46):
-    def test___limitAndOffset__1486(self) -> None:
+    def test___limitAndOffset__1655(self) -> None:
         'limit and offset'
         test_54: Test = Test()
         try:
-            t_4537: 'Query'
-            t_4537 = from_(sid_461('users')).limit(10)
-            t_4538: 'Query'
-            t_4538 = t_4537.offset(20)
-            q_949: 'Query' = t_4538
-            t_8605: 'bool33' = q_949.to_sql().to_string() == 'SELECT * FROM users LIMIT 10 OFFSET 20'
-            def fn_8600() -> 'str27':
+            t_5175: 'Query'
+            t_5175 = from_(sid_505('users')).limit(10)
+            t_5176: 'Query'
+            t_5176 = t_5175.offset(20)
+            q_1056: 'Query' = t_5176
+            t_9761: 'bool33' = q_1056.to_sql().to_string() == 'SELECT * FROM users LIMIT 10 OFFSET 20'
+            def fn_9756() -> 'str27':
                 return 'limit/offset'
-            test_54.assert_(t_8605, fn_8600)
+            test_54.assert_(t_9761, fn_9756)
         finally:
             test_54.soft_fail_to_hard()
 class TestCase77(TestCase46):
-    def test___limitBubblesOnNegative__1487(self) -> None:
+    def test___limitBubblesOnNegative__1656(self) -> None:
         'limit bubbles on negative'
         test_55: Test = Test()
         try:
-            did_bubble_951: 'bool33'
+            did_bubble_1058: 'bool33'
             try:
-                from_(sid_461('users')).limit(-1)
-                did_bubble_951 = False
+                from_(sid_505('users')).limit(-1)
+                did_bubble_1058 = False
             except Exception37:
-                did_bubble_951 = True
-            def fn_8596() -> 'str27':
+                did_bubble_1058 = True
+            def fn_9752() -> 'str27':
                 return 'negative limit should bubble'
-            test_55.assert_(did_bubble_951, fn_8596)
+            test_55.assert_(did_bubble_1058, fn_9752)
         finally:
             test_55.soft_fail_to_hard()
 class TestCase78(TestCase46):
-    def test___offsetBubblesOnNegative__1488(self) -> None:
+    def test___offsetBubblesOnNegative__1657(self) -> None:
         'offset bubbles on negative'
         test_56: Test = Test()
         try:
-            did_bubble_953: 'bool33'
+            did_bubble_1060: 'bool33'
             try:
-                from_(sid_461('users')).offset(-1)
-                did_bubble_953 = False
+                from_(sid_505('users')).offset(-1)
+                did_bubble_1060 = False
             except Exception37:
-                did_bubble_953 = True
-            def fn_8592() -> 'str27':
+                did_bubble_1060 = True
+            def fn_9748() -> 'str27':
                 return 'negative offset should bubble'
-            test_56.assert_(did_bubble_953, fn_8592)
+            test_56.assert_(did_bubble_1060, fn_9748)
         finally:
             test_56.soft_fail_to_hard()
 class TestCase79(TestCase46):
-    def test___complexComposedQuery__1489(self) -> None:
+    def test___complexComposedQuery__1658(self) -> None:
         'complex composed query'
         test_57: Test = Test()
         try:
-            min_age_955: 'int31' = 21
-            t_8570: 'SafeIdentifier' = sid_461('users')
-            t_8571: 'SafeIdentifier' = sid_461('id')
-            t_8572: 'SafeIdentifier' = sid_461('name')
-            t_8573: 'SafeIdentifier' = sid_461('email')
-            t_8574: 'Query' = from_(t_8570).select((t_8571, t_8572, t_8573))
-            t_8575: 'SqlBuilder' = SqlBuilder()
-            t_8575.append_safe('age >= ')
-            t_8575.append_int32(21)
-            t_8579: 'Query' = t_8574.where(t_8575.accumulated)
-            t_8580: 'SqlBuilder' = SqlBuilder()
-            t_8580.append_safe('active = ')
-            t_8580.append_boolean(True)
-            t_4523: 'Query'
-            t_4523 = t_8579.where(t_8580.accumulated).order_by(sid_461('name'), True).limit(25)
-            t_4524: 'Query'
-            t_4524 = t_4523.offset(0)
-            q_956: 'Query' = t_4524
-            t_8590: 'bool33' = q_956.to_sql().to_string() == 'SELECT id, name, email FROM users WHERE age >= 21 AND active = TRUE ORDER BY name ASC LIMIT 25 OFFSET 0'
-            def fn_8569() -> 'str27':
+            min_age_1062: 'int31' = 21
+            t_9726: 'SafeIdentifier' = sid_505('users')
+            t_9727: 'SafeIdentifier' = sid_505('id')
+            t_9728: 'SafeIdentifier' = sid_505('name')
+            t_9729: 'SafeIdentifier' = sid_505('email')
+            t_9730: 'Query' = from_(t_9726).select((t_9727, t_9728, t_9729))
+            t_9731: 'SqlBuilder' = SqlBuilder()
+            t_9731.append_safe('age >= ')
+            t_9731.append_int32(21)
+            t_9735: 'Query' = t_9730.where(t_9731.accumulated)
+            t_9736: 'SqlBuilder' = SqlBuilder()
+            t_9736.append_safe('active = ')
+            t_9736.append_boolean(True)
+            t_5161: 'Query'
+            t_5161 = t_9735.where(t_9736.accumulated).order_by(sid_505('name'), True).limit(25)
+            t_5162: 'Query'
+            t_5162 = t_5161.offset(0)
+            q_1063: 'Query' = t_5162
+            t_9746: 'bool33' = q_1063.to_sql().to_string() == 'SELECT id, name, email FROM users WHERE age >= 21 AND active = TRUE ORDER BY name ASC LIMIT 25 OFFSET 0'
+            def fn_9725() -> 'str27':
                 return 'complex query'
-            test_57.assert_(t_8590, fn_8569)
+            test_57.assert_(t_9746, fn_9725)
         finally:
             test_57.soft_fail_to_hard()
 class TestCase80(TestCase46):
-    def test___safeToSqlAppliesDefaultLimitWhenNoneSet__1492(self) -> None:
+    def test___safeToSqlAppliesDefaultLimitWhenNoneSet__1661(self) -> None:
         'safeToSql applies default limit when none set'
         test_58: Test = Test()
         try:
-            q_958: 'Query' = from_(sid_461('users'))
-            t_4500: 'SqlFragment'
-            t_4500 = q_958.safe_to_sql(100)
-            t_4501: 'SqlFragment' = t_4500
-            s_959: 'str27' = t_4501.to_string()
-            t_8567: 'bool33' = s_959 == 'SELECT * FROM users LIMIT 100'
-            def fn_8563() -> 'str27':
-                return str_cat_9688('should have limit: ', s_959)
-            test_58.assert_(t_8567, fn_8563)
+            q_1065: 'Query' = from_(sid_505('users'))
+            t_5138: 'SqlFragment'
+            t_5138 = q_1065.safe_to_sql(100)
+            t_5139: 'SqlFragment' = t_5138
+            s_1066: 'str27' = t_5139.to_string()
+            t_9723: 'bool33' = s_1066 == 'SELECT * FROM users LIMIT 100'
+            def fn_9719() -> 'str27':
+                return str_cat_10942('should have limit: ', s_1066)
+            test_58.assert_(t_9723, fn_9719)
         finally:
             test_58.soft_fail_to_hard()
 class TestCase81(TestCase46):
-    def test___safeToSqlRespectsExplicitLimit__1493(self) -> None:
+    def test___safeToSqlRespectsExplicitLimit__1662(self) -> None:
         'safeToSql respects explicit limit'
         test_59: Test = Test()
         try:
-            t_4492: 'Query'
-            t_4492 = from_(sid_461('users')).limit(5)
-            q_961: 'Query' = t_4492
-            t_4495: 'SqlFragment'
-            t_4495 = q_961.safe_to_sql(100)
-            t_4496: 'SqlFragment' = t_4495
-            s_962: 'str27' = t_4496.to_string()
-            t_8561: 'bool33' = s_962 == 'SELECT * FROM users LIMIT 5'
-            def fn_8557() -> 'str27':
-                return str_cat_9688('explicit limit preserved: ', s_962)
-            test_59.assert_(t_8561, fn_8557)
+            t_5130: 'Query'
+            t_5130 = from_(sid_505('users')).limit(5)
+            q_1068: 'Query' = t_5130
+            t_5133: 'SqlFragment'
+            t_5133 = q_1068.safe_to_sql(100)
+            t_5134: 'SqlFragment' = t_5133
+            s_1069: 'str27' = t_5134.to_string()
+            t_9717: 'bool33' = s_1069 == 'SELECT * FROM users LIMIT 5'
+            def fn_9713() -> 'str27':
+                return str_cat_10942('explicit limit preserved: ', s_1069)
+            test_59.assert_(t_9717, fn_9713)
         finally:
             test_59.soft_fail_to_hard()
 class TestCase82(TestCase46):
-    def test___safeToSqlBubblesOnNegativeDefaultLimit__1494(self) -> None:
+    def test___safeToSqlBubblesOnNegativeDefaultLimit__1663(self) -> None:
         'safeToSql bubbles on negative defaultLimit'
         test_60: Test = Test()
         try:
-            did_bubble_964: 'bool33'
+            did_bubble_1071: 'bool33'
             try:
-                from_(sid_461('users')).safe_to_sql(-1)
-                did_bubble_964 = False
+                from_(sid_505('users')).safe_to_sql(-1)
+                did_bubble_1071 = False
             except Exception37:
-                did_bubble_964 = True
-            def fn_8553() -> 'str27':
+                did_bubble_1071 = True
+            def fn_9709() -> 'str27':
                 return 'negative defaultLimit should bubble'
-            test_60.assert_(did_bubble_964, fn_8553)
+            test_60.assert_(did_bubble_1071, fn_9709)
         finally:
             test_60.soft_fail_to_hard()
 class TestCase83(TestCase46):
-    def test___whereWithInjectionAttemptInStringValueIsEscaped__1495(self) -> None:
+    def test___whereWithInjectionAttemptInStringValueIsEscaped__1664(self) -> None:
         'where with injection attempt in string value is escaped'
         test_61: Test = Test()
         try:
-            evil_966: 'str27' = "'; DROP TABLE users; --"
-            t_8537: 'SafeIdentifier' = sid_461('users')
-            t_8538: 'SqlBuilder' = SqlBuilder()
-            t_8538.append_safe('name = ')
-            t_8538.append_string("'; DROP TABLE users; --")
-            t_8541: 'SqlFragment' = t_8538.accumulated
-            q_967: 'Query' = from_(t_8537).where(t_8541)
-            s_968: 'str27' = q_967.to_sql().to_string()
-            t_8546: 'bool33' = s_968.find("''") >= 0
-            def fn_8536() -> 'str27':
-                return str_cat_9688('quotes must be doubled: ', s_968)
-            test_61.assert_(t_8546, fn_8536)
-            t_8550: 'bool33' = s_968.find('SELECT * FROM users WHERE name =') >= 0
-            def fn_8535() -> 'str27':
-                return str_cat_9688('structure intact: ', s_968)
-            test_61.assert_(t_8550, fn_8535)
+            evil_1073: 'str27' = "'; DROP TABLE users; --"
+            t_9693: 'SafeIdentifier' = sid_505('users')
+            t_9694: 'SqlBuilder' = SqlBuilder()
+            t_9694.append_safe('name = ')
+            t_9694.append_string("'; DROP TABLE users; --")
+            t_9697: 'SqlFragment' = t_9694.accumulated
+            q_1074: 'Query' = from_(t_9693).where(t_9697)
+            s_1075: 'str27' = q_1074.to_sql().to_string()
+            t_9702: 'bool33' = s_1075.find("''") >= 0
+            def fn_9692() -> 'str27':
+                return str_cat_10942('quotes must be doubled: ', s_1075)
+            test_61.assert_(t_9702, fn_9692)
+            t_9706: 'bool33' = s_1075.find('SELECT * FROM users WHERE name =') >= 0
+            def fn_9691() -> 'str27':
+                return str_cat_10942('structure intact: ', s_1075)
+            test_61.assert_(t_9706, fn_9691)
         finally:
             test_61.soft_fail_to_hard()
 class TestCase84(TestCase46):
-    def test___safeIdentifierRejectsUserSuppliedTableNameWithMetacharacters__1497(self) -> None:
+    def test___safeIdentifierRejectsUserSuppliedTableNameWithMetacharacters__1666(self) -> None:
         'safeIdentifier rejects user-supplied table name with metacharacters'
         test_62: Test = Test()
         try:
-            attack_970: 'str27' = 'users; DROP TABLE users; --'
-            did_bubble_971: 'bool33'
+            attack_1077: 'str27' = 'users; DROP TABLE users; --'
+            did_bubble_1078: 'bool33'
             try:
                 safe_identifier('users; DROP TABLE users; --')
-                did_bubble_971 = False
+                did_bubble_1078 = False
             except Exception37:
-                did_bubble_971 = True
-            def fn_8532() -> 'str27':
+                did_bubble_1078 = True
+            def fn_9688() -> 'str27':
                 return 'metacharacter-containing name must be rejected at construction'
-            test_62.assert_(did_bubble_971, fn_8532)
+            test_62.assert_(did_bubble_1078, fn_9688)
         finally:
             test_62.soft_fail_to_hard()
 class TestCase85(TestCase46):
-    def test___innerJoinProducesInnerJoin__1498(self) -> None:
+    def test___innerJoinProducesInnerJoin__1667(self) -> None:
         'innerJoin produces INNER JOIN'
         test_63: Test = Test()
         try:
-            t_8521: 'SafeIdentifier' = sid_461('users')
-            t_8522: 'SafeIdentifier' = sid_461('orders')
-            t_8523: 'SqlBuilder' = SqlBuilder()
-            t_8523.append_safe('users.id = orders.user_id')
-            t_8525: 'SqlFragment' = t_8523.accumulated
-            q_973: 'Query' = from_(t_8521).inner_join(t_8522, t_8525)
-            t_8530: 'bool33' = q_973.to_sql().to_string() == 'SELECT * FROM users INNER JOIN orders ON users.id = orders.user_id'
-            def fn_8520() -> 'str27':
+            t_9677: 'SafeIdentifier' = sid_505('users')
+            t_9678: 'SafeIdentifier' = sid_505('orders')
+            t_9679: 'SqlBuilder' = SqlBuilder()
+            t_9679.append_safe('users.id = orders.user_id')
+            t_9681: 'SqlFragment' = t_9679.accumulated
+            q_1080: 'Query' = from_(t_9677).inner_join(t_9678, t_9681)
+            t_9686: 'bool33' = q_1080.to_sql().to_string() == 'SELECT * FROM users INNER JOIN orders ON users.id = orders.user_id'
+            def fn_9676() -> 'str27':
                 return 'inner join'
-            test_63.assert_(t_8530, fn_8520)
+            test_63.assert_(t_9686, fn_9676)
         finally:
             test_63.soft_fail_to_hard()
 class TestCase86(TestCase46):
-    def test___leftJoinProducesLeftJoin__1500(self) -> None:
+    def test___leftJoinProducesLeftJoin__1669(self) -> None:
         'leftJoin produces LEFT JOIN'
         test_64: Test = Test()
         try:
-            t_8509: 'SafeIdentifier' = sid_461('users')
-            t_8510: 'SafeIdentifier' = sid_461('profiles')
-            t_8511: 'SqlBuilder' = SqlBuilder()
-            t_8511.append_safe('users.id = profiles.user_id')
-            t_8513: 'SqlFragment' = t_8511.accumulated
-            q_975: 'Query' = from_(t_8509).left_join(t_8510, t_8513)
-            t_8518: 'bool33' = q_975.to_sql().to_string() == 'SELECT * FROM users LEFT JOIN profiles ON users.id = profiles.user_id'
-            def fn_8508() -> 'str27':
+            t_9665: 'SafeIdentifier' = sid_505('users')
+            t_9666: 'SafeIdentifier' = sid_505('profiles')
+            t_9667: 'SqlBuilder' = SqlBuilder()
+            t_9667.append_safe('users.id = profiles.user_id')
+            t_9669: 'SqlFragment' = t_9667.accumulated
+            q_1082: 'Query' = from_(t_9665).left_join(t_9666, t_9669)
+            t_9674: 'bool33' = q_1082.to_sql().to_string() == 'SELECT * FROM users LEFT JOIN profiles ON users.id = profiles.user_id'
+            def fn_9664() -> 'str27':
                 return 'left join'
-            test_64.assert_(t_8518, fn_8508)
+            test_64.assert_(t_9674, fn_9664)
         finally:
             test_64.soft_fail_to_hard()
 class TestCase87(TestCase46):
-    def test___rightJoinProducesRightJoin__1502(self) -> None:
+    def test___rightJoinProducesRightJoin__1671(self) -> None:
         'rightJoin produces RIGHT JOIN'
         test_65: Test = Test()
         try:
-            t_8497: 'SafeIdentifier' = sid_461('orders')
-            t_8498: 'SafeIdentifier' = sid_461('users')
-            t_8499: 'SqlBuilder' = SqlBuilder()
-            t_8499.append_safe('orders.user_id = users.id')
-            t_8501: 'SqlFragment' = t_8499.accumulated
-            q_977: 'Query' = from_(t_8497).right_join(t_8498, t_8501)
-            t_8506: 'bool33' = q_977.to_sql().to_string() == 'SELECT * FROM orders RIGHT JOIN users ON orders.user_id = users.id'
-            def fn_8496() -> 'str27':
+            t_9653: 'SafeIdentifier' = sid_505('orders')
+            t_9654: 'SafeIdentifier' = sid_505('users')
+            t_9655: 'SqlBuilder' = SqlBuilder()
+            t_9655.append_safe('orders.user_id = users.id')
+            t_9657: 'SqlFragment' = t_9655.accumulated
+            q_1084: 'Query' = from_(t_9653).right_join(t_9654, t_9657)
+            t_9662: 'bool33' = q_1084.to_sql().to_string() == 'SELECT * FROM orders RIGHT JOIN users ON orders.user_id = users.id'
+            def fn_9652() -> 'str27':
                 return 'right join'
-            test_65.assert_(t_8506, fn_8496)
+            test_65.assert_(t_9662, fn_9652)
         finally:
             test_65.soft_fail_to_hard()
 class TestCase88(TestCase46):
-    def test___fullJoinProducesFullOuterJoin__1504(self) -> None:
+    def test___fullJoinProducesFullOuterJoin__1673(self) -> None:
         'fullJoin produces FULL OUTER JOIN'
         test_66: Test = Test()
         try:
-            t_8485: 'SafeIdentifier' = sid_461('users')
-            t_8486: 'SafeIdentifier' = sid_461('orders')
-            t_8487: 'SqlBuilder' = SqlBuilder()
-            t_8487.append_safe('users.id = orders.user_id')
-            t_8489: 'SqlFragment' = t_8487.accumulated
-            q_979: 'Query' = from_(t_8485).full_join(t_8486, t_8489)
-            t_8494: 'bool33' = q_979.to_sql().to_string() == 'SELECT * FROM users FULL OUTER JOIN orders ON users.id = orders.user_id'
-            def fn_8484() -> 'str27':
+            t_9641: 'SafeIdentifier' = sid_505('users')
+            t_9642: 'SafeIdentifier' = sid_505('orders')
+            t_9643: 'SqlBuilder' = SqlBuilder()
+            t_9643.append_safe('users.id = orders.user_id')
+            t_9645: 'SqlFragment' = t_9643.accumulated
+            q_1086: 'Query' = from_(t_9641).full_join(t_9642, t_9645)
+            t_9650: 'bool33' = q_1086.to_sql().to_string() == 'SELECT * FROM users FULL OUTER JOIN orders ON users.id = orders.user_id'
+            def fn_9640() -> 'str27':
                 return 'full join'
-            test_66.assert_(t_8494, fn_8484)
+            test_66.assert_(t_9650, fn_9640)
         finally:
             test_66.soft_fail_to_hard()
 class TestCase89(TestCase46):
-    def test___chainedJoins__1506(self) -> None:
+    def test___chainedJoins__1675(self) -> None:
         'chained joins'
         test_67: Test = Test()
         try:
-            t_8468: 'SafeIdentifier' = sid_461('users')
-            t_8469: 'SafeIdentifier' = sid_461('orders')
-            t_8470: 'SqlBuilder' = SqlBuilder()
-            t_8470.append_safe('users.id = orders.user_id')
-            t_8472: 'SqlFragment' = t_8470.accumulated
-            t_8473: 'Query' = from_(t_8468).inner_join(t_8469, t_8472)
-            t_8474: 'SafeIdentifier' = sid_461('profiles')
-            t_8475: 'SqlBuilder' = SqlBuilder()
-            t_8475.append_safe('users.id = profiles.user_id')
-            q_981: 'Query' = t_8473.left_join(t_8474, t_8475.accumulated)
-            t_8482: 'bool33' = q_981.to_sql().to_string() == 'SELECT * FROM users INNER JOIN orders ON users.id = orders.user_id LEFT JOIN profiles ON users.id = profiles.user_id'
-            def fn_8467() -> 'str27':
+            t_9624: 'SafeIdentifier' = sid_505('users')
+            t_9625: 'SafeIdentifier' = sid_505('orders')
+            t_9626: 'SqlBuilder' = SqlBuilder()
+            t_9626.append_safe('users.id = orders.user_id')
+            t_9628: 'SqlFragment' = t_9626.accumulated
+            t_9629: 'Query' = from_(t_9624).inner_join(t_9625, t_9628)
+            t_9630: 'SafeIdentifier' = sid_505('profiles')
+            t_9631: 'SqlBuilder' = SqlBuilder()
+            t_9631.append_safe('users.id = profiles.user_id')
+            q_1088: 'Query' = t_9629.left_join(t_9630, t_9631.accumulated)
+            t_9638: 'bool33' = q_1088.to_sql().to_string() == 'SELECT * FROM users INNER JOIN orders ON users.id = orders.user_id LEFT JOIN profiles ON users.id = profiles.user_id'
+            def fn_9623() -> 'str27':
                 return 'chained joins'
-            test_67.assert_(t_8482, fn_8467)
+            test_67.assert_(t_9638, fn_9623)
         finally:
             test_67.soft_fail_to_hard()
 class TestCase90(TestCase46):
-    def test___joinWithWhereAndOrderBy__1509(self) -> None:
+    def test___joinWithWhereAndOrderBy__1678(self) -> None:
         'join with where and orderBy'
         test_68: Test = Test()
         try:
-            t_8449: 'SafeIdentifier' = sid_461('users')
-            t_8450: 'SafeIdentifier' = sid_461('orders')
-            t_8451: 'SqlBuilder' = SqlBuilder()
-            t_8451.append_safe('users.id = orders.user_id')
-            t_8453: 'SqlFragment' = t_8451.accumulated
-            t_8454: 'Query' = from_(t_8449).inner_join(t_8450, t_8453)
-            t_8455: 'SqlBuilder' = SqlBuilder()
-            t_8455.append_safe('orders.total > ')
-            t_8455.append_int32(100)
-            t_4407: 'Query'
-            t_4407 = t_8454.where(t_8455.accumulated).order_by(sid_461('name'), True).limit(10)
-            q_983: 'Query' = t_4407
-            t_8465: 'bool33' = q_983.to_sql().to_string() == 'SELECT * FROM users INNER JOIN orders ON users.id = orders.user_id WHERE orders.total > 100 ORDER BY name ASC LIMIT 10'
-            def fn_8448() -> 'str27':
+            t_9605: 'SafeIdentifier' = sid_505('users')
+            t_9606: 'SafeIdentifier' = sid_505('orders')
+            t_9607: 'SqlBuilder' = SqlBuilder()
+            t_9607.append_safe('users.id = orders.user_id')
+            t_9609: 'SqlFragment' = t_9607.accumulated
+            t_9610: 'Query' = from_(t_9605).inner_join(t_9606, t_9609)
+            t_9611: 'SqlBuilder' = SqlBuilder()
+            t_9611.append_safe('orders.total > ')
+            t_9611.append_int32(100)
+            t_5045: 'Query'
+            t_5045 = t_9610.where(t_9611.accumulated).order_by(sid_505('name'), True).limit(10)
+            q_1090: 'Query' = t_5045
+            t_9621: 'bool33' = q_1090.to_sql().to_string() == 'SELECT * FROM users INNER JOIN orders ON users.id = orders.user_id WHERE orders.total > 100 ORDER BY name ASC LIMIT 10'
+            def fn_9604() -> 'str27':
                 return 'join with where/order/limit'
-            test_68.assert_(t_8465, fn_8448)
+            test_68.assert_(t_9621, fn_9604)
         finally:
             test_68.soft_fail_to_hard()
 class TestCase91(TestCase46):
-    def test___colHelperProducesQualifiedReference__1512(self) -> None:
+    def test___colHelperProducesQualifiedReference__1681(self) -> None:
         'col helper produces qualified reference'
         test_69: Test = Test()
         try:
-            c_985: 'SqlFragment' = col(sid_461('users'), sid_461('id'))
-            t_8446: 'bool33' = c_985.to_string() == 'users.id'
-            def fn_8440() -> 'str27':
+            c_1092: 'SqlFragment' = col(sid_505('users'), sid_505('id'))
+            t_9602: 'bool33' = c_1092.to_string() == 'users.id'
+            def fn_9596() -> 'str27':
                 return 'col helper'
-            test_69.assert_(t_8446, fn_8440)
+            test_69.assert_(t_9602, fn_9596)
         finally:
             test_69.soft_fail_to_hard()
 class TestCase92(TestCase46):
-    def test___joinWithColHelper__1513(self) -> None:
+    def test___joinWithColHelper__1682(self) -> None:
         'join with col helper'
         test_70: Test = Test()
         try:
-            on_cond_987: 'SqlFragment' = col(sid_461('users'), sid_461('id'))
-            b_988: 'SqlBuilder' = SqlBuilder()
-            b_988.append_fragment(on_cond_987)
-            b_988.append_safe(' = ')
-            b_988.append_fragment(col(sid_461('orders'), sid_461('user_id')))
-            t_8431: 'SafeIdentifier' = sid_461('users')
-            t_8432: 'SafeIdentifier' = sid_461('orders')
-            t_8433: 'SqlFragment' = b_988.accumulated
-            q_989: 'Query' = from_(t_8431).inner_join(t_8432, t_8433)
-            t_8438: 'bool33' = q_989.to_sql().to_string() == 'SELECT * FROM users INNER JOIN orders ON users.id = orders.user_id'
-            def fn_8420() -> 'str27':
+            on_cond_1094: 'SqlFragment' = col(sid_505('users'), sid_505('id'))
+            b_1095: 'SqlBuilder' = SqlBuilder()
+            b_1095.append_fragment(on_cond_1094)
+            b_1095.append_safe(' = ')
+            b_1095.append_fragment(col(sid_505('orders'), sid_505('user_id')))
+            t_9587: 'SafeIdentifier' = sid_505('users')
+            t_9588: 'SafeIdentifier' = sid_505('orders')
+            t_9589: 'SqlFragment' = b_1095.accumulated
+            q_1096: 'Query' = from_(t_9587).inner_join(t_9588, t_9589)
+            t_9594: 'bool33' = q_1096.to_sql().to_string() == 'SELECT * FROM users INNER JOIN orders ON users.id = orders.user_id'
+            def fn_9576() -> 'str27':
                 return 'join with col'
-            test_70.assert_(t_8438, fn_8420)
+            test_70.assert_(t_9594, fn_9576)
         finally:
             test_70.soft_fail_to_hard()
 class TestCase93(TestCase46):
-    def test___orWhereBasic__1514(self) -> None:
+    def test___orWhereBasic__1683(self) -> None:
         'orWhere basic'
         test_71: Test = Test()
         try:
-            t_8409: 'SafeIdentifier' = sid_461('users')
-            t_8410: 'SqlBuilder' = SqlBuilder()
-            t_8410.append_safe('status = ')
-            t_8410.append_string('active')
-            t_8413: 'SqlFragment' = t_8410.accumulated
-            q_991: 'Query' = from_(t_8409).or_where(t_8413)
-            t_8418: 'bool33' = q_991.to_sql().to_string() == "SELECT * FROM users WHERE status = 'active'"
-            def fn_8408() -> 'str27':
+            t_9565: 'SafeIdentifier' = sid_505('users')
+            t_9566: 'SqlBuilder' = SqlBuilder()
+            t_9566.append_safe('status = ')
+            t_9566.append_string('active')
+            t_9569: 'SqlFragment' = t_9566.accumulated
+            q_1098: 'Query' = from_(t_9565).or_where(t_9569)
+            t_9574: 'bool33' = q_1098.to_sql().to_string() == "SELECT * FROM users WHERE status = 'active'"
+            def fn_9564() -> 'str27':
                 return 'orWhere basic'
-            test_71.assert_(t_8418, fn_8408)
+            test_71.assert_(t_9574, fn_9564)
         finally:
             test_71.soft_fail_to_hard()
 class TestCase94(TestCase46):
-    def test___whereThenOrWhere__1516(self) -> None:
+    def test___whereThenOrWhere__1685(self) -> None:
         'where then orWhere'
         test_72: Test = Test()
         try:
-            t_8392: 'SafeIdentifier' = sid_461('users')
-            t_8393: 'SqlBuilder' = SqlBuilder()
-            t_8393.append_safe('age > ')
-            t_8393.append_int32(18)
-            t_8396: 'SqlFragment' = t_8393.accumulated
-            t_8397: 'Query' = from_(t_8392).where(t_8396)
-            t_8398: 'SqlBuilder' = SqlBuilder()
-            t_8398.append_safe('vip = ')
-            t_8398.append_boolean(True)
-            q_993: 'Query' = t_8397.or_where(t_8398.accumulated)
-            t_8406: 'bool33' = q_993.to_sql().to_string() == 'SELECT * FROM users WHERE age > 18 OR vip = TRUE'
-            def fn_8391() -> 'str27':
+            t_9548: 'SafeIdentifier' = sid_505('users')
+            t_9549: 'SqlBuilder' = SqlBuilder()
+            t_9549.append_safe('age > ')
+            t_9549.append_int32(18)
+            t_9552: 'SqlFragment' = t_9549.accumulated
+            t_9553: 'Query' = from_(t_9548).where(t_9552)
+            t_9554: 'SqlBuilder' = SqlBuilder()
+            t_9554.append_safe('vip = ')
+            t_9554.append_boolean(True)
+            q_1100: 'Query' = t_9553.or_where(t_9554.accumulated)
+            t_9562: 'bool33' = q_1100.to_sql().to_string() == 'SELECT * FROM users WHERE age > 18 OR vip = TRUE'
+            def fn_9547() -> 'str27':
                 return 'where then orWhere'
-            test_72.assert_(t_8406, fn_8391)
+            test_72.assert_(t_9562, fn_9547)
         finally:
             test_72.soft_fail_to_hard()
 class TestCase95(TestCase46):
-    def test___multipleOrWhere__1519(self) -> None:
+    def test___multipleOrWhere__1688(self) -> None:
         'multiple orWhere'
         test_73: Test = Test()
         try:
-            t_8370: 'SafeIdentifier' = sid_461('users')
-            t_8371: 'SqlBuilder' = SqlBuilder()
-            t_8371.append_safe('active = ')
-            t_8371.append_boolean(True)
-            t_8374: 'SqlFragment' = t_8371.accumulated
-            t_8375: 'Query' = from_(t_8370).where(t_8374)
-            t_8376: 'SqlBuilder' = SqlBuilder()
-            t_8376.append_safe('role = ')
-            t_8376.append_string('admin')
-            t_8380: 'Query' = t_8375.or_where(t_8376.accumulated)
-            t_8381: 'SqlBuilder' = SqlBuilder()
-            t_8381.append_safe('role = ')
-            t_8381.append_string('moderator')
-            q_995: 'Query' = t_8380.or_where(t_8381.accumulated)
-            t_8389: 'bool33' = q_995.to_sql().to_string() == "SELECT * FROM users WHERE active = TRUE OR role = 'admin' OR role = 'moderator'"
-            def fn_8369() -> 'str27':
+            t_9526: 'SafeIdentifier' = sid_505('users')
+            t_9527: 'SqlBuilder' = SqlBuilder()
+            t_9527.append_safe('active = ')
+            t_9527.append_boolean(True)
+            t_9530: 'SqlFragment' = t_9527.accumulated
+            t_9531: 'Query' = from_(t_9526).where(t_9530)
+            t_9532: 'SqlBuilder' = SqlBuilder()
+            t_9532.append_safe('role = ')
+            t_9532.append_string('admin')
+            t_9536: 'Query' = t_9531.or_where(t_9532.accumulated)
+            t_9537: 'SqlBuilder' = SqlBuilder()
+            t_9537.append_safe('role = ')
+            t_9537.append_string('moderator')
+            q_1102: 'Query' = t_9536.or_where(t_9537.accumulated)
+            t_9545: 'bool33' = q_1102.to_sql().to_string() == "SELECT * FROM users WHERE active = TRUE OR role = 'admin' OR role = 'moderator'"
+            def fn_9525() -> 'str27':
                 return 'multiple orWhere'
-            test_73.assert_(t_8389, fn_8369)
+            test_73.assert_(t_9545, fn_9525)
         finally:
             test_73.soft_fail_to_hard()
 class TestCase96(TestCase46):
-    def test___mixedWhereAndOrWhere__1523(self) -> None:
+    def test___mixedWhereAndOrWhere__1692(self) -> None:
         'mixed where and orWhere'
         test_74: Test = Test()
         try:
-            t_8348: 'SafeIdentifier' = sid_461('users')
-            t_8349: 'SqlBuilder' = SqlBuilder()
-            t_8349.append_safe('age > ')
-            t_8349.append_int32(18)
-            t_8352: 'SqlFragment' = t_8349.accumulated
-            t_8353: 'Query' = from_(t_8348).where(t_8352)
-            t_8354: 'SqlBuilder' = SqlBuilder()
-            t_8354.append_safe('active = ')
-            t_8354.append_boolean(True)
-            t_8358: 'Query' = t_8353.where(t_8354.accumulated)
-            t_8359: 'SqlBuilder' = SqlBuilder()
-            t_8359.append_safe('vip = ')
-            t_8359.append_boolean(True)
-            q_997: 'Query' = t_8358.or_where(t_8359.accumulated)
-            t_8367: 'bool33' = q_997.to_sql().to_string() == 'SELECT * FROM users WHERE age > 18 AND active = TRUE OR vip = TRUE'
-            def fn_8347() -> 'str27':
+            t_9504: 'SafeIdentifier' = sid_505('users')
+            t_9505: 'SqlBuilder' = SqlBuilder()
+            t_9505.append_safe('age > ')
+            t_9505.append_int32(18)
+            t_9508: 'SqlFragment' = t_9505.accumulated
+            t_9509: 'Query' = from_(t_9504).where(t_9508)
+            t_9510: 'SqlBuilder' = SqlBuilder()
+            t_9510.append_safe('active = ')
+            t_9510.append_boolean(True)
+            t_9514: 'Query' = t_9509.where(t_9510.accumulated)
+            t_9515: 'SqlBuilder' = SqlBuilder()
+            t_9515.append_safe('vip = ')
+            t_9515.append_boolean(True)
+            q_1104: 'Query' = t_9514.or_where(t_9515.accumulated)
+            t_9523: 'bool33' = q_1104.to_sql().to_string() == 'SELECT * FROM users WHERE age > 18 AND active = TRUE OR vip = TRUE'
+            def fn_9503() -> 'str27':
                 return 'mixed where and orWhere'
-            test_74.assert_(t_8367, fn_8347)
+            test_74.assert_(t_9523, fn_9503)
         finally:
             test_74.soft_fail_to_hard()
 class TestCase97(TestCase46):
-    def test___whereNull__1527(self) -> None:
+    def test___whereNull__1696(self) -> None:
         'whereNull'
         test_75: Test = Test()
         try:
-            t_8339: 'SafeIdentifier' = sid_461('users')
-            t_8340: 'SafeIdentifier' = sid_461('deleted_at')
-            q_999: 'Query' = from_(t_8339).where_null(t_8340)
-            t_8345: 'bool33' = q_999.to_sql().to_string() == 'SELECT * FROM users WHERE deleted_at IS NULL'
-            def fn_8338() -> 'str27':
+            t_9495: 'SafeIdentifier' = sid_505('users')
+            t_9496: 'SafeIdentifier' = sid_505('deleted_at')
+            q_1106: 'Query' = from_(t_9495).where_null(t_9496)
+            t_9501: 'bool33' = q_1106.to_sql().to_string() == 'SELECT * FROM users WHERE deleted_at IS NULL'
+            def fn_9494() -> 'str27':
                 return 'whereNull'
-            test_75.assert_(t_8345, fn_8338)
+            test_75.assert_(t_9501, fn_9494)
         finally:
             test_75.soft_fail_to_hard()
 class TestCase98(TestCase46):
-    def test___whereNotNull__1528(self) -> None:
+    def test___whereNotNull__1697(self) -> None:
         'whereNotNull'
         test_76: Test = Test()
         try:
-            t_8330: 'SafeIdentifier' = sid_461('users')
-            t_8331: 'SafeIdentifier' = sid_461('email')
-            q_1001: 'Query' = from_(t_8330).where_not_null(t_8331)
-            t_8336: 'bool33' = q_1001.to_sql().to_string() == 'SELECT * FROM users WHERE email IS NOT NULL'
-            def fn_8329() -> 'str27':
+            t_9486: 'SafeIdentifier' = sid_505('users')
+            t_9487: 'SafeIdentifier' = sid_505('email')
+            q_1108: 'Query' = from_(t_9486).where_not_null(t_9487)
+            t_9492: 'bool33' = q_1108.to_sql().to_string() == 'SELECT * FROM users WHERE email IS NOT NULL'
+            def fn_9485() -> 'str27':
                 return 'whereNotNull'
-            test_76.assert_(t_8336, fn_8329)
+            test_76.assert_(t_9492, fn_9485)
         finally:
             test_76.soft_fail_to_hard()
 class TestCase99(TestCase46):
-    def test___whereNullChainedWithWhere__1529(self) -> None:
+    def test___whereNullChainedWithWhere__1698(self) -> None:
         'whereNull chained with where'
         test_77: Test = Test()
         try:
-            t_8316: 'SafeIdentifier' = sid_461('users')
-            t_8317: 'SqlBuilder' = SqlBuilder()
-            t_8317.append_safe('active = ')
-            t_8317.append_boolean(True)
-            t_8320: 'SqlFragment' = t_8317.accumulated
-            q_1003: 'Query' = from_(t_8316).where(t_8320).where_null(sid_461('deleted_at'))
-            t_8327: 'bool33' = q_1003.to_sql().to_string() == 'SELECT * FROM users WHERE active = TRUE AND deleted_at IS NULL'
-            def fn_8315() -> 'str27':
+            t_9472: 'SafeIdentifier' = sid_505('users')
+            t_9473: 'SqlBuilder' = SqlBuilder()
+            t_9473.append_safe('active = ')
+            t_9473.append_boolean(True)
+            t_9476: 'SqlFragment' = t_9473.accumulated
+            q_1110: 'Query' = from_(t_9472).where(t_9476).where_null(sid_505('deleted_at'))
+            t_9483: 'bool33' = q_1110.to_sql().to_string() == 'SELECT * FROM users WHERE active = TRUE AND deleted_at IS NULL'
+            def fn_9471() -> 'str27':
                 return 'whereNull chained'
-            test_77.assert_(t_8327, fn_8315)
+            test_77.assert_(t_9483, fn_9471)
         finally:
             test_77.soft_fail_to_hard()
 class TestCase100(TestCase46):
-    def test___whereNotNullChainedWithOrWhere__1531(self) -> None:
+    def test___whereNotNullChainedWithOrWhere__1700(self) -> None:
         'whereNotNull chained with orWhere'
         test_78: Test = Test()
         try:
-            t_8302: 'SafeIdentifier' = sid_461('users')
-            t_8303: 'SafeIdentifier' = sid_461('deleted_at')
-            t_8304: 'Query' = from_(t_8302).where_null(t_8303)
-            t_8305: 'SqlBuilder' = SqlBuilder()
-            t_8305.append_safe('role = ')
-            t_8305.append_string('admin')
-            q_1005: 'Query' = t_8304.or_where(t_8305.accumulated)
-            t_8313: 'bool33' = q_1005.to_sql().to_string() == "SELECT * FROM users WHERE deleted_at IS NULL OR role = 'admin'"
-            def fn_8301() -> 'str27':
+            t_9458: 'SafeIdentifier' = sid_505('users')
+            t_9459: 'SafeIdentifier' = sid_505('deleted_at')
+            t_9460: 'Query' = from_(t_9458).where_null(t_9459)
+            t_9461: 'SqlBuilder' = SqlBuilder()
+            t_9461.append_safe('role = ')
+            t_9461.append_string('admin')
+            q_1112: 'Query' = t_9460.or_where(t_9461.accumulated)
+            t_9469: 'bool33' = q_1112.to_sql().to_string() == "SELECT * FROM users WHERE deleted_at IS NULL OR role = 'admin'"
+            def fn_9457() -> 'str27':
                 return 'whereNotNull with orWhere'
-            test_78.assert_(t_8313, fn_8301)
+            test_78.assert_(t_9469, fn_9457)
         finally:
             test_78.soft_fail_to_hard()
 class TestCase101(TestCase46):
-    def test___whereInWithIntValues__1533(self) -> None:
+    def test___whereInWithIntValues__1702(self) -> None:
         'whereIn with int values'
         test_79: Test = Test()
         try:
-            t_8290: 'SafeIdentifier' = sid_461('users')
-            t_8291: 'SafeIdentifier' = sid_461('id')
-            t_8292: 'SqlInt32' = SqlInt32(1)
-            t_8293: 'SqlInt32' = SqlInt32(2)
-            t_8294: 'SqlInt32' = SqlInt32(3)
-            q_1007: 'Query' = from_(t_8290).where_in(t_8291, (t_8292, t_8293, t_8294))
-            t_8299: 'bool33' = q_1007.to_sql().to_string() == 'SELECT * FROM users WHERE id IN (1, 2, 3)'
-            def fn_8289() -> 'str27':
+            t_9446: 'SafeIdentifier' = sid_505('users')
+            t_9447: 'SafeIdentifier' = sid_505('id')
+            t_9448: 'SqlInt32' = SqlInt32(1)
+            t_9449: 'SqlInt32' = SqlInt32(2)
+            t_9450: 'SqlInt32' = SqlInt32(3)
+            q_1114: 'Query' = from_(t_9446).where_in(t_9447, (t_9448, t_9449, t_9450))
+            t_9455: 'bool33' = q_1114.to_sql().to_string() == 'SELECT * FROM users WHERE id IN (1, 2, 3)'
+            def fn_9445() -> 'str27':
                 return 'whereIn ints'
-            test_79.assert_(t_8299, fn_8289)
+            test_79.assert_(t_9455, fn_9445)
         finally:
             test_79.soft_fail_to_hard()
 class TestCase102(TestCase46):
-    def test___whereInWithStringValuesEscaping__1534(self) -> None:
+    def test___whereInWithStringValuesEscaping__1703(self) -> None:
         'whereIn with string values escaping'
         test_80: Test = Test()
         try:
-            t_8279: 'SafeIdentifier' = sid_461('users')
-            t_8280: 'SafeIdentifier' = sid_461('name')
-            t_8281: 'SqlString' = SqlString('Alice')
-            t_8282: 'SqlString' = SqlString("Bob's")
-            q_1009: 'Query' = from_(t_8279).where_in(t_8280, (t_8281, t_8282))
-            t_8287: 'bool33' = q_1009.to_sql().to_string() == "SELECT * FROM users WHERE name IN ('Alice', 'Bob''s')"
-            def fn_8278() -> 'str27':
+            t_9435: 'SafeIdentifier' = sid_505('users')
+            t_9436: 'SafeIdentifier' = sid_505('name')
+            t_9437: 'SqlString' = SqlString('Alice')
+            t_9438: 'SqlString' = SqlString("Bob's")
+            q_1116: 'Query' = from_(t_9435).where_in(t_9436, (t_9437, t_9438))
+            t_9443: 'bool33' = q_1116.to_sql().to_string() == "SELECT * FROM users WHERE name IN ('Alice', 'Bob''s')"
+            def fn_9434() -> 'str27':
                 return 'whereIn strings'
-            test_80.assert_(t_8287, fn_8278)
+            test_80.assert_(t_9443, fn_9434)
         finally:
             test_80.soft_fail_to_hard()
 class TestCase103(TestCase46):
-    def test___whereInWithEmptyListProduces1_0__1535(self) -> None:
+    def test___whereInWithEmptyListProduces1_0__1704(self) -> None:
         'whereIn with empty list produces 1=0'
         test_81: Test = Test()
         try:
-            t_8270: 'SafeIdentifier' = sid_461('users')
-            t_8271: 'SafeIdentifier' = sid_461('id')
-            q_1011: 'Query' = from_(t_8270).where_in(t_8271, ())
-            t_8276: 'bool33' = q_1011.to_sql().to_string() == 'SELECT * FROM users WHERE 1 = 0'
-            def fn_8269() -> 'str27':
+            t_9426: 'SafeIdentifier' = sid_505('users')
+            t_9427: 'SafeIdentifier' = sid_505('id')
+            q_1118: 'Query' = from_(t_9426).where_in(t_9427, ())
+            t_9432: 'bool33' = q_1118.to_sql().to_string() == 'SELECT * FROM users WHERE 1 = 0'
+            def fn_9425() -> 'str27':
                 return 'whereIn empty'
-            test_81.assert_(t_8276, fn_8269)
+            test_81.assert_(t_9432, fn_9425)
         finally:
             test_81.soft_fail_to_hard()
 class TestCase104(TestCase46):
-    def test___whereInChained__1536(self) -> None:
+    def test___whereInChained__1705(self) -> None:
         'whereIn chained'
         test_82: Test = Test()
         try:
-            t_8254: 'SafeIdentifier' = sid_461('users')
-            t_8255: 'SqlBuilder' = SqlBuilder()
-            t_8255.append_safe('active = ')
-            t_8255.append_boolean(True)
-            t_8258: 'SqlFragment' = t_8255.accumulated
-            q_1013: 'Query' = from_(t_8254).where(t_8258).where_in(sid_461('role'), (SqlString('admin'), SqlString('user')))
-            t_8267: 'bool33' = q_1013.to_sql().to_string() == "SELECT * FROM users WHERE active = TRUE AND role IN ('admin', 'user')"
-            def fn_8253() -> 'str27':
+            t_9410: 'SafeIdentifier' = sid_505('users')
+            t_9411: 'SqlBuilder' = SqlBuilder()
+            t_9411.append_safe('active = ')
+            t_9411.append_boolean(True)
+            t_9414: 'SqlFragment' = t_9411.accumulated
+            q_1120: 'Query' = from_(t_9410).where(t_9414).where_in(sid_505('role'), (SqlString('admin'), SqlString('user')))
+            t_9423: 'bool33' = q_1120.to_sql().to_string() == "SELECT * FROM users WHERE active = TRUE AND role IN ('admin', 'user')"
+            def fn_9409() -> 'str27':
                 return 'whereIn chained'
-            test_82.assert_(t_8267, fn_8253)
+            test_82.assert_(t_9423, fn_9409)
         finally:
             test_82.soft_fail_to_hard()
 class TestCase105(TestCase46):
-    def test___whereInSingleElement__1538(self) -> None:
+    def test___whereInSingleElement__1707(self) -> None:
         'whereIn single element'
         test_83: Test = Test()
         try:
-            t_8244: 'SafeIdentifier' = sid_461('users')
-            t_8245: 'SafeIdentifier' = sid_461('id')
-            t_8246: 'SqlInt32' = SqlInt32(42)
-            q_1015: 'Query' = from_(t_8244).where_in(t_8245, (t_8246,))
-            t_8251: 'bool33' = q_1015.to_sql().to_string() == 'SELECT * FROM users WHERE id IN (42)'
-            def fn_8243() -> 'str27':
+            t_9400: 'SafeIdentifier' = sid_505('users')
+            t_9401: 'SafeIdentifier' = sid_505('id')
+            t_9402: 'SqlInt32' = SqlInt32(42)
+            q_1122: 'Query' = from_(t_9400).where_in(t_9401, (t_9402,))
+            t_9407: 'bool33' = q_1122.to_sql().to_string() == 'SELECT * FROM users WHERE id IN (42)'
+            def fn_9399() -> 'str27':
                 return 'whereIn single'
-            test_83.assert_(t_8251, fn_8243)
+            test_83.assert_(t_9407, fn_9399)
         finally:
             test_83.soft_fail_to_hard()
 class TestCase106(TestCase46):
-    def test___whereNotBasic__1539(self) -> None:
+    def test___whereNotBasic__1708(self) -> None:
         'whereNot basic'
         test_84: Test = Test()
         try:
-            t_8232: 'SafeIdentifier' = sid_461('users')
-            t_8233: 'SqlBuilder' = SqlBuilder()
-            t_8233.append_safe('active = ')
-            t_8233.append_boolean(True)
-            t_8236: 'SqlFragment' = t_8233.accumulated
-            q_1017: 'Query' = from_(t_8232).where_not(t_8236)
-            t_8241: 'bool33' = q_1017.to_sql().to_string() == 'SELECT * FROM users WHERE NOT (active = TRUE)'
-            def fn_8231() -> 'str27':
+            t_9388: 'SafeIdentifier' = sid_505('users')
+            t_9389: 'SqlBuilder' = SqlBuilder()
+            t_9389.append_safe('active = ')
+            t_9389.append_boolean(True)
+            t_9392: 'SqlFragment' = t_9389.accumulated
+            q_1124: 'Query' = from_(t_9388).where_not(t_9392)
+            t_9397: 'bool33' = q_1124.to_sql().to_string() == 'SELECT * FROM users WHERE NOT (active = TRUE)'
+            def fn_9387() -> 'str27':
                 return 'whereNot'
-            test_84.assert_(t_8241, fn_8231)
+            test_84.assert_(t_9397, fn_9387)
         finally:
             test_84.soft_fail_to_hard()
 class TestCase107(TestCase46):
-    def test___whereNotChained__1541(self) -> None:
+    def test___whereNotChained__1710(self) -> None:
         'whereNot chained'
         test_85: Test = Test()
         try:
-            t_8215: 'SafeIdentifier' = sid_461('users')
-            t_8216: 'SqlBuilder' = SqlBuilder()
-            t_8216.append_safe('age > ')
-            t_8216.append_int32(18)
-            t_8219: 'SqlFragment' = t_8216.accumulated
-            t_8220: 'Query' = from_(t_8215).where(t_8219)
-            t_8221: 'SqlBuilder' = SqlBuilder()
-            t_8221.append_safe('banned = ')
-            t_8221.append_boolean(True)
-            q_1019: 'Query' = t_8220.where_not(t_8221.accumulated)
-            t_8229: 'bool33' = q_1019.to_sql().to_string() == 'SELECT * FROM users WHERE age > 18 AND NOT (banned = TRUE)'
-            def fn_8214() -> 'str27':
+            t_9371: 'SafeIdentifier' = sid_505('users')
+            t_9372: 'SqlBuilder' = SqlBuilder()
+            t_9372.append_safe('age > ')
+            t_9372.append_int32(18)
+            t_9375: 'SqlFragment' = t_9372.accumulated
+            t_9376: 'Query' = from_(t_9371).where(t_9375)
+            t_9377: 'SqlBuilder' = SqlBuilder()
+            t_9377.append_safe('banned = ')
+            t_9377.append_boolean(True)
+            q_1126: 'Query' = t_9376.where_not(t_9377.accumulated)
+            t_9385: 'bool33' = q_1126.to_sql().to_string() == 'SELECT * FROM users WHERE age > 18 AND NOT (banned = TRUE)'
+            def fn_9370() -> 'str27':
                 return 'whereNot chained'
-            test_85.assert_(t_8229, fn_8214)
+            test_85.assert_(t_9385, fn_9370)
         finally:
             test_85.soft_fail_to_hard()
 class TestCase108(TestCase46):
-    def test___whereBetweenIntegers__1544(self) -> None:
+    def test___whereBetweenIntegers__1713(self) -> None:
         'whereBetween integers'
         test_86: Test = Test()
         try:
-            t_8204: 'SafeIdentifier' = sid_461('users')
-            t_8205: 'SafeIdentifier' = sid_461('age')
-            t_8206: 'SqlInt32' = SqlInt32(18)
-            t_8207: 'SqlInt32' = SqlInt32(65)
-            q_1021: 'Query' = from_(t_8204).where_between(t_8205, t_8206, t_8207)
-            t_8212: 'bool33' = q_1021.to_sql().to_string() == 'SELECT * FROM users WHERE age BETWEEN 18 AND 65'
-            def fn_8203() -> 'str27':
+            t_9360: 'SafeIdentifier' = sid_505('users')
+            t_9361: 'SafeIdentifier' = sid_505('age')
+            t_9362: 'SqlInt32' = SqlInt32(18)
+            t_9363: 'SqlInt32' = SqlInt32(65)
+            q_1128: 'Query' = from_(t_9360).where_between(t_9361, t_9362, t_9363)
+            t_9368: 'bool33' = q_1128.to_sql().to_string() == 'SELECT * FROM users WHERE age BETWEEN 18 AND 65'
+            def fn_9359() -> 'str27':
                 return 'whereBetween ints'
-            test_86.assert_(t_8212, fn_8203)
+            test_86.assert_(t_9368, fn_9359)
         finally:
             test_86.soft_fail_to_hard()
 class TestCase109(TestCase46):
-    def test___whereBetweenChained__1545(self) -> None:
+    def test___whereBetweenChained__1714(self) -> None:
         'whereBetween chained'
         test_87: Test = Test()
         try:
-            t_8188: 'SafeIdentifier' = sid_461('users')
-            t_8189: 'SqlBuilder' = SqlBuilder()
-            t_8189.append_safe('active = ')
-            t_8189.append_boolean(True)
-            t_8192: 'SqlFragment' = t_8189.accumulated
-            q_1023: 'Query' = from_(t_8188).where(t_8192).where_between(sid_461('age'), SqlInt32(21), SqlInt32(30))
-            t_8201: 'bool33' = q_1023.to_sql().to_string() == 'SELECT * FROM users WHERE active = TRUE AND age BETWEEN 21 AND 30'
-            def fn_8187() -> 'str27':
+            t_9344: 'SafeIdentifier' = sid_505('users')
+            t_9345: 'SqlBuilder' = SqlBuilder()
+            t_9345.append_safe('active = ')
+            t_9345.append_boolean(True)
+            t_9348: 'SqlFragment' = t_9345.accumulated
+            q_1130: 'Query' = from_(t_9344).where(t_9348).where_between(sid_505('age'), SqlInt32(21), SqlInt32(30))
+            t_9357: 'bool33' = q_1130.to_sql().to_string() == 'SELECT * FROM users WHERE active = TRUE AND age BETWEEN 21 AND 30'
+            def fn_9343() -> 'str27':
                 return 'whereBetween chained'
-            test_87.assert_(t_8201, fn_8187)
+            test_87.assert_(t_9357, fn_9343)
         finally:
             test_87.soft_fail_to_hard()
 class TestCase110(TestCase46):
-    def test___whereLikeBasic__1547(self) -> None:
+    def test___whereLikeBasic__1716(self) -> None:
         'whereLike basic'
         test_88: Test = Test()
         try:
-            t_8179: 'SafeIdentifier' = sid_461('users')
-            t_8180: 'SafeIdentifier' = sid_461('name')
-            q_1025: 'Query' = from_(t_8179).where_like(t_8180, 'John%')
-            t_8185: 'bool33' = q_1025.to_sql().to_string() == "SELECT * FROM users WHERE name LIKE 'John%'"
-            def fn_8178() -> 'str27':
+            t_9335: 'SafeIdentifier' = sid_505('users')
+            t_9336: 'SafeIdentifier' = sid_505('name')
+            q_1132: 'Query' = from_(t_9335).where_like(t_9336, 'John%')
+            t_9341: 'bool33' = q_1132.to_sql().to_string() == "SELECT * FROM users WHERE name LIKE 'John%'"
+            def fn_9334() -> 'str27':
                 return 'whereLike'
-            test_88.assert_(t_8185, fn_8178)
+            test_88.assert_(t_9341, fn_9334)
         finally:
             test_88.soft_fail_to_hard()
 class TestCase111(TestCase46):
-    def test___whereIlikeBasic__1548(self) -> None:
+    def test___whereIlikeBasic__1717(self) -> None:
         'whereILike basic'
         test_89: Test = Test()
         try:
-            t_8170: 'SafeIdentifier' = sid_461('users')
-            t_8171: 'SafeIdentifier' = sid_461('email')
-            q_1027: 'Query' = from_(t_8170).where_i_like(t_8171, '%@gmail.com')
-            t_8176: 'bool33' = q_1027.to_sql().to_string() == "SELECT * FROM users WHERE email ILIKE '%@gmail.com'"
-            def fn_8169() -> 'str27':
+            t_9326: 'SafeIdentifier' = sid_505('users')
+            t_9327: 'SafeIdentifier' = sid_505('email')
+            q_1134: 'Query' = from_(t_9326).where_i_like(t_9327, '%@gmail.com')
+            t_9332: 'bool33' = q_1134.to_sql().to_string() == "SELECT * FROM users WHERE email ILIKE '%@gmail.com'"
+            def fn_9325() -> 'str27':
                 return 'whereILike'
-            test_89.assert_(t_8176, fn_8169)
+            test_89.assert_(t_9332, fn_9325)
         finally:
             test_89.soft_fail_to_hard()
 class TestCase112(TestCase46):
-    def test___whereLikeWithInjectionAttempt__1549(self) -> None:
+    def test___whereLikeWithInjectionAttempt__1718(self) -> None:
         'whereLike with injection attempt'
         test_90: Test = Test()
         try:
-            t_8156: 'SafeIdentifier' = sid_461('users')
-            t_8157: 'SafeIdentifier' = sid_461('name')
-            q_1029: 'Query' = from_(t_8156).where_like(t_8157, "'; DROP TABLE users; --")
-            s_1030: 'str27' = q_1029.to_sql().to_string()
-            t_8162: 'bool33' = s_1030.find("''") >= 0
-            def fn_8155() -> 'str27':
-                return str_cat_9688('like injection escaped: ', s_1030)
-            test_90.assert_(t_8162, fn_8155)
-            t_8166: 'bool33' = s_1030.find('LIKE') >= 0
-            def fn_8154() -> 'str27':
-                return str_cat_9688('like structure intact: ', s_1030)
-            test_90.assert_(t_8166, fn_8154)
+            t_9312: 'SafeIdentifier' = sid_505('users')
+            t_9313: 'SafeIdentifier' = sid_505('name')
+            q_1136: 'Query' = from_(t_9312).where_like(t_9313, "'; DROP TABLE users; --")
+            s_1137: 'str27' = q_1136.to_sql().to_string()
+            t_9318: 'bool33' = s_1137.find("''") >= 0
+            def fn_9311() -> 'str27':
+                return str_cat_10942('like injection escaped: ', s_1137)
+            test_90.assert_(t_9318, fn_9311)
+            t_9322: 'bool33' = s_1137.find('LIKE') >= 0
+            def fn_9310() -> 'str27':
+                return str_cat_10942('like structure intact: ', s_1137)
+            test_90.assert_(t_9322, fn_9310)
         finally:
             test_90.soft_fail_to_hard()
 class TestCase113(TestCase46):
-    def test___whereLikeWildcardPatterns__1550(self) -> None:
+    def test___whereLikeWildcardPatterns__1719(self) -> None:
         'whereLike wildcard patterns'
         test_91: Test = Test()
         try:
-            t_8146: 'SafeIdentifier' = sid_461('users')
-            t_8147: 'SafeIdentifier' = sid_461('name')
-            q_1032: 'Query' = from_(t_8146).where_like(t_8147, '%son%')
-            t_8152: 'bool33' = q_1032.to_sql().to_string() == "SELECT * FROM users WHERE name LIKE '%son%'"
-            def fn_8145() -> 'str27':
+            t_9302: 'SafeIdentifier' = sid_505('users')
+            t_9303: 'SafeIdentifier' = sid_505('name')
+            q_1139: 'Query' = from_(t_9302).where_like(t_9303, '%son%')
+            t_9308: 'bool33' = q_1139.to_sql().to_string() == "SELECT * FROM users WHERE name LIKE '%son%'"
+            def fn_9301() -> 'str27':
                 return 'whereLike wildcard'
-            test_91.assert_(t_8152, fn_8145)
+            test_91.assert_(t_9308, fn_9301)
         finally:
             test_91.soft_fail_to_hard()
 class TestCase114(TestCase46):
-    def test___countAllProducesCount__1551(self) -> None:
+    def test___countAllProducesCount__1720(self) -> None:
         'countAll produces COUNT(*)'
         test_92: Test = Test()
         try:
-            f_1034: 'SqlFragment' = count_all()
-            t_8143: 'bool33' = f_1034.to_string() == 'COUNT(*)'
-            def fn_8139() -> 'str27':
+            f_1141: 'SqlFragment' = count_all()
+            t_9299: 'bool33' = f_1141.to_string() == 'COUNT(*)'
+            def fn_9295() -> 'str27':
                 return 'countAll'
-            test_92.assert_(t_8143, fn_8139)
+            test_92.assert_(t_9299, fn_9295)
         finally:
             test_92.soft_fail_to_hard()
 class TestCase115(TestCase46):
-    def test___countColProducesCountField__1552(self) -> None:
+    def test___countColProducesCountField__1721(self) -> None:
         'countCol produces COUNT(field)'
         test_93: Test = Test()
         try:
-            f_1036: 'SqlFragment' = count_col(sid_461('id'))
-            t_8137: 'bool33' = f_1036.to_string() == 'COUNT(id)'
-            def fn_8132() -> 'str27':
+            f_1143: 'SqlFragment' = count_col(sid_505('id'))
+            t_9293: 'bool33' = f_1143.to_string() == 'COUNT(id)'
+            def fn_9288() -> 'str27':
                 return 'countCol'
-            test_93.assert_(t_8137, fn_8132)
+            test_93.assert_(t_9293, fn_9288)
         finally:
             test_93.soft_fail_to_hard()
 class TestCase116(TestCase46):
-    def test___sumColProducesSumField__1553(self) -> None:
+    def test___sumColProducesSumField__1722(self) -> None:
         'sumCol produces SUM(field)'
         test_94: Test = Test()
         try:
-            f_1038: 'SqlFragment' = sum_col(sid_461('amount'))
-            t_8130: 'bool33' = f_1038.to_string() == 'SUM(amount)'
-            def fn_8125() -> 'str27':
+            f_1145: 'SqlFragment' = sum_col(sid_505('amount'))
+            t_9286: 'bool33' = f_1145.to_string() == 'SUM(amount)'
+            def fn_9281() -> 'str27':
                 return 'sumCol'
-            test_94.assert_(t_8130, fn_8125)
+            test_94.assert_(t_9286, fn_9281)
         finally:
             test_94.soft_fail_to_hard()
 class TestCase117(TestCase46):
-    def test___avgColProducesAvgField__1554(self) -> None:
+    def test___avgColProducesAvgField__1723(self) -> None:
         'avgCol produces AVG(field)'
         test_95: Test = Test()
         try:
-            f_1040: 'SqlFragment' = avg_col(sid_461('price'))
-            t_8123: 'bool33' = f_1040.to_string() == 'AVG(price)'
-            def fn_8118() -> 'str27':
+            f_1147: 'SqlFragment' = avg_col(sid_505('price'))
+            t_9279: 'bool33' = f_1147.to_string() == 'AVG(price)'
+            def fn_9274() -> 'str27':
                 return 'avgCol'
-            test_95.assert_(t_8123, fn_8118)
+            test_95.assert_(t_9279, fn_9274)
         finally:
             test_95.soft_fail_to_hard()
 class TestCase118(TestCase46):
-    def test___minColProducesMinField__1555(self) -> None:
+    def test___minColProducesMinField__1724(self) -> None:
         'minCol produces MIN(field)'
         test_96: Test = Test()
         try:
-            f_1042: 'SqlFragment' = min_col(sid_461('created_at'))
-            t_8116: 'bool33' = f_1042.to_string() == 'MIN(created_at)'
-            def fn_8111() -> 'str27':
+            f_1149: 'SqlFragment' = min_col(sid_505('created_at'))
+            t_9272: 'bool33' = f_1149.to_string() == 'MIN(created_at)'
+            def fn_9267() -> 'str27':
                 return 'minCol'
-            test_96.assert_(t_8116, fn_8111)
+            test_96.assert_(t_9272, fn_9267)
         finally:
             test_96.soft_fail_to_hard()
 class TestCase119(TestCase46):
-    def test___maxColProducesMaxField__1556(self) -> None:
+    def test___maxColProducesMaxField__1725(self) -> None:
         'maxCol produces MAX(field)'
         test_97: Test = Test()
         try:
-            f_1044: 'SqlFragment' = max_col(sid_461('score'))
-            t_8109: 'bool33' = f_1044.to_string() == 'MAX(score)'
-            def fn_8104() -> 'str27':
+            f_1151: 'SqlFragment' = max_col(sid_505('score'))
+            t_9265: 'bool33' = f_1151.to_string() == 'MAX(score)'
+            def fn_9260() -> 'str27':
                 return 'maxCol'
-            test_97.assert_(t_8109, fn_8104)
+            test_97.assert_(t_9265, fn_9260)
         finally:
             test_97.soft_fail_to_hard()
 class TestCase120(TestCase46):
-    def test___selectExprWithAggregate__1557(self) -> None:
+    def test___selectExprWithAggregate__1726(self) -> None:
         'selectExpr with aggregate'
         test_98: Test = Test()
         try:
-            t_8096: 'SafeIdentifier' = sid_461('orders')
-            t_8097: 'SqlFragment' = count_all()
-            q_1046: 'Query' = from_(t_8096).select_expr((t_8097,))
-            t_8102: 'bool33' = q_1046.to_sql().to_string() == 'SELECT COUNT(*) FROM orders'
-            def fn_8095() -> 'str27':
+            t_9252: 'SafeIdentifier' = sid_505('orders')
+            t_9253: 'SqlFragment' = count_all()
+            q_1153: 'Query' = from_(t_9252).select_expr((t_9253,))
+            t_9258: 'bool33' = q_1153.to_sql().to_string() == 'SELECT COUNT(*) FROM orders'
+            def fn_9251() -> 'str27':
                 return 'selectExpr count'
-            test_98.assert_(t_8102, fn_8095)
+            test_98.assert_(t_9258, fn_9251)
         finally:
             test_98.soft_fail_to_hard()
 class TestCase121(TestCase46):
-    def test___selectExprWithMultipleExpressions__1558(self) -> None:
+    def test___selectExprWithMultipleExpressions__1727(self) -> None:
         'selectExpr with multiple expressions'
         test_99: Test = Test()
         try:
-            name_frag_1048: 'SqlFragment' = col(sid_461('users'), sid_461('name'))
-            t_8087: 'SafeIdentifier' = sid_461('users')
-            t_8088: 'SqlFragment' = count_all()
-            q_1049: 'Query' = from_(t_8087).select_expr((name_frag_1048, t_8088))
-            t_8093: 'bool33' = q_1049.to_sql().to_string() == 'SELECT users.name, COUNT(*) FROM users'
-            def fn_8083() -> 'str27':
+            name_frag_1155: 'SqlFragment' = col(sid_505('users'), sid_505('name'))
+            t_9243: 'SafeIdentifier' = sid_505('users')
+            t_9244: 'SqlFragment' = count_all()
+            q_1156: 'Query' = from_(t_9243).select_expr((name_frag_1155, t_9244))
+            t_9249: 'bool33' = q_1156.to_sql().to_string() == 'SELECT users.name, COUNT(*) FROM users'
+            def fn_9239() -> 'str27':
                 return 'selectExpr multi'
-            test_99.assert_(t_8093, fn_8083)
+            test_99.assert_(t_9249, fn_9239)
         finally:
             test_99.soft_fail_to_hard()
 class TestCase122(TestCase46):
-    def test___selectExprOverridesSelectedFields__1559(self) -> None:
+    def test___selectExprOverridesSelectedFields__1728(self) -> None:
         'selectExpr overrides selectedFields'
         test_100: Test = Test()
         try:
-            t_8072: 'SafeIdentifier' = sid_461('users')
-            t_8073: 'SafeIdentifier' = sid_461('id')
-            t_8074: 'SafeIdentifier' = sid_461('name')
-            q_1051: 'Query' = from_(t_8072).select((t_8073, t_8074)).select_expr((count_all(),))
-            t_8081: 'bool33' = q_1051.to_sql().to_string() == 'SELECT COUNT(*) FROM users'
-            def fn_8071() -> 'str27':
+            t_9228: 'SafeIdentifier' = sid_505('users')
+            t_9229: 'SafeIdentifier' = sid_505('id')
+            t_9230: 'SafeIdentifier' = sid_505('name')
+            q_1158: 'Query' = from_(t_9228).select((t_9229, t_9230)).select_expr((count_all(),))
+            t_9237: 'bool33' = q_1158.to_sql().to_string() == 'SELECT COUNT(*) FROM users'
+            def fn_9227() -> 'str27':
                 return 'selectExpr overrides select'
-            test_100.assert_(t_8081, fn_8071)
+            test_100.assert_(t_9237, fn_9227)
         finally:
             test_100.soft_fail_to_hard()
 class TestCase123(TestCase46):
-    def test___groupBySingleField__1560(self) -> None:
+    def test___groupBySingleField__1729(self) -> None:
         'groupBy single field'
         test_101: Test = Test()
         try:
-            t_8058: 'SafeIdentifier' = sid_461('orders')
-            t_8061: 'SqlFragment' = col(sid_461('orders'), sid_461('status'))
-            t_8062: 'SqlFragment' = count_all()
-            q_1053: 'Query' = from_(t_8058).select_expr((t_8061, t_8062)).group_by(sid_461('status'))
-            t_8069: 'bool33' = q_1053.to_sql().to_string() == 'SELECT orders.status, COUNT(*) FROM orders GROUP BY status'
-            def fn_8057() -> 'str27':
+            t_9214: 'SafeIdentifier' = sid_505('orders')
+            t_9217: 'SqlFragment' = col(sid_505('orders'), sid_505('status'))
+            t_9218: 'SqlFragment' = count_all()
+            q_1160: 'Query' = from_(t_9214).select_expr((t_9217, t_9218)).group_by(sid_505('status'))
+            t_9225: 'bool33' = q_1160.to_sql().to_string() == 'SELECT orders.status, COUNT(*) FROM orders GROUP BY status'
+            def fn_9213() -> 'str27':
                 return 'groupBy single'
-            test_101.assert_(t_8069, fn_8057)
+            test_101.assert_(t_9225, fn_9213)
         finally:
             test_101.soft_fail_to_hard()
 class TestCase124(TestCase46):
-    def test___groupByMultipleFields__1561(self) -> None:
+    def test___groupByMultipleFields__1730(self) -> None:
         'groupBy multiple fields'
         test_102: Test = Test()
         try:
-            t_8047: 'SafeIdentifier' = sid_461('orders')
-            t_8048: 'SafeIdentifier' = sid_461('status')
-            q_1055: 'Query' = from_(t_8047).group_by(t_8048).group_by(sid_461('category'))
-            t_8055: 'bool33' = q_1055.to_sql().to_string() == 'SELECT * FROM orders GROUP BY status, category'
-            def fn_8046() -> 'str27':
+            t_9203: 'SafeIdentifier' = sid_505('orders')
+            t_9204: 'SafeIdentifier' = sid_505('status')
+            q_1162: 'Query' = from_(t_9203).group_by(t_9204).group_by(sid_505('category'))
+            t_9211: 'bool33' = q_1162.to_sql().to_string() == 'SELECT * FROM orders GROUP BY status, category'
+            def fn_9202() -> 'str27':
                 return 'groupBy multiple'
-            test_102.assert_(t_8055, fn_8046)
+            test_102.assert_(t_9211, fn_9202)
         finally:
             test_102.soft_fail_to_hard()
 class TestCase125(TestCase46):
-    def test___havingBasic__1562(self) -> None:
+    def test___havingBasic__1731(self) -> None:
         'having basic'
         test_103: Test = Test()
         try:
-            t_8028: 'SafeIdentifier' = sid_461('orders')
-            t_8031: 'SqlFragment' = col(sid_461('orders'), sid_461('status'))
-            t_8032: 'SqlFragment' = count_all()
-            t_8035: 'Query' = from_(t_8028).select_expr((t_8031, t_8032)).group_by(sid_461('status'))
-            t_8036: 'SqlBuilder' = SqlBuilder()
-            t_8036.append_safe('COUNT(*) > ')
-            t_8036.append_int32(5)
-            q_1057: 'Query' = t_8035.having(t_8036.accumulated)
-            t_8044: 'bool33' = q_1057.to_sql().to_string() == 'SELECT orders.status, COUNT(*) FROM orders GROUP BY status HAVING COUNT(*) > 5'
-            def fn_8027() -> 'str27':
+            t_9184: 'SafeIdentifier' = sid_505('orders')
+            t_9187: 'SqlFragment' = col(sid_505('orders'), sid_505('status'))
+            t_9188: 'SqlFragment' = count_all()
+            t_9191: 'Query' = from_(t_9184).select_expr((t_9187, t_9188)).group_by(sid_505('status'))
+            t_9192: 'SqlBuilder' = SqlBuilder()
+            t_9192.append_safe('COUNT(*) > ')
+            t_9192.append_int32(5)
+            q_1164: 'Query' = t_9191.having(t_9192.accumulated)
+            t_9200: 'bool33' = q_1164.to_sql().to_string() == 'SELECT orders.status, COUNT(*) FROM orders GROUP BY status HAVING COUNT(*) > 5'
+            def fn_9183() -> 'str27':
                 return 'having basic'
-            test_103.assert_(t_8044, fn_8027)
+            test_103.assert_(t_9200, fn_9183)
         finally:
             test_103.soft_fail_to_hard()
 class TestCase126(TestCase46):
-    def test___orHaving__1564(self) -> None:
+    def test___orHaving__1733(self) -> None:
         'orHaving'
         test_104: Test = Test()
         try:
-            t_8009: 'SafeIdentifier' = sid_461('orders')
-            t_8010: 'SafeIdentifier' = sid_461('status')
-            t_8011: 'Query' = from_(t_8009).group_by(t_8010)
-            t_8012: 'SqlBuilder' = SqlBuilder()
-            t_8012.append_safe('COUNT(*) > ')
-            t_8012.append_int32(5)
-            t_8016: 'Query' = t_8011.having(t_8012.accumulated)
-            t_8017: 'SqlBuilder' = SqlBuilder()
-            t_8017.append_safe('SUM(total) > ')
-            t_8017.append_int32(1000)
-            q_1059: 'Query' = t_8016.or_having(t_8017.accumulated)
-            t_8025: 'bool33' = q_1059.to_sql().to_string() == 'SELECT * FROM orders GROUP BY status HAVING COUNT(*) > 5 OR SUM(total) > 1000'
-            def fn_8008() -> 'str27':
+            t_9165: 'SafeIdentifier' = sid_505('orders')
+            t_9166: 'SafeIdentifier' = sid_505('status')
+            t_9167: 'Query' = from_(t_9165).group_by(t_9166)
+            t_9168: 'SqlBuilder' = SqlBuilder()
+            t_9168.append_safe('COUNT(*) > ')
+            t_9168.append_int32(5)
+            t_9172: 'Query' = t_9167.having(t_9168.accumulated)
+            t_9173: 'SqlBuilder' = SqlBuilder()
+            t_9173.append_safe('SUM(total) > ')
+            t_9173.append_int32(1000)
+            q_1166: 'Query' = t_9172.or_having(t_9173.accumulated)
+            t_9181: 'bool33' = q_1166.to_sql().to_string() == 'SELECT * FROM orders GROUP BY status HAVING COUNT(*) > 5 OR SUM(total) > 1000'
+            def fn_9164() -> 'str27':
                 return 'orHaving'
-            test_104.assert_(t_8025, fn_8008)
+            test_104.assert_(t_9181, fn_9164)
         finally:
             test_104.soft_fail_to_hard()
 class TestCase127(TestCase46):
-    def test___distinctBasic__1567(self) -> None:
+    def test___distinctBasic__1736(self) -> None:
         'distinct basic'
         test_105: Test = Test()
         try:
-            t_7999: 'SafeIdentifier' = sid_461('users')
-            t_8000: 'SafeIdentifier' = sid_461('name')
-            q_1061: 'Query' = from_(t_7999).select((t_8000,)).distinct()
-            t_8006: 'bool33' = q_1061.to_sql().to_string() == 'SELECT DISTINCT name FROM users'
-            def fn_7998() -> 'str27':
+            t_9155: 'SafeIdentifier' = sid_505('users')
+            t_9156: 'SafeIdentifier' = sid_505('name')
+            q_1168: 'Query' = from_(t_9155).select((t_9156,)).distinct()
+            t_9162: 'bool33' = q_1168.to_sql().to_string() == 'SELECT DISTINCT name FROM users'
+            def fn_9154() -> 'str27':
                 return 'distinct'
-            test_105.assert_(t_8006, fn_7998)
+            test_105.assert_(t_9162, fn_9154)
         finally:
             test_105.soft_fail_to_hard()
 class TestCase128(TestCase46):
-    def test___distinctWithWhere__1568(self) -> None:
+    def test___distinctWithWhere__1737(self) -> None:
         'distinct with where'
         test_106: Test = Test()
         try:
-            t_7984: 'SafeIdentifier' = sid_461('users')
-            t_7985: 'SafeIdentifier' = sid_461('email')
-            t_7986: 'Query' = from_(t_7984).select((t_7985,))
-            t_7987: 'SqlBuilder' = SqlBuilder()
-            t_7987.append_safe('active = ')
-            t_7987.append_boolean(True)
-            q_1063: 'Query' = t_7986.where(t_7987.accumulated).distinct()
-            t_7996: 'bool33' = q_1063.to_sql().to_string() == 'SELECT DISTINCT email FROM users WHERE active = TRUE'
-            def fn_7983() -> 'str27':
+            t_9140: 'SafeIdentifier' = sid_505('users')
+            t_9141: 'SafeIdentifier' = sid_505('email')
+            t_9142: 'Query' = from_(t_9140).select((t_9141,))
+            t_9143: 'SqlBuilder' = SqlBuilder()
+            t_9143.append_safe('active = ')
+            t_9143.append_boolean(True)
+            q_1170: 'Query' = t_9142.where(t_9143.accumulated).distinct()
+            t_9152: 'bool33' = q_1170.to_sql().to_string() == 'SELECT DISTINCT email FROM users WHERE active = TRUE'
+            def fn_9139() -> 'str27':
                 return 'distinct with where'
-            test_106.assert_(t_7996, fn_7983)
+            test_106.assert_(t_9152, fn_9139)
         finally:
             test_106.soft_fail_to_hard()
 class TestCase129(TestCase46):
-    def test___countSqlBare__1570(self) -> None:
+    def test___countSqlBare__1739(self) -> None:
         'countSql bare'
         test_107: Test = Test()
         try:
-            q_1065: 'Query' = from_(sid_461('users'))
-            t_7981: 'bool33' = q_1065.count_sql().to_string() == 'SELECT COUNT(*) FROM users'
-            def fn_7976() -> 'str27':
+            q_1172: 'Query' = from_(sid_505('users'))
+            t_9137: 'bool33' = q_1172.count_sql().to_string() == 'SELECT COUNT(*) FROM users'
+            def fn_9132() -> 'str27':
                 return 'countSql bare'
-            test_107.assert_(t_7981, fn_7976)
+            test_107.assert_(t_9137, fn_9132)
         finally:
             test_107.soft_fail_to_hard()
 class TestCase130(TestCase46):
-    def test___countSqlWithWhere__1571(self) -> None:
+    def test___countSqlWithWhere__1740(self) -> None:
         'countSql with WHERE'
         test_108: Test = Test()
         try:
-            t_7965: 'SafeIdentifier' = sid_461('users')
-            t_7966: 'SqlBuilder' = SqlBuilder()
-            t_7966.append_safe('active = ')
-            t_7966.append_boolean(True)
-            t_7969: 'SqlFragment' = t_7966.accumulated
-            q_1067: 'Query' = from_(t_7965).where(t_7969)
-            t_7974: 'bool33' = q_1067.count_sql().to_string() == 'SELECT COUNT(*) FROM users WHERE active = TRUE'
-            def fn_7964() -> 'str27':
+            t_9121: 'SafeIdentifier' = sid_505('users')
+            t_9122: 'SqlBuilder' = SqlBuilder()
+            t_9122.append_safe('active = ')
+            t_9122.append_boolean(True)
+            t_9125: 'SqlFragment' = t_9122.accumulated
+            q_1174: 'Query' = from_(t_9121).where(t_9125)
+            t_9130: 'bool33' = q_1174.count_sql().to_string() == 'SELECT COUNT(*) FROM users WHERE active = TRUE'
+            def fn_9120() -> 'str27':
                 return 'countSql with where'
-            test_108.assert_(t_7974, fn_7964)
+            test_108.assert_(t_9130, fn_9120)
         finally:
             test_108.soft_fail_to_hard()
 class TestCase131(TestCase46):
-    def test___countSqlWithJoin__1573(self) -> None:
+    def test___countSqlWithJoin__1742(self) -> None:
         'countSql with JOIN'
         test_109: Test = Test()
         try:
-            t_7948: 'SafeIdentifier' = sid_461('users')
-            t_7949: 'SafeIdentifier' = sid_461('orders')
-            t_7950: 'SqlBuilder' = SqlBuilder()
-            t_7950.append_safe('users.id = orders.user_id')
-            t_7952: 'SqlFragment' = t_7950.accumulated
-            t_7953: 'Query' = from_(t_7948).inner_join(t_7949, t_7952)
-            t_7954: 'SqlBuilder' = SqlBuilder()
-            t_7954.append_safe('orders.total > ')
-            t_7954.append_int32(100)
-            q_1069: 'Query' = t_7953.where(t_7954.accumulated)
-            t_7962: 'bool33' = q_1069.count_sql().to_string() == 'SELECT COUNT(*) FROM users INNER JOIN orders ON users.id = orders.user_id WHERE orders.total > 100'
-            def fn_7947() -> 'str27':
+            t_9104: 'SafeIdentifier' = sid_505('users')
+            t_9105: 'SafeIdentifier' = sid_505('orders')
+            t_9106: 'SqlBuilder' = SqlBuilder()
+            t_9106.append_safe('users.id = orders.user_id')
+            t_9108: 'SqlFragment' = t_9106.accumulated
+            t_9109: 'Query' = from_(t_9104).inner_join(t_9105, t_9108)
+            t_9110: 'SqlBuilder' = SqlBuilder()
+            t_9110.append_safe('orders.total > ')
+            t_9110.append_int32(100)
+            q_1176: 'Query' = t_9109.where(t_9110.accumulated)
+            t_9118: 'bool33' = q_1176.count_sql().to_string() == 'SELECT COUNT(*) FROM users INNER JOIN orders ON users.id = orders.user_id WHERE orders.total > 100'
+            def fn_9103() -> 'str27':
                 return 'countSql with join'
-            test_109.assert_(t_7962, fn_7947)
+            test_109.assert_(t_9118, fn_9103)
         finally:
             test_109.soft_fail_to_hard()
 class TestCase132(TestCase46):
-    def test___countSqlDropsOrderByLimitOffset__1576(self) -> None:
+    def test___countSqlDropsOrderByLimitOffset__1745(self) -> None:
         'countSql drops orderBy/limit/offset'
         test_110: Test = Test()
         try:
-            t_7934: 'SafeIdentifier' = sid_461('users')
-            t_7935: 'SqlBuilder' = SqlBuilder()
-            t_7935.append_safe('active = ')
-            t_7935.append_boolean(True)
-            t_7938: 'SqlFragment' = t_7935.accumulated
-            t_3983: 'Query'
-            t_3983 = from_(t_7934).where(t_7938).order_by(sid_461('name'), True).limit(10)
-            t_3984: 'Query'
-            t_3984 = t_3983.offset(20)
-            q_1071: 'Query' = t_3984
-            s_1072: 'str27' = q_1071.count_sql().to_string()
-            t_7945: 'bool33' = s_1072 == 'SELECT COUNT(*) FROM users WHERE active = TRUE'
-            def fn_7933() -> 'str27':
-                return str_cat_9688('countSql drops extras: ', s_1072)
-            test_110.assert_(t_7945, fn_7933)
+            t_9090: 'SafeIdentifier' = sid_505('users')
+            t_9091: 'SqlBuilder' = SqlBuilder()
+            t_9091.append_safe('active = ')
+            t_9091.append_boolean(True)
+            t_9094: 'SqlFragment' = t_9091.accumulated
+            t_4621: 'Query'
+            t_4621 = from_(t_9090).where(t_9094).order_by(sid_505('name'), True).limit(10)
+            t_4622: 'Query'
+            t_4622 = t_4621.offset(20)
+            q_1178: 'Query' = t_4622
+            s_1179: 'str27' = q_1178.count_sql().to_string()
+            t_9101: 'bool33' = s_1179 == 'SELECT COUNT(*) FROM users WHERE active = TRUE'
+            def fn_9089() -> 'str27':
+                return str_cat_10942('countSql drops extras: ', s_1179)
+            test_110.assert_(t_9101, fn_9089)
         finally:
             test_110.soft_fail_to_hard()
 class TestCase133(TestCase46):
-    def test___fullAggregationQuery__1578(self) -> None:
+    def test___fullAggregationQuery__1747(self) -> None:
         'full aggregation query'
         test_111: Test = Test()
         try:
-            t_7901: 'SafeIdentifier' = sid_461('orders')
-            t_7904: 'SqlFragment' = col(sid_461('orders'), sid_461('status'))
-            t_7905: 'SqlFragment' = count_all()
-            t_7907: 'SqlFragment' = sum_col(sid_461('total'))
-            t_7908: 'Query' = from_(t_7901).select_expr((t_7904, t_7905, t_7907))
-            t_7909: 'SafeIdentifier' = sid_461('users')
-            t_7910: 'SqlBuilder' = SqlBuilder()
-            t_7910.append_safe('orders.user_id = users.id')
-            t_7913: 'Query' = t_7908.inner_join(t_7909, t_7910.accumulated)
-            t_7914: 'SqlBuilder' = SqlBuilder()
-            t_7914.append_safe('users.active = ')
-            t_7914.append_boolean(True)
-            t_7920: 'Query' = t_7913.where(t_7914.accumulated).group_by(sid_461('status'))
-            t_7921: 'SqlBuilder' = SqlBuilder()
-            t_7921.append_safe('COUNT(*) > ')
-            t_7921.append_int32(3)
-            q_1074: 'Query' = t_7920.having(t_7921.accumulated).order_by(sid_461('status'), True)
-            expected_1075: 'str27' = 'SELECT orders.status, COUNT(*), SUM(total) FROM orders INNER JOIN users ON orders.user_id = users.id WHERE users.active = TRUE GROUP BY status HAVING COUNT(*) > 3 ORDER BY status ASC'
-            t_7931: 'bool33' = q_1074.to_sql().to_string() == 'SELECT orders.status, COUNT(*), SUM(total) FROM orders INNER JOIN users ON orders.user_id = users.id WHERE users.active = TRUE GROUP BY status HAVING COUNT(*) > 3 ORDER BY status ASC'
-            def fn_7900() -> 'str27':
+            t_9057: 'SafeIdentifier' = sid_505('orders')
+            t_9060: 'SqlFragment' = col(sid_505('orders'), sid_505('status'))
+            t_9061: 'SqlFragment' = count_all()
+            t_9063: 'SqlFragment' = sum_col(sid_505('total'))
+            t_9064: 'Query' = from_(t_9057).select_expr((t_9060, t_9061, t_9063))
+            t_9065: 'SafeIdentifier' = sid_505('users')
+            t_9066: 'SqlBuilder' = SqlBuilder()
+            t_9066.append_safe('orders.user_id = users.id')
+            t_9069: 'Query' = t_9064.inner_join(t_9065, t_9066.accumulated)
+            t_9070: 'SqlBuilder' = SqlBuilder()
+            t_9070.append_safe('users.active = ')
+            t_9070.append_boolean(True)
+            t_9076: 'Query' = t_9069.where(t_9070.accumulated).group_by(sid_505('status'))
+            t_9077: 'SqlBuilder' = SqlBuilder()
+            t_9077.append_safe('COUNT(*) > ')
+            t_9077.append_int32(3)
+            q_1181: 'Query' = t_9076.having(t_9077.accumulated).order_by(sid_505('status'), True)
+            expected_1182: 'str27' = 'SELECT orders.status, COUNT(*), SUM(total) FROM orders INNER JOIN users ON orders.user_id = users.id WHERE users.active = TRUE GROUP BY status HAVING COUNT(*) > 3 ORDER BY status ASC'
+            t_9087: 'bool33' = q_1181.to_sql().to_string() == 'SELECT orders.status, COUNT(*), SUM(total) FROM orders INNER JOIN users ON orders.user_id = users.id WHERE users.active = TRUE GROUP BY status HAVING COUNT(*) > 3 ORDER BY status ASC'
+            def fn_9056() -> 'str27':
                 return 'full aggregation'
-            test_111.assert_(t_7931, fn_7900)
+            test_111.assert_(t_9087, fn_9056)
         finally:
             test_111.soft_fail_to_hard()
 class TestCase134(TestCase46):
-    def test___unionSql__1582(self) -> None:
+    def test___unionSql__1751(self) -> None:
         'unionSql'
         test_112: Test = Test()
         try:
-            t_7883: 'SafeIdentifier' = sid_461('users')
-            t_7884: 'SqlBuilder' = SqlBuilder()
-            t_7884.append_safe('role = ')
-            t_7884.append_string('admin')
-            t_7887: 'SqlFragment' = t_7884.accumulated
-            a_1077: 'Query' = from_(t_7883).where(t_7887)
-            t_7889: 'SafeIdentifier' = sid_461('users')
-            t_7890: 'SqlBuilder' = SqlBuilder()
-            t_7890.append_safe('role = ')
-            t_7890.append_string('moderator')
-            t_7893: 'SqlFragment' = t_7890.accumulated
-            b_1078: 'Query' = from_(t_7889).where(t_7893)
-            s_1079: 'str27' = union_sql(a_1077, b_1078).to_string()
-            t_7898: 'bool33' = s_1079 == "(SELECT * FROM users WHERE role = 'admin') UNION (SELECT * FROM users WHERE role = 'moderator')"
-            def fn_7882() -> 'str27':
-                return str_cat_9688('unionSql: ', s_1079)
-            test_112.assert_(t_7898, fn_7882)
+            t_9039: 'SafeIdentifier' = sid_505('users')
+            t_9040: 'SqlBuilder' = SqlBuilder()
+            t_9040.append_safe('role = ')
+            t_9040.append_string('admin')
+            t_9043: 'SqlFragment' = t_9040.accumulated
+            a_1184: 'Query' = from_(t_9039).where(t_9043)
+            t_9045: 'SafeIdentifier' = sid_505('users')
+            t_9046: 'SqlBuilder' = SqlBuilder()
+            t_9046.append_safe('role = ')
+            t_9046.append_string('moderator')
+            t_9049: 'SqlFragment' = t_9046.accumulated
+            b_1185: 'Query' = from_(t_9045).where(t_9049)
+            s_1186: 'str27' = union_sql(a_1184, b_1185).to_string()
+            t_9054: 'bool33' = s_1186 == "(SELECT * FROM users WHERE role = 'admin') UNION (SELECT * FROM users WHERE role = 'moderator')"
+            def fn_9038() -> 'str27':
+                return str_cat_10942('unionSql: ', s_1186)
+            test_112.assert_(t_9054, fn_9038)
         finally:
             test_112.soft_fail_to_hard()
 class TestCase135(TestCase46):
-    def test___unionAllSql__1585(self) -> None:
+    def test___unionAllSql__1754(self) -> None:
         'unionAllSql'
         test_113: Test = Test()
         try:
-            t_7871: 'SafeIdentifier' = sid_461('users')
-            t_7872: 'SafeIdentifier' = sid_461('name')
-            a_1081: 'Query' = from_(t_7871).select((t_7872,))
-            t_7874: 'SafeIdentifier' = sid_461('contacts')
-            t_7875: 'SafeIdentifier' = sid_461('name')
-            b_1082: 'Query' = from_(t_7874).select((t_7875,))
-            s_1083: 'str27' = union_all_sql(a_1081, b_1082).to_string()
-            t_7880: 'bool33' = s_1083 == '(SELECT name FROM users) UNION ALL (SELECT name FROM contacts)'
-            def fn_7870() -> 'str27':
-                return str_cat_9688('unionAllSql: ', s_1083)
-            test_113.assert_(t_7880, fn_7870)
+            t_9027: 'SafeIdentifier' = sid_505('users')
+            t_9028: 'SafeIdentifier' = sid_505('name')
+            a_1188: 'Query' = from_(t_9027).select((t_9028,))
+            t_9030: 'SafeIdentifier' = sid_505('contacts')
+            t_9031: 'SafeIdentifier' = sid_505('name')
+            b_1189: 'Query' = from_(t_9030).select((t_9031,))
+            s_1190: 'str27' = union_all_sql(a_1188, b_1189).to_string()
+            t_9036: 'bool33' = s_1190 == '(SELECT name FROM users) UNION ALL (SELECT name FROM contacts)'
+            def fn_9026() -> 'str27':
+                return str_cat_10942('unionAllSql: ', s_1190)
+            test_113.assert_(t_9036, fn_9026)
         finally:
             test_113.soft_fail_to_hard()
 class TestCase136(TestCase46):
-    def test___intersectSql__1586(self) -> None:
+    def test___intersectSql__1755(self) -> None:
         'intersectSql'
         test_114: Test = Test()
         try:
-            t_7859: 'SafeIdentifier' = sid_461('users')
-            t_7860: 'SafeIdentifier' = sid_461('email')
-            a_1085: 'Query' = from_(t_7859).select((t_7860,))
-            t_7862: 'SafeIdentifier' = sid_461('subscribers')
-            t_7863: 'SafeIdentifier' = sid_461('email')
-            b_1086: 'Query' = from_(t_7862).select((t_7863,))
-            s_1087: 'str27' = intersect_sql(a_1085, b_1086).to_string()
-            t_7868: 'bool33' = s_1087 == '(SELECT email FROM users) INTERSECT (SELECT email FROM subscribers)'
-            def fn_7858() -> 'str27':
-                return str_cat_9688('intersectSql: ', s_1087)
-            test_114.assert_(t_7868, fn_7858)
+            t_9015: 'SafeIdentifier' = sid_505('users')
+            t_9016: 'SafeIdentifier' = sid_505('email')
+            a_1192: 'Query' = from_(t_9015).select((t_9016,))
+            t_9018: 'SafeIdentifier' = sid_505('subscribers')
+            t_9019: 'SafeIdentifier' = sid_505('email')
+            b_1193: 'Query' = from_(t_9018).select((t_9019,))
+            s_1194: 'str27' = intersect_sql(a_1192, b_1193).to_string()
+            t_9024: 'bool33' = s_1194 == '(SELECT email FROM users) INTERSECT (SELECT email FROM subscribers)'
+            def fn_9014() -> 'str27':
+                return str_cat_10942('intersectSql: ', s_1194)
+            test_114.assert_(t_9024, fn_9014)
         finally:
             test_114.soft_fail_to_hard()
 class TestCase137(TestCase46):
-    def test___exceptSql__1587(self) -> None:
+    def test___exceptSql__1756(self) -> None:
         'exceptSql'
         test_115: Test = Test()
         try:
-            t_7847: 'SafeIdentifier' = sid_461('users')
-            t_7848: 'SafeIdentifier' = sid_461('id')
-            a_1089: 'Query' = from_(t_7847).select((t_7848,))
-            t_7850: 'SafeIdentifier' = sid_461('banned')
-            t_7851: 'SafeIdentifier' = sid_461('id')
-            b_1090: 'Query' = from_(t_7850).select((t_7851,))
-            s_1091: 'str27' = except_sql(a_1089, b_1090).to_string()
-            t_7856: 'bool33' = s_1091 == '(SELECT id FROM users) EXCEPT (SELECT id FROM banned)'
-            def fn_7846() -> 'str27':
-                return str_cat_9688('exceptSql: ', s_1091)
-            test_115.assert_(t_7856, fn_7846)
+            t_9003: 'SafeIdentifier' = sid_505('users')
+            t_9004: 'SafeIdentifier' = sid_505('id')
+            a_1196: 'Query' = from_(t_9003).select((t_9004,))
+            t_9006: 'SafeIdentifier' = sid_505('banned')
+            t_9007: 'SafeIdentifier' = sid_505('id')
+            b_1197: 'Query' = from_(t_9006).select((t_9007,))
+            s_1198: 'str27' = except_sql(a_1196, b_1197).to_string()
+            t_9012: 'bool33' = s_1198 == '(SELECT id FROM users) EXCEPT (SELECT id FROM banned)'
+            def fn_9002() -> 'str27':
+                return str_cat_10942('exceptSql: ', s_1198)
+            test_115.assert_(t_9012, fn_9002)
         finally:
             test_115.soft_fail_to_hard()
 class TestCase138(TestCase46):
-    def test___subqueryWithAlias__1588(self) -> None:
+    def test___subqueryWithAlias__1757(self) -> None:
         'subquery with alias'
         test_116: Test = Test()
         try:
-            t_7832: 'SafeIdentifier' = sid_461('orders')
-            t_7833: 'SafeIdentifier' = sid_461('user_id')
-            t_7834: 'Query' = from_(t_7832).select((t_7833,))
-            t_7835: 'SqlBuilder' = SqlBuilder()
-            t_7835.append_safe('total > ')
-            t_7835.append_int32(100)
-            inner_1093: 'Query' = t_7834.where(t_7835.accumulated)
-            s_1094: 'str27' = subquery(inner_1093, sid_461('big_orders')).to_string()
-            t_7844: 'bool33' = s_1094 == '(SELECT user_id FROM orders WHERE total > 100) AS big_orders'
-            def fn_7831() -> 'str27':
-                return str_cat_9688('subquery: ', s_1094)
-            test_116.assert_(t_7844, fn_7831)
+            t_8988: 'SafeIdentifier' = sid_505('orders')
+            t_8989: 'SafeIdentifier' = sid_505('user_id')
+            t_8990: 'Query' = from_(t_8988).select((t_8989,))
+            t_8991: 'SqlBuilder' = SqlBuilder()
+            t_8991.append_safe('total > ')
+            t_8991.append_int32(100)
+            inner_1200: 'Query' = t_8990.where(t_8991.accumulated)
+            s_1201: 'str27' = subquery(inner_1200, sid_505('big_orders')).to_string()
+            t_9000: 'bool33' = s_1201 == '(SELECT user_id FROM orders WHERE total > 100) AS big_orders'
+            def fn_8987() -> 'str27':
+                return str_cat_10942('subquery: ', s_1201)
+            test_116.assert_(t_9000, fn_8987)
         finally:
             test_116.soft_fail_to_hard()
 class TestCase139(TestCase46):
-    def test___existsSql__1590(self) -> None:
+    def test___existsSql__1759(self) -> None:
         'existsSql'
         test_117: Test = Test()
         try:
-            t_7821: 'SafeIdentifier' = sid_461('orders')
-            t_7822: 'SqlBuilder' = SqlBuilder()
-            t_7822.append_safe('orders.user_id = users.id')
-            t_7824: 'SqlFragment' = t_7822.accumulated
-            inner_1096: 'Query' = from_(t_7821).where(t_7824)
-            s_1097: 'str27' = exists_sql(inner_1096).to_string()
-            t_7829: 'bool33' = s_1097 == 'EXISTS (SELECT * FROM orders WHERE orders.user_id = users.id)'
-            def fn_7820() -> 'str27':
-                return str_cat_9688('existsSql: ', s_1097)
-            test_117.assert_(t_7829, fn_7820)
+            t_8977: 'SafeIdentifier' = sid_505('orders')
+            t_8978: 'SqlBuilder' = SqlBuilder()
+            t_8978.append_safe('orders.user_id = users.id')
+            t_8980: 'SqlFragment' = t_8978.accumulated
+            inner_1203: 'Query' = from_(t_8977).where(t_8980)
+            s_1204: 'str27' = exists_sql(inner_1203).to_string()
+            t_8985: 'bool33' = s_1204 == 'EXISTS (SELECT * FROM orders WHERE orders.user_id = users.id)'
+            def fn_8976() -> 'str27':
+                return str_cat_10942('existsSql: ', s_1204)
+            test_117.assert_(t_8985, fn_8976)
         finally:
             test_117.soft_fail_to_hard()
 class TestCase140(TestCase46):
-    def test___whereInSubquery__1592(self) -> None:
+    def test___whereInSubquery__1761(self) -> None:
         'whereInSubquery'
         test_118: Test = Test()
         try:
-            t_7804: 'SafeIdentifier' = sid_461('orders')
-            t_7805: 'SafeIdentifier' = sid_461('user_id')
-            t_7806: 'Query' = from_(t_7804).select((t_7805,))
-            t_7807: 'SqlBuilder' = SqlBuilder()
-            t_7807.append_safe('total > ')
-            t_7807.append_int32(1000)
-            sub_1099: 'Query' = t_7806.where(t_7807.accumulated)
-            t_7812: 'SafeIdentifier' = sid_461('users')
-            t_7813: 'SafeIdentifier' = sid_461('id')
-            q_1100: 'Query' = from_(t_7812).where_in_subquery(t_7813, sub_1099)
-            s_1101: 'str27' = q_1100.to_sql().to_string()
-            t_7818: 'bool33' = s_1101 == 'SELECT * FROM users WHERE id IN (SELECT user_id FROM orders WHERE total > 1000)'
-            def fn_7803() -> 'str27':
-                return str_cat_9688('whereInSubquery: ', s_1101)
-            test_118.assert_(t_7818, fn_7803)
+            t_8960: 'SafeIdentifier' = sid_505('orders')
+            t_8961: 'SafeIdentifier' = sid_505('user_id')
+            t_8962: 'Query' = from_(t_8960).select((t_8961,))
+            t_8963: 'SqlBuilder' = SqlBuilder()
+            t_8963.append_safe('total > ')
+            t_8963.append_int32(1000)
+            sub_1206: 'Query' = t_8962.where(t_8963.accumulated)
+            t_8968: 'SafeIdentifier' = sid_505('users')
+            t_8969: 'SafeIdentifier' = sid_505('id')
+            q_1207: 'Query' = from_(t_8968).where_in_subquery(t_8969, sub_1206)
+            s_1208: 'str27' = q_1207.to_sql().to_string()
+            t_8974: 'bool33' = s_1208 == 'SELECT * FROM users WHERE id IN (SELECT user_id FROM orders WHERE total > 1000)'
+            def fn_8959() -> 'str27':
+                return str_cat_10942('whereInSubquery: ', s_1208)
+            test_118.assert_(t_8974, fn_8959)
         finally:
             test_118.soft_fail_to_hard()
 class TestCase141(TestCase46):
-    def test___setOperationWithWhereOnEachSide__1594(self) -> None:
+    def test___setOperationWithWhereOnEachSide__1763(self) -> None:
         'set operation with WHERE on each side'
         test_119: Test = Test()
         try:
-            t_7781: 'SafeIdentifier' = sid_461('users')
-            t_7782: 'SqlBuilder' = SqlBuilder()
-            t_7782.append_safe('age > ')
-            t_7782.append_int32(18)
-            t_7785: 'SqlFragment' = t_7782.accumulated
-            t_7786: 'Query' = from_(t_7781).where(t_7785)
-            t_7787: 'SqlBuilder' = SqlBuilder()
-            t_7787.append_safe('active = ')
-            t_7787.append_boolean(True)
-            a_1103: 'Query' = t_7786.where(t_7787.accumulated)
-            t_7792: 'SafeIdentifier' = sid_461('users')
-            t_7793: 'SqlBuilder' = SqlBuilder()
-            t_7793.append_safe('role = ')
-            t_7793.append_string('vip')
-            t_7796: 'SqlFragment' = t_7793.accumulated
-            b_1104: 'Query' = from_(t_7792).where(t_7796)
-            s_1105: 'str27' = union_sql(a_1103, b_1104).to_string()
-            t_7801: 'bool33' = s_1105 == "(SELECT * FROM users WHERE age > 18 AND active = TRUE) UNION (SELECT * FROM users WHERE role = 'vip')"
-            def fn_7780() -> 'str27':
-                return str_cat_9688('union with where: ', s_1105)
-            test_119.assert_(t_7801, fn_7780)
+            t_8937: 'SafeIdentifier' = sid_505('users')
+            t_8938: 'SqlBuilder' = SqlBuilder()
+            t_8938.append_safe('age > ')
+            t_8938.append_int32(18)
+            t_8941: 'SqlFragment' = t_8938.accumulated
+            t_8942: 'Query' = from_(t_8937).where(t_8941)
+            t_8943: 'SqlBuilder' = SqlBuilder()
+            t_8943.append_safe('active = ')
+            t_8943.append_boolean(True)
+            a_1210: 'Query' = t_8942.where(t_8943.accumulated)
+            t_8948: 'SafeIdentifier' = sid_505('users')
+            t_8949: 'SqlBuilder' = SqlBuilder()
+            t_8949.append_safe('role = ')
+            t_8949.append_string('vip')
+            t_8952: 'SqlFragment' = t_8949.accumulated
+            b_1211: 'Query' = from_(t_8948).where(t_8952)
+            s_1212: 'str27' = union_sql(a_1210, b_1211).to_string()
+            t_8957: 'bool33' = s_1212 == "(SELECT * FROM users WHERE age > 18 AND active = TRUE) UNION (SELECT * FROM users WHERE role = 'vip')"
+            def fn_8936() -> 'str27':
+                return str_cat_10942('union with where: ', s_1212)
+            test_119.assert_(t_8957, fn_8936)
         finally:
             test_119.soft_fail_to_hard()
 class TestCase142(TestCase46):
-    def test___whereInSubqueryChainedWithWhere__1598(self) -> None:
+    def test___whereInSubqueryChainedWithWhere__1767(self) -> None:
         'whereInSubquery chained with where'
         test_120: Test = Test()
         try:
-            t_7764: 'SafeIdentifier' = sid_461('orders')
-            t_7765: 'SafeIdentifier' = sid_461('user_id')
-            sub_1107: 'Query' = from_(t_7764).select((t_7765,))
-            t_7767: 'SafeIdentifier' = sid_461('users')
-            t_7768: 'SqlBuilder' = SqlBuilder()
-            t_7768.append_safe('active = ')
-            t_7768.append_boolean(True)
-            t_7771: 'SqlFragment' = t_7768.accumulated
-            q_1108: 'Query' = from_(t_7767).where(t_7771).where_in_subquery(sid_461('id'), sub_1107)
-            s_1109: 'str27' = q_1108.to_sql().to_string()
-            t_7778: 'bool33' = s_1109 == 'SELECT * FROM users WHERE active = TRUE AND id IN (SELECT user_id FROM orders)'
-            def fn_7763() -> 'str27':
-                return str_cat_9688('whereInSubquery chained: ', s_1109)
-            test_120.assert_(t_7778, fn_7763)
+            t_8920: 'SafeIdentifier' = sid_505('orders')
+            t_8921: 'SafeIdentifier' = sid_505('user_id')
+            sub_1214: 'Query' = from_(t_8920).select((t_8921,))
+            t_8923: 'SafeIdentifier' = sid_505('users')
+            t_8924: 'SqlBuilder' = SqlBuilder()
+            t_8924.append_safe('active = ')
+            t_8924.append_boolean(True)
+            t_8927: 'SqlFragment' = t_8924.accumulated
+            q_1215: 'Query' = from_(t_8923).where(t_8927).where_in_subquery(sid_505('id'), sub_1214)
+            s_1216: 'str27' = q_1215.to_sql().to_string()
+            t_8934: 'bool33' = s_1216 == 'SELECT * FROM users WHERE active = TRUE AND id IN (SELECT user_id FROM orders)'
+            def fn_8919() -> 'str27':
+                return str_cat_10942('whereInSubquery chained: ', s_1216)
+            test_120.assert_(t_8934, fn_8919)
         finally:
             test_120.soft_fail_to_hard()
 class TestCase143(TestCase46):
-    def test___existsSqlUsedInWhere__1600(self) -> None:
+    def test___existsSqlUsedInWhere__1769(self) -> None:
         'existsSql used in where'
         test_121: Test = Test()
         try:
-            t_7750: 'SafeIdentifier' = sid_461('orders')
-            t_7751: 'SqlBuilder' = SqlBuilder()
-            t_7751.append_safe('orders.user_id = users.id')
-            t_7753: 'SqlFragment' = t_7751.accumulated
-            sub_1111: 'Query' = from_(t_7750).where(t_7753)
-            t_7755: 'SafeIdentifier' = sid_461('users')
-            t_7756: 'SqlFragment' = exists_sql(sub_1111)
-            q_1112: 'Query' = from_(t_7755).where(t_7756)
-            s_1113: 'str27' = q_1112.to_sql().to_string()
-            t_7761: 'bool33' = s_1113 == 'SELECT * FROM users WHERE EXISTS (SELECT * FROM orders WHERE orders.user_id = users.id)'
-            def fn_7749() -> 'str27':
-                return str_cat_9688('exists in where: ', s_1113)
-            test_121.assert_(t_7761, fn_7749)
+            t_8906: 'SafeIdentifier' = sid_505('orders')
+            t_8907: 'SqlBuilder' = SqlBuilder()
+            t_8907.append_safe('orders.user_id = users.id')
+            t_8909: 'SqlFragment' = t_8907.accumulated
+            sub_1218: 'Query' = from_(t_8906).where(t_8909)
+            t_8911: 'SafeIdentifier' = sid_505('users')
+            t_8912: 'SqlFragment' = exists_sql(sub_1218)
+            q_1219: 'Query' = from_(t_8911).where(t_8912)
+            s_1220: 'str27' = q_1219.to_sql().to_string()
+            t_8917: 'bool33' = s_1220 == 'SELECT * FROM users WHERE EXISTS (SELECT * FROM orders WHERE orders.user_id = users.id)'
+            def fn_8905() -> 'str27':
+                return str_cat_10942('exists in where: ', s_1220)
+            test_121.assert_(t_8917, fn_8905)
         finally:
             test_121.soft_fail_to_hard()
 class TestCase144(TestCase46):
-    def test___safeIdentifierAcceptsValidNames__1602(self) -> None:
-        'safeIdentifier accepts valid names'
+    def test___updateQueryBasic__1771(self) -> None:
+        'UpdateQuery basic'
+        test_122: Test = Test()
+        try:
+            t_8892: 'SafeIdentifier' = sid_505('users')
+            t_8893: 'SafeIdentifier' = sid_505('name')
+            t_8894: 'SqlString' = SqlString('Alice')
+            t_8895: 'UpdateQuery' = update(t_8892).set(t_8893, t_8894)
+            t_8896: 'SqlBuilder' = SqlBuilder()
+            t_8896.append_safe('id = ')
+            t_8896.append_int32(1)
+            t_4443: 'SqlFragment'
+            t_4443 = t_8895.where(t_8896.accumulated).to_sql()
+            q_1222: 'SqlFragment' = t_4443
+            t_8903: 'bool33' = q_1222.to_string() == "UPDATE users SET name = 'Alice' WHERE id = 1"
+            def fn_8891() -> 'str27':
+                return 'update basic'
+            test_122.assert_(t_8903, fn_8891)
+        finally:
+            test_122.soft_fail_to_hard()
+class TestCase145(TestCase46):
+    def test___updateQueryMultipleSet__1773(self) -> None:
+        'UpdateQuery multiple SET'
+        test_123: Test = Test()
+        try:
+            t_8875: 'SafeIdentifier' = sid_505('users')
+            t_8876: 'SafeIdentifier' = sid_505('name')
+            t_8877: 'SqlString' = SqlString('Bob')
+            t_8881: 'UpdateQuery' = update(t_8875).set(t_8876, t_8877).set(sid_505('age'), SqlInt32(30))
+            t_8882: 'SqlBuilder' = SqlBuilder()
+            t_8882.append_safe('id = ')
+            t_8882.append_int32(2)
+            t_4428: 'SqlFragment'
+            t_4428 = t_8881.where(t_8882.accumulated).to_sql()
+            q_1224: 'SqlFragment' = t_4428
+            t_8889: 'bool33' = q_1224.to_string() == "UPDATE users SET name = 'Bob', age = 30 WHERE id = 2"
+            def fn_8874() -> 'str27':
+                return 'update multi set'
+            test_123.assert_(t_8889, fn_8874)
+        finally:
+            test_123.soft_fail_to_hard()
+class TestCase146(TestCase46):
+    def test___updateQueryMultipleWhere__1775(self) -> None:
+        'UpdateQuery multiple WHERE'
+        test_124: Test = Test()
+        try:
+            t_8856: 'SafeIdentifier' = sid_505('users')
+            t_8857: 'SafeIdentifier' = sid_505('active')
+            t_8858: 'SqlBoolean' = SqlBoolean(False)
+            t_8859: 'UpdateQuery' = update(t_8856).set(t_8857, t_8858)
+            t_8860: 'SqlBuilder' = SqlBuilder()
+            t_8860.append_safe('age < ')
+            t_8860.append_int32(18)
+            t_8864: 'UpdateQuery' = t_8859.where(t_8860.accumulated)
+            t_8865: 'SqlBuilder' = SqlBuilder()
+            t_8865.append_safe('role = ')
+            t_8865.append_string('guest')
+            t_4410: 'SqlFragment'
+            t_4410 = t_8864.where(t_8865.accumulated).to_sql()
+            q_1226: 'SqlFragment' = t_4410
+            t_8872: 'bool33' = q_1226.to_string() == "UPDATE users SET active = FALSE WHERE age < 18 AND role = 'guest'"
+            def fn_8855() -> 'str27':
+                return 'update multi where'
+            test_124.assert_(t_8872, fn_8855)
+        finally:
+            test_124.soft_fail_to_hard()
+class TestCase147(TestCase46):
+    def test___updateQueryOrWhere__1778(self) -> None:
+        'UpdateQuery orWhere'
+        test_125: Test = Test()
+        try:
+            t_8837: 'SafeIdentifier' = sid_505('users')
+            t_8838: 'SafeIdentifier' = sid_505('status')
+            t_8839: 'SqlString' = SqlString('banned')
+            t_8840: 'UpdateQuery' = update(t_8837).set(t_8838, t_8839)
+            t_8841: 'SqlBuilder' = SqlBuilder()
+            t_8841.append_safe('spam_count > ')
+            t_8841.append_int32(10)
+            t_8845: 'UpdateQuery' = t_8840.where(t_8841.accumulated)
+            t_8846: 'SqlBuilder' = SqlBuilder()
+            t_8846.append_safe('reported = ')
+            t_8846.append_boolean(True)
+            t_4389: 'SqlFragment'
+            t_4389 = t_8845.or_where(t_8846.accumulated).to_sql()
+            q_1228: 'SqlFragment' = t_4389
+            t_8853: 'bool33' = q_1228.to_string() == "UPDATE users SET status = 'banned' WHERE spam_count > 10 OR reported = TRUE"
+            def fn_8836() -> 'str27':
+                return 'update orWhere'
+            test_125.assert_(t_8853, fn_8836)
+        finally:
+            test_125.soft_fail_to_hard()
+class TestCase148(TestCase46):
+    def test___updateQueryBubblesWithoutWhere__1781(self) -> None:
+        'UpdateQuery bubbles without WHERE'
+        test_126: Test = Test()
+        try:
+            t_8830: 'SafeIdentifier'
+            t_8831: 'SafeIdentifier'
+            t_8832: 'SqlInt32'
+            did_bubble_1230: 'bool33'
+            try:
+                t_8830 = sid_505('users')
+                t_8831 = sid_505('x')
+                t_8832 = SqlInt32(1)
+                update(t_8830).set(t_8831, t_8832).to_sql()
+                did_bubble_1230 = False
+            except Exception37:
+                did_bubble_1230 = True
+            def fn_8829() -> 'str27':
+                return 'update without WHERE should bubble'
+            test_126.assert_(did_bubble_1230, fn_8829)
+        finally:
+            test_126.soft_fail_to_hard()
+class TestCase149(TestCase46):
+    def test___updateQueryBubblesWithoutSet__1782(self) -> None:
+        'UpdateQuery bubbles without SET'
+        test_127: Test = Test()
+        try:
+            t_8821: 'SafeIdentifier'
+            t_8822: 'SqlBuilder'
+            t_8825: 'SqlFragment'
+            did_bubble_1232: 'bool33'
+            try:
+                t_8821 = sid_505('users')
+                t_8822 = SqlBuilder()
+                t_8822.append_safe('id = ')
+                t_8822.append_int32(1)
+                t_8825 = t_8822.accumulated
+                update(t_8821).where(t_8825).to_sql()
+                did_bubble_1232 = False
+            except Exception37:
+                did_bubble_1232 = True
+            def fn_8820() -> 'str27':
+                return 'update without SET should bubble'
+            test_127.assert_(did_bubble_1232, fn_8820)
+        finally:
+            test_127.soft_fail_to_hard()
+class TestCase150(TestCase46):
+    def test___updateQueryWithLimit__1784(self) -> None:
+        'UpdateQuery with limit'
         test_128: Test = Test()
         try:
-            t_3806: 'SafeIdentifier'
-            t_3806 = safe_identifier('user_name')
-            id_1151: 'SafeIdentifier' = t_3806
-            t_7747: 'bool33' = id_1151.sql_value == 'user_name'
-            def fn_7744() -> 'str27':
-                return 'value should round-trip'
-            test_128.assert_(t_7747, fn_7744)
+            t_8807: 'SafeIdentifier' = sid_505('users')
+            t_8808: 'SafeIdentifier' = sid_505('active')
+            t_8809: 'SqlBoolean' = SqlBoolean(False)
+            t_8810: 'UpdateQuery' = update(t_8807).set(t_8808, t_8809)
+            t_8811: 'SqlBuilder' = SqlBuilder()
+            t_8811.append_safe('last_login < ')
+            t_8811.append_string('2024-01-01')
+            t_4352: 'UpdateQuery'
+            t_4352 = t_8810.where(t_8811.accumulated).limit(100)
+            t_4353: 'SqlFragment'
+            t_4353 = t_4352.to_sql()
+            q_1234: 'SqlFragment' = t_4353
+            t_8818: 'bool33' = q_1234.to_string() == "UPDATE users SET active = FALSE WHERE last_login < '2024-01-01' LIMIT 100"
+            def fn_8806() -> 'str27':
+                return 'update limit'
+            test_128.assert_(t_8818, fn_8806)
         finally:
             test_128.soft_fail_to_hard()
-class TestCase145(TestCase46):
-    def test___safeIdentifierRejectsEmptyString__1603(self) -> None:
-        'safeIdentifier rejects empty string'
+class TestCase151(TestCase46):
+    def test___updateQueryEscaping__1786(self) -> None:
+        'UpdateQuery escaping'
         test_129: Test = Test()
         try:
-            did_bubble_1153: 'bool33'
-            try:
-                safe_identifier('')
-                did_bubble_1153 = False
-            except Exception37:
-                did_bubble_1153 = True
-            def fn_7741() -> 'str27':
-                return 'empty string should bubble'
-            test_129.assert_(did_bubble_1153, fn_7741)
+            t_8793: 'SafeIdentifier' = sid_505('users')
+            t_8794: 'SafeIdentifier' = sid_505('bio')
+            t_8795: 'SqlString' = SqlString("It's a test")
+            t_8796: 'UpdateQuery' = update(t_8793).set(t_8794, t_8795)
+            t_8797: 'SqlBuilder' = SqlBuilder()
+            t_8797.append_safe('id = ')
+            t_8797.append_int32(1)
+            t_4337: 'SqlFragment'
+            t_4337 = t_8796.where(t_8797.accumulated).to_sql()
+            q_1236: 'SqlFragment' = t_4337
+            t_8804: 'bool33' = q_1236.to_string() == "UPDATE users SET bio = 'It''s a test' WHERE id = 1"
+            def fn_8792() -> 'str27':
+                return 'update escaping'
+            test_129.assert_(t_8804, fn_8792)
         finally:
             test_129.soft_fail_to_hard()
-class TestCase146(TestCase46):
-    def test___safeIdentifierRejectsLeadingDigit__1604(self) -> None:
-        'safeIdentifier rejects leading digit'
+class TestCase152(TestCase46):
+    def test___deleteQueryBasic__1788(self) -> None:
+        'DeleteQuery basic'
         test_130: Test = Test()
         try:
-            did_bubble_1155: 'bool33'
-            try:
-                safe_identifier('1col')
-                did_bubble_1155 = False
-            except Exception37:
-                did_bubble_1155 = True
-            def fn_7738() -> 'str27':
-                return 'leading digit should bubble'
-            test_130.assert_(did_bubble_1155, fn_7738)
+            t_8782: 'SafeIdentifier' = sid_505('users')
+            t_8783: 'SqlBuilder' = SqlBuilder()
+            t_8783.append_safe('id = ')
+            t_8783.append_int32(1)
+            t_8786: 'SqlFragment' = t_8783.accumulated
+            t_4322: 'SqlFragment'
+            t_4322 = delete_from(t_8782).where(t_8786).to_sql()
+            q_1238: 'SqlFragment' = t_4322
+            t_8790: 'bool33' = q_1238.to_string() == 'DELETE FROM users WHERE id = 1'
+            def fn_8781() -> 'str27':
+                return 'delete basic'
+            test_130.assert_(t_8790, fn_8781)
         finally:
             test_130.soft_fail_to_hard()
-class TestCase147(TestCase46):
-    def test___safeIdentifierRejectsSqlMetacharacters__1605(self) -> None:
-        'safeIdentifier rejects SQL metacharacters'
+class TestCase153(TestCase46):
+    def test___deleteQueryMultipleWhere__1790(self) -> None:
+        'DeleteQuery multiple WHERE'
         test_131: Test = Test()
         try:
-            cases_1157: 'Sequence29[str27]' = ('name); DROP TABLE', "col'", 'a b', 'a-b', 'a.b', 'a;b')
-            def fn_7735(c_1158: 'str27') -> 'None':
-                did_bubble_1159: 'bool33'
-                try:
-                    safe_identifier(c_1158)
-                    did_bubble_1159 = False
-                except Exception37:
-                    did_bubble_1159 = True
-                def fn_7732() -> 'str27':
-                    return str_cat_9688('should reject: ', c_1158)
-                test_131.assert_(did_bubble_1159, fn_7732)
-            list_for_each_9680(cases_1157, fn_7735)
+            t_8766: 'SafeIdentifier' = sid_505('logs')
+            t_8767: 'SqlBuilder' = SqlBuilder()
+            t_8767.append_safe('created_at < ')
+            t_8767.append_string('2024-01-01')
+            t_8770: 'SqlFragment' = t_8767.accumulated
+            t_8771: 'DeleteQuery' = delete_from(t_8766).where(t_8770)
+            t_8772: 'SqlBuilder' = SqlBuilder()
+            t_8772.append_safe('level = ')
+            t_8772.append_string('debug')
+            t_4310: 'SqlFragment'
+            t_4310 = t_8771.where(t_8772.accumulated).to_sql()
+            q_1240: 'SqlFragment' = t_4310
+            t_8779: 'bool33' = q_1240.to_string() == "DELETE FROM logs WHERE created_at < '2024-01-01' AND level = 'debug'"
+            def fn_8765() -> 'str27':
+                return 'delete multi where'
+            test_131.assert_(t_8779, fn_8765)
         finally:
             test_131.soft_fail_to_hard()
-class TestCase148(TestCase46):
-    def test___tableDefFieldLookupFound__1606(self) -> None:
-        'TableDef field lookup - found'
+class TestCase154(TestCase46):
+    def test___deleteQueryBubblesWithoutWhere__1793(self) -> None:
+        'DeleteQuery bubbles without WHERE'
         test_132: Test = Test()
         try:
-            t_3783: 'SafeIdentifier'
-            t_3783 = safe_identifier('users')
-            t_3784: 'SafeIdentifier' = t_3783
-            t_3785: 'SafeIdentifier'
-            t_3785 = safe_identifier('name')
-            t_3786: 'SafeIdentifier' = t_3785
-            t_7722: 'StringField' = StringField()
-            t_7723: 'FieldDef' = FieldDef(t_3786, t_7722, False)
-            t_3789: 'SafeIdentifier'
-            t_3789 = safe_identifier('age')
-            t_3790: 'SafeIdentifier' = t_3789
-            t_7724: 'IntField' = IntField()
-            t_7725: 'FieldDef' = FieldDef(t_3790, t_7724, False)
-            td_1161: 'TableDef' = TableDef(t_3784, (t_7723, t_7725))
-            t_3794: 'FieldDef'
-            t_3794 = td_1161.field('age')
-            f_1162: 'FieldDef' = t_3794
-            t_7730: 'bool33' = f_1162.name.sql_value == 'age'
-            def fn_7721() -> 'str27':
-                return 'should find age field'
-            test_132.assert_(t_7730, fn_7721)
+            did_bubble_1242: 'bool33'
+            try:
+                delete_from(sid_505('users')).to_sql()
+                did_bubble_1242 = False
+            except Exception37:
+                did_bubble_1242 = True
+            def fn_8761() -> 'str27':
+                return 'delete without WHERE should bubble'
+            test_132.assert_(did_bubble_1242, fn_8761)
         finally:
             test_132.soft_fail_to_hard()
-class TestCase149(TestCase46):
-    def test___tableDefFieldLookupNotFoundBubbles__1607(self) -> None:
-        'TableDef field lookup - not found bubbles'
+class TestCase155(TestCase46):
+    def test___deleteQueryOrWhere__1794(self) -> None:
+        'DeleteQuery orWhere'
         test_133: Test = Test()
         try:
-            t_3774: 'SafeIdentifier'
-            t_3774 = safe_identifier('users')
-            t_3775: 'SafeIdentifier' = t_3774
-            t_3776: 'SafeIdentifier'
-            t_3776 = safe_identifier('name')
-            t_3777: 'SafeIdentifier' = t_3776
-            t_7716: 'StringField' = StringField()
-            t_7717: 'FieldDef' = FieldDef(t_3777, t_7716, False)
-            td_1164: 'TableDef' = TableDef(t_3775, (t_7717,))
-            did_bubble_1165: 'bool33'
-            try:
-                td_1164.field('nonexistent')
-                did_bubble_1165 = False
-            except Exception37:
-                did_bubble_1165 = True
-            def fn_7715() -> 'str27':
-                return 'unknown field should bubble'
-            test_133.assert_(did_bubble_1165, fn_7715)
+            t_8746: 'SafeIdentifier' = sid_505('sessions')
+            t_8747: 'SqlBuilder' = SqlBuilder()
+            t_8747.append_safe('expired = ')
+            t_8747.append_boolean(True)
+            t_8750: 'SqlFragment' = t_8747.accumulated
+            t_8751: 'DeleteQuery' = delete_from(t_8746).where(t_8750)
+            t_8752: 'SqlBuilder' = SqlBuilder()
+            t_8752.append_safe('created_at < ')
+            t_8752.append_string('2023-01-01')
+            t_4289: 'SqlFragment'
+            t_4289 = t_8751.or_where(t_8752.accumulated).to_sql()
+            q_1244: 'SqlFragment' = t_4289
+            t_8759: 'bool33' = q_1244.to_string() == "DELETE FROM sessions WHERE expired = TRUE OR created_at < '2023-01-01'"
+            def fn_8745() -> 'str27':
+                return 'delete orWhere'
+            test_133.assert_(t_8759, fn_8745)
         finally:
             test_133.soft_fail_to_hard()
-class TestCase150(TestCase46):
-    def test___fieldDefNullableFlag__1608(self) -> None:
-        'FieldDef nullable flag'
+class TestCase156(TestCase46):
+    def test___deleteQueryWithLimit__1797(self) -> None:
+        'DeleteQuery with limit'
         test_134: Test = Test()
         try:
-            t_3762: 'SafeIdentifier'
-            t_3762 = safe_identifier('email')
-            t_3763: 'SafeIdentifier' = t_3762
-            t_7704: 'StringField' = StringField()
-            required_1167: 'FieldDef' = FieldDef(t_3763, t_7704, False)
-            t_3766: 'SafeIdentifier'
-            t_3766 = safe_identifier('bio')
-            t_3767: 'SafeIdentifier' = t_3766
-            t_7706: 'StringField' = StringField()
-            optional_1168: 'FieldDef' = FieldDef(t_3767, t_7706, True)
-            t_7710: 'bool33' = not required_1167.nullable
-            def fn_7703() -> 'str27':
-                return 'required field should not be nullable'
-            test_134.assert_(t_7710, fn_7703)
-            t_7712: 'bool33' = optional_1168.nullable
-            def fn_7702() -> 'str27':
-                return 'optional field should be nullable'
-            test_134.assert_(t_7712, fn_7702)
+            t_8735: 'SafeIdentifier' = sid_505('logs')
+            t_8736: 'SqlBuilder' = SqlBuilder()
+            t_8736.append_safe('level = ')
+            t_8736.append_string('debug')
+            t_8739: 'SqlFragment' = t_8736.accumulated
+            t_4270: 'DeleteQuery'
+            t_4270 = delete_from(t_8735).where(t_8739).limit(1000)
+            t_4271: 'SqlFragment'
+            t_4271 = t_4270.to_sql()
+            q_1246: 'SqlFragment' = t_4271
+            t_8743: 'bool33' = q_1246.to_string() == "DELETE FROM logs WHERE level = 'debug' LIMIT 1000"
+            def fn_8734() -> 'str27':
+                return 'delete limit'
+            test_134.assert_(t_8743, fn_8734)
         finally:
             test_134.soft_fail_to_hard()
-class TestCase151(TestCase46):
-    def test___stringEscaping__1609(self) -> None:
-        'string escaping'
-        test_138: Test = Test()
-        try:
-            def build_1294(name_1296: 'str27') -> 'str27':
-                t_7684: 'SqlBuilder' = SqlBuilder()
-                t_7684.append_safe('select * from hi where name = ')
-                t_7684.append_string(name_1296)
-                return t_7684.accumulated.to_string()
-            def build_wrong_1295(name_1298: 'str27') -> 'str27':
-                return str_cat_9688("select * from hi where name = '", name_1298, "'")
-            actual_1611: 'str27' = build_1294('world')
-            t_7694: 'bool33' = actual_1611 == "select * from hi where name = 'world'"
-            def fn_7691() -> 'str27':
-                return str_cat_9688('expected build("world") == (', "select * from hi where name = 'world'", ') not (', actual_1611, ')')
-            test_138.assert_(t_7694, fn_7691)
-            bobby_tables_1300: 'str27' = "Robert'); drop table hi;--"
-            actual_1613: 'str27' = build_1294("Robert'); drop table hi;--")
-            t_7698: 'bool33' = actual_1613 == "select * from hi where name = 'Robert''); drop table hi;--'"
-            def fn_7690() -> 'str27':
-                return str_cat_9688('expected build(bobbyTables) == (', "select * from hi where name = 'Robert''); drop table hi;--'", ') not (', actual_1613, ')')
-            test_138.assert_(t_7698, fn_7690)
-            def fn_7689() -> 'str27':
-                return "expected buildWrong(bobbyTables) == (select * from hi where name = 'Robert'); drop table hi;--') not (select * from hi where name = 'Robert'); drop table hi;--')"
-            test_138.assert_(True, fn_7689)
-        finally:
-            test_138.soft_fail_to_hard()
-class TestCase152(TestCase46):
-    def test___stringEdgeCases__1617(self) -> None:
-        'string edge cases'
-        test_139: Test = Test()
-        try:
-            t_7652: 'SqlBuilder' = SqlBuilder()
-            t_7652.append_safe('v = ')
-            t_7652.append_string('')
-            actual_1618: 'str27' = t_7652.accumulated.to_string()
-            t_7658: 'bool33' = actual_1618 == "v = ''"
-            def fn_7651() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, "").toString() == (', "v = ''", ') not (', actual_1618, ')')
-            test_139.assert_(t_7658, fn_7651)
-            t_7660: 'SqlBuilder' = SqlBuilder()
-            t_7660.append_safe('v = ')
-            t_7660.append_string("a''b")
-            actual_1621: 'str27' = t_7660.accumulated.to_string()
-            t_7666: 'bool33' = actual_1621 == "v = 'a''''b'"
-            def fn_7650() -> 'str27':
-                return str_cat_9688("expected stringExpr(`-work//src/`.sql, true, \"v = \", \\interpolate, \"a''b\").toString() == (", "v = 'a''''b'", ') not (', actual_1621, ')')
-            test_139.assert_(t_7666, fn_7650)
-            t_7668: 'SqlBuilder' = SqlBuilder()
-            t_7668.append_safe('v = ')
-            t_7668.append_string('Hello \u4e16\u754c')
-            actual_1624: 'str27' = t_7668.accumulated.to_string()
-            t_7674: 'bool33' = actual_1624 == "v = 'Hello \u4e16\u754c'"
-            def fn_7649() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, "Hello \u4e16\u754c").toString() == (', "v = 'Hello \u4e16\u754c'", ') not (', actual_1624, ')')
-            test_139.assert_(t_7674, fn_7649)
-            t_7676: 'SqlBuilder' = SqlBuilder()
-            t_7676.append_safe('v = ')
-            t_7676.append_string('Line1\nLine2')
-            actual_1627: 'str27' = t_7676.accumulated.to_string()
-            t_7682: 'bool33' = actual_1627 == "v = 'Line1\nLine2'"
-            def fn_7648() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, "Line1\\nLine2").toString() == (', "v = 'Line1\nLine2'", ') not (', actual_1627, ')')
-            test_139.assert_(t_7682, fn_7648)
-        finally:
-            test_139.soft_fail_to_hard()
-class TestCase153(TestCase46):
-    def test___numbersAndBooleans__1630(self) -> None:
-        'numbers and booleans'
-        test_140: Test = Test()
-        try:
-            t_7623: 'SqlBuilder' = SqlBuilder()
-            t_7623.append_safe('select ')
-            t_7623.append_int32(42)
-            t_7623.append_safe(', ')
-            t_7623.append_int64(43)
-            t_7623.append_safe(', ')
-            t_7623.append_float64(19.99)
-            t_7623.append_safe(', ')
-            t_7623.append_boolean(True)
-            t_7623.append_safe(', ')
-            t_7623.append_boolean(False)
-            actual_1631: 'str27' = t_7623.accumulated.to_string()
-            t_7637: 'bool33' = actual_1631 == 'select 42, 43, 19.99, TRUE, FALSE'
-            def fn_7622() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "select ", \\interpolate, 42, ", ", \\interpolate, 43, ", ", \\interpolate, 19.99, ", ", \\interpolate, true, ", ", \\interpolate, false).toString() == (', 'select 42, 43, 19.99, TRUE, FALSE', ') not (', actual_1631, ')')
-            test_140.assert_(t_7637, fn_7622)
-            t_3707: 'date26'
-            t_3707 = date_9713(2024, 12, 25)
-            date_1303: 'date26' = t_3707
-            t_7639: 'SqlBuilder' = SqlBuilder()
-            t_7639.append_safe('insert into t values (')
-            t_7639.append_date(date_1303)
-            t_7639.append_safe(')')
-            actual_1634: 'str27' = t_7639.accumulated.to_string()
-            t_7646: 'bool33' = actual_1634 == "insert into t values ('2024-12-25')"
-            def fn_7621() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "insert into t values (", \\interpolate, date, ")").toString() == (', "insert into t values ('2024-12-25')", ') not (', actual_1634, ')')
-            test_140.assert_(t_7646, fn_7621)
-        finally:
-            test_140.soft_fail_to_hard()
-class TestCase154(TestCase46):
-    def test___lists__1637(self) -> None:
-        'lists'
+class TestCase157(TestCase46):
+    def test___safeIdentifierAcceptsValidNames__1799(self) -> None:
+        'safeIdentifier accepts valid names'
         test_141: Test = Test()
         try:
-            t_7567: 'SqlBuilder' = SqlBuilder()
-            t_7567.append_safe('v IN (')
-            t_7567.append_string_list(('a', 'b', "c'd"))
-            t_7567.append_safe(')')
-            actual_1638: 'str27' = t_7567.accumulated.to_string()
-            t_7574: 'bool33' = actual_1638 == "v IN ('a', 'b', 'c''d')"
-            def fn_7566() -> 'str27':
-                return str_cat_9688("expected stringExpr(`-work//src/`.sql, true, \"v IN (\", \\interpolate, list(\"a\", \"b\", \"c'd\"), \")\").toString() == (", "v IN ('a', 'b', 'c''d')", ') not (', actual_1638, ')')
-            test_141.assert_(t_7574, fn_7566)
-            t_7576: 'SqlBuilder' = SqlBuilder()
-            t_7576.append_safe('v IN (')
-            t_7576.append_int32_list((1, 2, 3))
-            t_7576.append_safe(')')
-            actual_1641: 'str27' = t_7576.accumulated.to_string()
-            t_7583: 'bool33' = actual_1641 == 'v IN (1, 2, 3)'
-            def fn_7565() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v IN (", \\interpolate, list(1, 2, 3), ")").toString() == (', 'v IN (1, 2, 3)', ') not (', actual_1641, ')')
-            test_141.assert_(t_7583, fn_7565)
-            t_7585: 'SqlBuilder' = SqlBuilder()
-            t_7585.append_safe('v IN (')
-            t_7585.append_int64_list((1, 2))
-            t_7585.append_safe(')')
-            actual_1644: 'str27' = t_7585.accumulated.to_string()
-            t_7592: 'bool33' = actual_1644 == 'v IN (1, 2)'
-            def fn_7564() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v IN (", \\interpolate, list(1, 2), ")").toString() == (', 'v IN (1, 2)', ') not (', actual_1644, ')')
-            test_141.assert_(t_7592, fn_7564)
-            t_7594: 'SqlBuilder' = SqlBuilder()
-            t_7594.append_safe('v IN (')
-            t_7594.append_float64_list((1.0, 2.0))
-            t_7594.append_safe(')')
-            actual_1647: 'str27' = t_7594.accumulated.to_string()
-            t_7601: 'bool33' = actual_1647 == 'v IN (1.0, 2.0)'
-            def fn_7563() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v IN (", \\interpolate, list(1.0, 2.0), ")").toString() == (', 'v IN (1.0, 2.0)', ') not (', actual_1647, ')')
-            test_141.assert_(t_7601, fn_7563)
-            t_7603: 'SqlBuilder' = SqlBuilder()
-            t_7603.append_safe('v IN (')
-            t_7603.append_boolean_list((True, False))
-            t_7603.append_safe(')')
-            actual_1650: 'str27' = t_7603.accumulated.to_string()
-            t_7610: 'bool33' = actual_1650 == 'v IN (TRUE, FALSE)'
-            def fn_7562() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v IN (", \\interpolate, list(true, false), ")").toString() == (', 'v IN (TRUE, FALSE)', ') not (', actual_1650, ')')
-            test_141.assert_(t_7610, fn_7562)
-            t_3679: 'date26'
-            t_3679 = date_9713(2024, 1, 1)
-            t_3680: 'date26' = t_3679
-            t_3681: 'date26'
-            t_3681 = date_9713(2024, 12, 25)
-            t_3682: 'date26' = t_3681
-            dates_1305: 'Sequence29[date26]' = (t_3680, t_3682)
-            t_7612: 'SqlBuilder' = SqlBuilder()
-            t_7612.append_safe('v IN (')
-            t_7612.append_date_list(dates_1305)
-            t_7612.append_safe(')')
-            actual_1653: 'str27' = t_7612.accumulated.to_string()
-            t_7619: 'bool33' = actual_1653 == "v IN ('2024-01-01', '2024-12-25')"
-            def fn_7561() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v IN (", \\interpolate, dates, ")").toString() == (', "v IN ('2024-01-01', '2024-12-25')", ') not (', actual_1653, ')')
-            test_141.assert_(t_7619, fn_7561)
+            t_4259: 'SafeIdentifier'
+            t_4259 = safe_identifier('user_name')
+            id_1284: 'SafeIdentifier' = t_4259
+            t_8732: 'bool33' = id_1284.sql_value == 'user_name'
+            def fn_8729() -> 'str27':
+                return 'value should round-trip'
+            test_141.assert_(t_8732, fn_8729)
         finally:
             test_141.soft_fail_to_hard()
-class TestCase155(TestCase46):
-    def test___sqlFloat64_naNRendersAsNull__1656(self) -> None:
-        'SqlFloat64 NaN renders as NULL'
+class TestCase158(TestCase46):
+    def test___safeIdentifierRejectsEmptyString__1800(self) -> None:
+        'safeIdentifier rejects empty string'
         test_142: Test = Test()
         try:
-            nan_1307: 'float38'
-            nan_1307 = 0.0 / 0.0
-            t_7553: 'SqlBuilder' = SqlBuilder()
-            t_7553.append_safe('v = ')
-            t_7553.append_float64(nan_1307)
-            actual_1657: 'str27' = t_7553.accumulated.to_string()
-            t_7559: 'bool33' = actual_1657 == 'v = NULL'
-            def fn_7552() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, nan).toString() == (', 'v = NULL', ') not (', actual_1657, ')')
-            test_142.assert_(t_7559, fn_7552)
+            did_bubble_1286: 'bool33'
+            try:
+                safe_identifier('')
+                did_bubble_1286 = False
+            except Exception37:
+                did_bubble_1286 = True
+            def fn_8726() -> 'str27':
+                return 'empty string should bubble'
+            test_142.assert_(did_bubble_1286, fn_8726)
         finally:
             test_142.soft_fail_to_hard()
-class TestCase156(TestCase46):
-    def test___sqlFloat64_infinityRendersAsNull__1660(self) -> None:
-        'SqlFloat64 Infinity renders as NULL'
+class TestCase159(TestCase46):
+    def test___safeIdentifierRejectsLeadingDigit__1801(self) -> None:
+        'safeIdentifier rejects leading digit'
         test_143: Test = Test()
         try:
-            inf_1309: 'float38'
-            inf_1309 = 1.0 / 0.0
-            t_7544: 'SqlBuilder' = SqlBuilder()
-            t_7544.append_safe('v = ')
-            t_7544.append_float64(inf_1309)
-            actual_1661: 'str27' = t_7544.accumulated.to_string()
-            t_7550: 'bool33' = actual_1661 == 'v = NULL'
-            def fn_7543() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, inf).toString() == (', 'v = NULL', ') not (', actual_1661, ')')
-            test_143.assert_(t_7550, fn_7543)
+            did_bubble_1288: 'bool33'
+            try:
+                safe_identifier('1col')
+                did_bubble_1288 = False
+            except Exception37:
+                did_bubble_1288 = True
+            def fn_8723() -> 'str27':
+                return 'leading digit should bubble'
+            test_143.assert_(did_bubble_1288, fn_8723)
         finally:
             test_143.soft_fail_to_hard()
-class TestCase157(TestCase46):
-    def test___sqlFloat64_negativeInfinityRendersAsNull__1664(self) -> None:
-        'SqlFloat64 negative Infinity renders as NULL'
+class TestCase160(TestCase46):
+    def test___safeIdentifierRejectsSqlMetacharacters__1802(self) -> None:
+        'safeIdentifier rejects SQL metacharacters'
         test_144: Test = Test()
         try:
-            ninf_1311: 'float38'
-            ninf_1311 = -1.0 / 0.0
-            t_7535: 'SqlBuilder' = SqlBuilder()
-            t_7535.append_safe('v = ')
-            t_7535.append_float64(ninf_1311)
-            actual_1665: 'str27' = t_7535.accumulated.to_string()
-            t_7541: 'bool33' = actual_1665 == 'v = NULL'
-            def fn_7534() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, ninf).toString() == (', 'v = NULL', ') not (', actual_1665, ')')
-            test_144.assert_(t_7541, fn_7534)
+            cases_1290: 'Sequence29[str27]' = ('name); DROP TABLE', "col'", 'a b', 'a-b', 'a.b', 'a;b')
+            def fn_8720(c_1291: 'str27') -> 'None':
+                did_bubble_1292: 'bool33'
+                try:
+                    safe_identifier(c_1291)
+                    did_bubble_1292 = False
+                except Exception37:
+                    did_bubble_1292 = True
+                def fn_8717() -> 'str27':
+                    return str_cat_10942('should reject: ', c_1291)
+                test_144.assert_(did_bubble_1292, fn_8717)
+            list_for_each_10934(cases_1290, fn_8720)
         finally:
             test_144.soft_fail_to_hard()
-class TestCase158(TestCase46):
-    def test___sqlFloat64_normalValuesStillWork__1668(self) -> None:
-        'SqlFloat64 normal values still work'
+class TestCase161(TestCase46):
+    def test___tableDefFieldLookupFound__1803(self) -> None:
+        'TableDef field lookup - found'
         test_145: Test = Test()
         try:
-            t_7510: 'SqlBuilder' = SqlBuilder()
-            t_7510.append_safe('v = ')
-            t_7510.append_float64(3.14)
-            actual_1669: 'str27' = t_7510.accumulated.to_string()
-            t_7516: 'bool33' = actual_1669 == 'v = 3.14'
-            def fn_7509() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, 3.14).toString() == (', 'v = 3.14', ') not (', actual_1669, ')')
-            test_145.assert_(t_7516, fn_7509)
-            t_7518: 'SqlBuilder' = SqlBuilder()
-            t_7518.append_safe('v = ')
-            t_7518.append_float64(0.0)
-            actual_1672: 'str27' = t_7518.accumulated.to_string()
-            t_7524: 'bool33' = actual_1672 == 'v = 0.0'
-            def fn_7508() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, 0.0).toString() == (', 'v = 0.0', ') not (', actual_1672, ')')
-            test_145.assert_(t_7524, fn_7508)
-            t_7526: 'SqlBuilder' = SqlBuilder()
-            t_7526.append_safe('v = ')
-            t_7526.append_float64(-42.5)
-            actual_1675: 'str27' = t_7526.accumulated.to_string()
-            t_7532: 'bool33' = actual_1675 == 'v = -42.5'
-            def fn_7507() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, -42.5).toString() == (', 'v = -42.5', ') not (', actual_1675, ')')
-            test_145.assert_(t_7532, fn_7507)
+            t_4236: 'SafeIdentifier'
+            t_4236 = safe_identifier('users')
+            t_4237: 'SafeIdentifier' = t_4236
+            t_4238: 'SafeIdentifier'
+            t_4238 = safe_identifier('name')
+            t_4239: 'SafeIdentifier' = t_4238
+            t_8707: 'StringField' = StringField()
+            t_8708: 'FieldDef' = FieldDef(t_4239, t_8707, False)
+            t_4242: 'SafeIdentifier'
+            t_4242 = safe_identifier('age')
+            t_4243: 'SafeIdentifier' = t_4242
+            t_8709: 'IntField' = IntField()
+            t_8710: 'FieldDef' = FieldDef(t_4243, t_8709, False)
+            td_1294: 'TableDef' = TableDef(t_4237, (t_8708, t_8710))
+            t_4247: 'FieldDef'
+            t_4247 = td_1294.field('age')
+            f_1295: 'FieldDef' = t_4247
+            t_8715: 'bool33' = f_1295.name.sql_value == 'age'
+            def fn_8706() -> 'str27':
+                return 'should find age field'
+            test_145.assert_(t_8715, fn_8706)
         finally:
             test_145.soft_fail_to_hard()
-class TestCase159(TestCase46):
-    def test___sqlDateRendersWithQuotes__1678(self) -> None:
-        'SqlDate renders with quotes'
+class TestCase162(TestCase46):
+    def test___tableDefFieldLookupNotFoundBubbles__1804(self) -> None:
+        'TableDef field lookup - not found bubbles'
         test_146: Test = Test()
         try:
-            t_3575: 'date26'
-            t_3575 = date_9713(2024, 6, 15)
-            d_1314: 'date26' = t_3575
-            t_7499: 'SqlBuilder' = SqlBuilder()
-            t_7499.append_safe('v = ')
-            t_7499.append_date(d_1314)
-            actual_1679: 'str27' = t_7499.accumulated.to_string()
-            t_7505: 'bool33' = actual_1679 == "v = '2024-06-15'"
-            def fn_7498() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, d).toString() == (', "v = '2024-06-15'", ') not (', actual_1679, ')')
-            test_146.assert_(t_7505, fn_7498)
+            t_4227: 'SafeIdentifier'
+            t_4227 = safe_identifier('users')
+            t_4228: 'SafeIdentifier' = t_4227
+            t_4229: 'SafeIdentifier'
+            t_4229 = safe_identifier('name')
+            t_4230: 'SafeIdentifier' = t_4229
+            t_8701: 'StringField' = StringField()
+            t_8702: 'FieldDef' = FieldDef(t_4230, t_8701, False)
+            td_1297: 'TableDef' = TableDef(t_4228, (t_8702,))
+            did_bubble_1298: 'bool33'
+            try:
+                td_1297.field('nonexistent')
+                did_bubble_1298 = False
+            except Exception37:
+                did_bubble_1298 = True
+            def fn_8700() -> 'str27':
+                return 'unknown field should bubble'
+            test_146.assert_(did_bubble_1298, fn_8700)
         finally:
             test_146.soft_fail_to_hard()
-class TestCase160(TestCase46):
-    def test___nesting__1682(self) -> None:
-        'nesting'
+class TestCase163(TestCase46):
+    def test___fieldDefNullableFlag__1805(self) -> None:
+        'FieldDef nullable flag'
         test_147: Test = Test()
         try:
-            name_1316: 'str27' = 'Someone'
-            t_7467: 'SqlBuilder' = SqlBuilder()
-            t_7467.append_safe('where p.last_name = ')
-            t_7467.append_string('Someone')
-            condition_1317: 'SqlFragment' = t_7467.accumulated
-            t_7471: 'SqlBuilder' = SqlBuilder()
-            t_7471.append_safe('select p.id from person p ')
-            t_7471.append_fragment(condition_1317)
-            actual_1684: 'str27' = t_7471.accumulated.to_string()
-            t_7477: 'bool33' = actual_1684 == "select p.id from person p where p.last_name = 'Someone'"
-            def fn_7466() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "select p.id from person p ", \\interpolate, condition).toString() == (', "select p.id from person p where p.last_name = 'Someone'", ') not (', actual_1684, ')')
-            test_147.assert_(t_7477, fn_7466)
-            t_7479: 'SqlBuilder' = SqlBuilder()
-            t_7479.append_safe('select p.id from person p ')
-            t_7479.append_part(condition_1317.to_source())
-            actual_1687: 'str27' = t_7479.accumulated.to_string()
-            t_7486: 'bool33' = actual_1687 == "select p.id from person p where p.last_name = 'Someone'"
-            def fn_7465() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "select p.id from person p ", \\interpolate, condition.toSource()).toString() == (', "select p.id from person p where p.last_name = 'Someone'", ') not (', actual_1687, ')')
-            test_147.assert_(t_7486, fn_7465)
-            parts_1318: 'Sequence29[SqlPart]' = (SqlString("a'b"), SqlInt32(3))
-            t_7490: 'SqlBuilder' = SqlBuilder()
-            t_7490.append_safe('select ')
-            t_7490.append_part_list(parts_1318)
-            actual_1690: 'str27' = t_7490.accumulated.to_string()
-            t_7496: 'bool33' = actual_1690 == "select 'a''b', 3"
-            def fn_7464() -> 'str27':
-                return str_cat_9688('expected stringExpr(`-work//src/`.sql, true, "select ", \\interpolate, parts).toString() == (', "select 'a''b', 3", ') not (', actual_1690, ')')
-            test_147.assert_(t_7496, fn_7464)
+            t_4215: 'SafeIdentifier'
+            t_4215 = safe_identifier('email')
+            t_4216: 'SafeIdentifier' = t_4215
+            t_8689: 'StringField' = StringField()
+            required_1300: 'FieldDef' = FieldDef(t_4216, t_8689, False)
+            t_4219: 'SafeIdentifier'
+            t_4219 = safe_identifier('bio')
+            t_4220: 'SafeIdentifier' = t_4219
+            t_8691: 'StringField' = StringField()
+            optional_1301: 'FieldDef' = FieldDef(t_4220, t_8691, True)
+            t_8695: 'bool33' = not required_1300.nullable
+            def fn_8688() -> 'str27':
+                return 'required field should not be nullable'
+            test_147.assert_(t_8695, fn_8688)
+            t_8697: 'bool33' = optional_1301.nullable
+            def fn_8687() -> 'str27':
+                return 'optional field should be nullable'
+            test_147.assert_(t_8697, fn_8687)
         finally:
             test_147.soft_fail_to_hard()
+class TestCase164(TestCase46):
+    def test___stringEscaping__1806(self) -> None:
+        'string escaping'
+        test_151: Test = Test()
+        try:
+            def build_1427(name_1429: 'str27') -> 'str27':
+                t_8669: 'SqlBuilder' = SqlBuilder()
+                t_8669.append_safe('select * from hi where name = ')
+                t_8669.append_string(name_1429)
+                return t_8669.accumulated.to_string()
+            def build_wrong_1428(name_1431: 'str27') -> 'str27':
+                return str_cat_10942("select * from hi where name = '", name_1431, "'")
+            actual_1808: 'str27' = build_1427('world')
+            t_8679: 'bool33' = actual_1808 == "select * from hi where name = 'world'"
+            def fn_8676() -> 'str27':
+                return str_cat_10942('expected build("world") == (', "select * from hi where name = 'world'", ') not (', actual_1808, ')')
+            test_151.assert_(t_8679, fn_8676)
+            bobby_tables_1433: 'str27' = "Robert'); drop table hi;--"
+            actual_1810: 'str27' = build_1427("Robert'); drop table hi;--")
+            t_8683: 'bool33' = actual_1810 == "select * from hi where name = 'Robert''); drop table hi;--'"
+            def fn_8675() -> 'str27':
+                return str_cat_10942('expected build(bobbyTables) == (', "select * from hi where name = 'Robert''); drop table hi;--'", ') not (', actual_1810, ')')
+            test_151.assert_(t_8683, fn_8675)
+            def fn_8674() -> 'str27':
+                return "expected buildWrong(bobbyTables) == (select * from hi where name = 'Robert'); drop table hi;--') not (select * from hi where name = 'Robert'); drop table hi;--')"
+            test_151.assert_(True, fn_8674)
+        finally:
+            test_151.soft_fail_to_hard()
+class TestCase165(TestCase46):
+    def test___stringEdgeCases__1814(self) -> None:
+        'string edge cases'
+        test_152: Test = Test()
+        try:
+            t_8637: 'SqlBuilder' = SqlBuilder()
+            t_8637.append_safe('v = ')
+            t_8637.append_string('')
+            actual_1815: 'str27' = t_8637.accumulated.to_string()
+            t_8643: 'bool33' = actual_1815 == "v = ''"
+            def fn_8636() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, "").toString() == (', "v = ''", ') not (', actual_1815, ')')
+            test_152.assert_(t_8643, fn_8636)
+            t_8645: 'SqlBuilder' = SqlBuilder()
+            t_8645.append_safe('v = ')
+            t_8645.append_string("a''b")
+            actual_1818: 'str27' = t_8645.accumulated.to_string()
+            t_8651: 'bool33' = actual_1818 == "v = 'a''''b'"
+            def fn_8635() -> 'str27':
+                return str_cat_10942("expected stringExpr(`-work//src/`.sql, true, \"v = \", \\interpolate, \"a''b\").toString() == (", "v = 'a''''b'", ') not (', actual_1818, ')')
+            test_152.assert_(t_8651, fn_8635)
+            t_8653: 'SqlBuilder' = SqlBuilder()
+            t_8653.append_safe('v = ')
+            t_8653.append_string('Hello \u4e16\u754c')
+            actual_1821: 'str27' = t_8653.accumulated.to_string()
+            t_8659: 'bool33' = actual_1821 == "v = 'Hello \u4e16\u754c'"
+            def fn_8634() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, "Hello \u4e16\u754c").toString() == (', "v = 'Hello \u4e16\u754c'", ') not (', actual_1821, ')')
+            test_152.assert_(t_8659, fn_8634)
+            t_8661: 'SqlBuilder' = SqlBuilder()
+            t_8661.append_safe('v = ')
+            t_8661.append_string('Line1\nLine2')
+            actual_1824: 'str27' = t_8661.accumulated.to_string()
+            t_8667: 'bool33' = actual_1824 == "v = 'Line1\nLine2'"
+            def fn_8633() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, "Line1\\nLine2").toString() == (', "v = 'Line1\nLine2'", ') not (', actual_1824, ')')
+            test_152.assert_(t_8667, fn_8633)
+        finally:
+            test_152.soft_fail_to_hard()
+class TestCase166(TestCase46):
+    def test___numbersAndBooleans__1827(self) -> None:
+        'numbers and booleans'
+        test_153: Test = Test()
+        try:
+            t_8608: 'SqlBuilder' = SqlBuilder()
+            t_8608.append_safe('select ')
+            t_8608.append_int32(42)
+            t_8608.append_safe(', ')
+            t_8608.append_int64(43)
+            t_8608.append_safe(', ')
+            t_8608.append_float64(19.99)
+            t_8608.append_safe(', ')
+            t_8608.append_boolean(True)
+            t_8608.append_safe(', ')
+            t_8608.append_boolean(False)
+            actual_1828: 'str27' = t_8608.accumulated.to_string()
+            t_8622: 'bool33' = actual_1828 == 'select 42, 43, 19.99, TRUE, FALSE'
+            def fn_8607() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "select ", \\interpolate, 42, ", ", \\interpolate, 43, ", ", \\interpolate, 19.99, ", ", \\interpolate, true, ", ", \\interpolate, false).toString() == (', 'select 42, 43, 19.99, TRUE, FALSE', ') not (', actual_1828, ')')
+            test_153.assert_(t_8622, fn_8607)
+            t_4160: 'date26'
+            t_4160 = date_10967(2024, 12, 25)
+            date_1436: 'date26' = t_4160
+            t_8624: 'SqlBuilder' = SqlBuilder()
+            t_8624.append_safe('insert into t values (')
+            t_8624.append_date(date_1436)
+            t_8624.append_safe(')')
+            actual_1831: 'str27' = t_8624.accumulated.to_string()
+            t_8631: 'bool33' = actual_1831 == "insert into t values ('2024-12-25')"
+            def fn_8606() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "insert into t values (", \\interpolate, date, ")").toString() == (', "insert into t values ('2024-12-25')", ') not (', actual_1831, ')')
+            test_153.assert_(t_8631, fn_8606)
+        finally:
+            test_153.soft_fail_to_hard()
+class TestCase167(TestCase46):
+    def test___lists__1834(self) -> None:
+        'lists'
+        test_154: Test = Test()
+        try:
+            t_8552: 'SqlBuilder' = SqlBuilder()
+            t_8552.append_safe('v IN (')
+            t_8552.append_string_list(('a', 'b', "c'd"))
+            t_8552.append_safe(')')
+            actual_1835: 'str27' = t_8552.accumulated.to_string()
+            t_8559: 'bool33' = actual_1835 == "v IN ('a', 'b', 'c''d')"
+            def fn_8551() -> 'str27':
+                return str_cat_10942("expected stringExpr(`-work//src/`.sql, true, \"v IN (\", \\interpolate, list(\"a\", \"b\", \"c'd\"), \")\").toString() == (", "v IN ('a', 'b', 'c''d')", ') not (', actual_1835, ')')
+            test_154.assert_(t_8559, fn_8551)
+            t_8561: 'SqlBuilder' = SqlBuilder()
+            t_8561.append_safe('v IN (')
+            t_8561.append_int32_list((1, 2, 3))
+            t_8561.append_safe(')')
+            actual_1838: 'str27' = t_8561.accumulated.to_string()
+            t_8568: 'bool33' = actual_1838 == 'v IN (1, 2, 3)'
+            def fn_8550() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v IN (", \\interpolate, list(1, 2, 3), ")").toString() == (', 'v IN (1, 2, 3)', ') not (', actual_1838, ')')
+            test_154.assert_(t_8568, fn_8550)
+            t_8570: 'SqlBuilder' = SqlBuilder()
+            t_8570.append_safe('v IN (')
+            t_8570.append_int64_list((1, 2))
+            t_8570.append_safe(')')
+            actual_1841: 'str27' = t_8570.accumulated.to_string()
+            t_8577: 'bool33' = actual_1841 == 'v IN (1, 2)'
+            def fn_8549() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v IN (", \\interpolate, list(1, 2), ")").toString() == (', 'v IN (1, 2)', ') not (', actual_1841, ')')
+            test_154.assert_(t_8577, fn_8549)
+            t_8579: 'SqlBuilder' = SqlBuilder()
+            t_8579.append_safe('v IN (')
+            t_8579.append_float64_list((1.0, 2.0))
+            t_8579.append_safe(')')
+            actual_1844: 'str27' = t_8579.accumulated.to_string()
+            t_8586: 'bool33' = actual_1844 == 'v IN (1.0, 2.0)'
+            def fn_8548() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v IN (", \\interpolate, list(1.0, 2.0), ")").toString() == (', 'v IN (1.0, 2.0)', ') not (', actual_1844, ')')
+            test_154.assert_(t_8586, fn_8548)
+            t_8588: 'SqlBuilder' = SqlBuilder()
+            t_8588.append_safe('v IN (')
+            t_8588.append_boolean_list((True, False))
+            t_8588.append_safe(')')
+            actual_1847: 'str27' = t_8588.accumulated.to_string()
+            t_8595: 'bool33' = actual_1847 == 'v IN (TRUE, FALSE)'
+            def fn_8547() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v IN (", \\interpolate, list(true, false), ")").toString() == (', 'v IN (TRUE, FALSE)', ') not (', actual_1847, ')')
+            test_154.assert_(t_8595, fn_8547)
+            t_4132: 'date26'
+            t_4132 = date_10967(2024, 1, 1)
+            t_4133: 'date26' = t_4132
+            t_4134: 'date26'
+            t_4134 = date_10967(2024, 12, 25)
+            t_4135: 'date26' = t_4134
+            dates_1438: 'Sequence29[date26]' = (t_4133, t_4135)
+            t_8597: 'SqlBuilder' = SqlBuilder()
+            t_8597.append_safe('v IN (')
+            t_8597.append_date_list(dates_1438)
+            t_8597.append_safe(')')
+            actual_1850: 'str27' = t_8597.accumulated.to_string()
+            t_8604: 'bool33' = actual_1850 == "v IN ('2024-01-01', '2024-12-25')"
+            def fn_8546() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v IN (", \\interpolate, dates, ")").toString() == (', "v IN ('2024-01-01', '2024-12-25')", ') not (', actual_1850, ')')
+            test_154.assert_(t_8604, fn_8546)
+        finally:
+            test_154.soft_fail_to_hard()
+class TestCase168(TestCase46):
+    def test___sqlFloat64_naNRendersAsNull__1853(self) -> None:
+        'SqlFloat64 NaN renders as NULL'
+        test_155: Test = Test()
+        try:
+            nan_1440: 'float38'
+            nan_1440 = 0.0 / 0.0
+            t_8538: 'SqlBuilder' = SqlBuilder()
+            t_8538.append_safe('v = ')
+            t_8538.append_float64(nan_1440)
+            actual_1854: 'str27' = t_8538.accumulated.to_string()
+            t_8544: 'bool33' = actual_1854 == 'v = NULL'
+            def fn_8537() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, nan).toString() == (', 'v = NULL', ') not (', actual_1854, ')')
+            test_155.assert_(t_8544, fn_8537)
+        finally:
+            test_155.soft_fail_to_hard()
+class TestCase169(TestCase46):
+    def test___sqlFloat64_infinityRendersAsNull__1857(self) -> None:
+        'SqlFloat64 Infinity renders as NULL'
+        test_156: Test = Test()
+        try:
+            inf_1442: 'float38'
+            inf_1442 = 1.0 / 0.0
+            t_8529: 'SqlBuilder' = SqlBuilder()
+            t_8529.append_safe('v = ')
+            t_8529.append_float64(inf_1442)
+            actual_1858: 'str27' = t_8529.accumulated.to_string()
+            t_8535: 'bool33' = actual_1858 == 'v = NULL'
+            def fn_8528() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, inf).toString() == (', 'v = NULL', ') not (', actual_1858, ')')
+            test_156.assert_(t_8535, fn_8528)
+        finally:
+            test_156.soft_fail_to_hard()
+class TestCase170(TestCase46):
+    def test___sqlFloat64_negativeInfinityRendersAsNull__1861(self) -> None:
+        'SqlFloat64 negative Infinity renders as NULL'
+        test_157: Test = Test()
+        try:
+            ninf_1444: 'float38'
+            ninf_1444 = -1.0 / 0.0
+            t_8520: 'SqlBuilder' = SqlBuilder()
+            t_8520.append_safe('v = ')
+            t_8520.append_float64(ninf_1444)
+            actual_1862: 'str27' = t_8520.accumulated.to_string()
+            t_8526: 'bool33' = actual_1862 == 'v = NULL'
+            def fn_8519() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, ninf).toString() == (', 'v = NULL', ') not (', actual_1862, ')')
+            test_157.assert_(t_8526, fn_8519)
+        finally:
+            test_157.soft_fail_to_hard()
+class TestCase171(TestCase46):
+    def test___sqlFloat64_normalValuesStillWork__1865(self) -> None:
+        'SqlFloat64 normal values still work'
+        test_158: Test = Test()
+        try:
+            t_8495: 'SqlBuilder' = SqlBuilder()
+            t_8495.append_safe('v = ')
+            t_8495.append_float64(3.14)
+            actual_1866: 'str27' = t_8495.accumulated.to_string()
+            t_8501: 'bool33' = actual_1866 == 'v = 3.14'
+            def fn_8494() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, 3.14).toString() == (', 'v = 3.14', ') not (', actual_1866, ')')
+            test_158.assert_(t_8501, fn_8494)
+            t_8503: 'SqlBuilder' = SqlBuilder()
+            t_8503.append_safe('v = ')
+            t_8503.append_float64(0.0)
+            actual_1869: 'str27' = t_8503.accumulated.to_string()
+            t_8509: 'bool33' = actual_1869 == 'v = 0.0'
+            def fn_8493() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, 0.0).toString() == (', 'v = 0.0', ') not (', actual_1869, ')')
+            test_158.assert_(t_8509, fn_8493)
+            t_8511: 'SqlBuilder' = SqlBuilder()
+            t_8511.append_safe('v = ')
+            t_8511.append_float64(-42.5)
+            actual_1872: 'str27' = t_8511.accumulated.to_string()
+            t_8517: 'bool33' = actual_1872 == 'v = -42.5'
+            def fn_8492() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, -42.5).toString() == (', 'v = -42.5', ') not (', actual_1872, ')')
+            test_158.assert_(t_8517, fn_8492)
+        finally:
+            test_158.soft_fail_to_hard()
+class TestCase172(TestCase46):
+    def test___sqlDateRendersWithQuotes__1875(self) -> None:
+        'SqlDate renders with quotes'
+        test_159: Test = Test()
+        try:
+            t_4028: 'date26'
+            t_4028 = date_10967(2024, 6, 15)
+            d_1447: 'date26' = t_4028
+            t_8484: 'SqlBuilder' = SqlBuilder()
+            t_8484.append_safe('v = ')
+            t_8484.append_date(d_1447)
+            actual_1876: 'str27' = t_8484.accumulated.to_string()
+            t_8490: 'bool33' = actual_1876 == "v = '2024-06-15'"
+            def fn_8483() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "v = ", \\interpolate, d).toString() == (', "v = '2024-06-15'", ') not (', actual_1876, ')')
+            test_159.assert_(t_8490, fn_8483)
+        finally:
+            test_159.soft_fail_to_hard()
+class TestCase173(TestCase46):
+    def test___nesting__1879(self) -> None:
+        'nesting'
+        test_160: Test = Test()
+        try:
+            name_1449: 'str27' = 'Someone'
+            t_8452: 'SqlBuilder' = SqlBuilder()
+            t_8452.append_safe('where p.last_name = ')
+            t_8452.append_string('Someone')
+            condition_1450: 'SqlFragment' = t_8452.accumulated
+            t_8456: 'SqlBuilder' = SqlBuilder()
+            t_8456.append_safe('select p.id from person p ')
+            t_8456.append_fragment(condition_1450)
+            actual_1881: 'str27' = t_8456.accumulated.to_string()
+            t_8462: 'bool33' = actual_1881 == "select p.id from person p where p.last_name = 'Someone'"
+            def fn_8451() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "select p.id from person p ", \\interpolate, condition).toString() == (', "select p.id from person p where p.last_name = 'Someone'", ') not (', actual_1881, ')')
+            test_160.assert_(t_8462, fn_8451)
+            t_8464: 'SqlBuilder' = SqlBuilder()
+            t_8464.append_safe('select p.id from person p ')
+            t_8464.append_part(condition_1450.to_source())
+            actual_1884: 'str27' = t_8464.accumulated.to_string()
+            t_8471: 'bool33' = actual_1884 == "select p.id from person p where p.last_name = 'Someone'"
+            def fn_8450() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "select p.id from person p ", \\interpolate, condition.toSource()).toString() == (', "select p.id from person p where p.last_name = 'Someone'", ') not (', actual_1884, ')')
+            test_160.assert_(t_8471, fn_8450)
+            parts_1451: 'Sequence29[SqlPart]' = (SqlString("a'b"), SqlInt32(3))
+            t_8475: 'SqlBuilder' = SqlBuilder()
+            t_8475.append_safe('select ')
+            t_8475.append_part_list(parts_1451)
+            actual_1887: 'str27' = t_8475.accumulated.to_string()
+            t_8481: 'bool33' = actual_1887 == "select 'a''b', 3"
+            def fn_8449() -> 'str27':
+                return str_cat_10942('expected stringExpr(`-work//src/`.sql, true, "select ", \\interpolate, parts).toString() == (', "select 'a''b', 3", ') not (', actual_1887, ')')
+            test_160.assert_(t_8481, fn_8449)
+        finally:
+            test_160.soft_fail_to_hard()

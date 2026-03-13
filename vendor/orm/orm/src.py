@@ -4,1354 +4,1507 @@ from typing import Sequence as Sequence29, Dict as Dict34, MutableSequence as Mu
 from types import MappingProxyType as MappingProxyType32
 from temper_core import Label as Label35, Pair as Pair25, string_from_code_point as string_from_code_point44, map_builder_set as map_builder_set0, list_for_each as list_for_each1, mapped_to_map as mapped_to_map2, mapped_has as mapped_has4, string_count_between as string_count_between7, str_cat as str_cat8, int_to_string as int_to_string9, string_to_int32 as string_to_int3210, string_to_int64 as string_to_int6411, string_to_float64 as string_to_float6412, date_from_iso_string as date_from_iso_string13, list_get as list_get14, int_add as int_add15, mapped_to_list as mapped_to_list16, list_join as list_join17, list_builder_add_all as list_builder_add_all18, date_to_string as date_to_string19, string_for_each as string_for_each20, float64_to_string as float64_to_string21, map_constructor as map_constructor22, string_get as string_get23, string_next as string_next24
 from datetime import date as date26
-map_builder_set_9679 = map_builder_set0
-list_for_each_9680 = list_for_each1
-mapped_to_map_9681 = mapped_to_map2
-list_9682 = list3
-mapped_has_9683 = mapped_has4
-tuple_9685 = tuple5
-len_9686 = len6
-string_count_between_9687 = string_count_between7
-str_cat_9688 = str_cat8
-int_to_string_9689 = int_to_string9
-string_to_int32_9690 = string_to_int3210
-string_to_int64_9691 = string_to_int6411
-string_to_float64_9692 = string_to_float6412
-date_from_iso_string_9693 = date_from_iso_string13
-list_get_9694 = list_get14
-int_add_9695 = int_add15
-mapped_to_list_9696 = mapped_to_list16
-list_join_9697 = list_join17
-list_builder_add_all_9698 = list_builder_add_all18
-date_to_string_9702 = date_to_string19
-string_for_each_9704 = string_for_each20
-float64_to_string_9705 = float64_to_string21
-map_constructor_9706 = map_constructor22
-string_get_9707 = string_get23
-string_next_9708 = string_next24
-pair_9710 = Pair25
-date_9713 = date26
+map_builder_set_10933 = map_builder_set0
+list_for_each_10934 = list_for_each1
+mapped_to_map_10935 = mapped_to_map2
+list_10936 = list3
+mapped_has_10937 = mapped_has4
+tuple_10939 = tuple5
+len_10940 = len6
+string_count_between_10941 = string_count_between7
+str_cat_10942 = str_cat8
+int_to_string_10943 = int_to_string9
+string_to_int32_10944 = string_to_int3210
+string_to_int64_10945 = string_to_int6411
+string_to_float64_10946 = string_to_float6412
+date_from_iso_string_10947 = date_from_iso_string13
+list_get_10948 = list_get14
+int_add_10949 = int_add15
+mapped_to_list_10950 = mapped_to_list16
+list_join_10951 = list_join17
+list_builder_add_all_10952 = list_builder_add_all18
+date_to_string_10956 = date_to_string19
+string_for_each_10958 = string_for_each20
+float64_to_string_10959 = float64_to_string21
+map_constructor_10960 = map_constructor22
+string_get_10961 = string_get23
+string_next_10962 = string_next24
+pair_10964 = Pair25
+date_10967 = date26
 class ChangesetError:
-    field_466: 'str27'
-    message_467: 'str27'
-    __slots__ = ('field_466', 'message_467')
-    def __init__(this_251, field_469: 'str27', message_470: 'str27') -> None:
-        this_251.field_466 = field_469
-        this_251.message_467 = message_470
+    field_510: 'str27'
+    message_511: 'str27'
+    __slots__ = ('field_510', 'message_511')
+    def __init__(this_273, field_513: 'str27', message_514: 'str27') -> None:
+        this_273.field_510 = field_513
+        this_273.message_511 = message_514
     @property
-    def field(this_1360) -> 'str27':
-        return this_1360.field_466
+    def field(this_1502) -> 'str27':
+        return this_1502.field_510
     @property
-    def message(this_1363) -> 'str27':
-        return this_1363.message_467
+    def message(this_1505) -> 'str27':
+        return this_1505.message_511
 class Changeset(metaclass = ABCMeta28):
-    def cast(this_152, allowed_fields_480: 'Sequence29[SafeIdentifier]') -> 'Changeset':
+    def cast(this_165, allowed_fields_524: 'Sequence29[SafeIdentifier]') -> 'Changeset':
         raise RuntimeError30()
-    def validate_required(this_153, fields_483: 'Sequence29[SafeIdentifier]') -> 'Changeset':
+    def validate_required(this_166, fields_527: 'Sequence29[SafeIdentifier]') -> 'Changeset':
         raise RuntimeError30()
-    def validate_length(this_154, field_486: 'SafeIdentifier', min_487: 'int31', max_488: 'int31') -> 'Changeset':
+    def validate_length(this_167, field_530: 'SafeIdentifier', min_531: 'int31', max_532: 'int31') -> 'Changeset':
         raise RuntimeError30()
-    def validate_int(this_155, field_491: 'SafeIdentifier') -> 'Changeset':
+    def validate_int(this_168, field_535: 'SafeIdentifier') -> 'Changeset':
         raise RuntimeError30()
-    def validate_int64(this_156, field_494: 'SafeIdentifier') -> 'Changeset':
+    def validate_int64(this_169, field_538: 'SafeIdentifier') -> 'Changeset':
         raise RuntimeError30()
-    def validate_float(this_157, field_497: 'SafeIdentifier') -> 'Changeset':
+    def validate_float(this_170, field_541: 'SafeIdentifier') -> 'Changeset':
         raise RuntimeError30()
-    def validate_bool(this_158, field_500: 'SafeIdentifier') -> 'Changeset':
+    def validate_bool(this_171, field_544: 'SafeIdentifier') -> 'Changeset':
         raise RuntimeError30()
-    def to_insert_sql(this_159) -> 'SqlFragment':
+    def to_insert_sql(this_172) -> 'SqlFragment':
         raise RuntimeError30()
-    def to_update_sql(this_160, id_505: 'int31') -> 'SqlFragment':
+    def to_update_sql(this_173, id_549: 'int31') -> 'SqlFragment':
         raise RuntimeError30()
-class ChangesetImpl_161(Changeset):
-    table_def_507: 'TableDef'
-    params_508: 'MappingProxyType32[str27, str27]'
-    changes_509: 'MappingProxyType32[str27, str27]'
-    errors_510: 'Sequence29[ChangesetError]'
-    is_valid_511: 'bool33'
-    __slots__ = ('table_def_507', 'params_508', 'changes_509', 'errors_510', 'is_valid_511')
+class ChangesetImpl_174(Changeset):
+    table_def_551: 'TableDef'
+    params_552: 'MappingProxyType32[str27, str27]'
+    changes_553: 'MappingProxyType32[str27, str27]'
+    errors_554: 'Sequence29[ChangesetError]'
+    is_valid_555: 'bool33'
+    __slots__ = ('table_def_551', 'params_552', 'changes_553', 'errors_554', 'is_valid_555')
     @property
-    def table_def(this_162) -> 'TableDef':
-        return this_162.table_def_507
+    def table_def(this_175) -> 'TableDef':
+        return this_175.table_def_551
     @property
-    def changes(this_163) -> 'MappingProxyType32[str27, str27]':
-        return this_163.changes_509
+    def changes(this_176) -> 'MappingProxyType32[str27, str27]':
+        return this_176.changes_553
     @property
-    def errors(this_164) -> 'Sequence29[ChangesetError]':
-        return this_164.errors_510
+    def errors(this_177) -> 'Sequence29[ChangesetError]':
+        return this_177.errors_554
     @property
-    def is_valid(this_165) -> 'bool33':
-        return this_165.is_valid_511
-    def cast(this_166, allowed_fields_521: 'Sequence29[SafeIdentifier]') -> 'Changeset':
-        mb_523: 'Dict34[str27, str27]' = {}
-        def fn_9583(f_524: 'SafeIdentifier') -> 'None':
-            t_9581: 'str27'
-            t_9578: 'str27' = f_524.sql_value
-            val_525: 'str27' = this_166.params_508.get(t_9578, '')
-            if not (not val_525):
-                t_9581 = f_524.sql_value
-                map_builder_set_9679(mb_523, t_9581, val_525)
-        list_for_each_9680(allowed_fields_521, fn_9583)
-        return ChangesetImpl_161(this_166.table_def_507, this_166.params_508, mapped_to_map_9681(mb_523), this_166.errors_510, this_166.is_valid_511)
-    def validate_required(this_167, fields_527: 'Sequence29[SafeIdentifier]') -> 'Changeset':
-        return_284: 'Changeset'
-        t_9576: 'Sequence29[ChangesetError]'
-        t_5480: 'TableDef'
-        t_5481: 'MappingProxyType32[str27, str27]'
-        t_5482: 'MappingProxyType32[str27, str27]'
-        with Label35() as fn_528:
-            if not this_167.is_valid_511:
-                return_284 = this_167
-                fn_528.break_()
-            eb_529: 'MutableSequence36[ChangesetError]' = list_9682(this_167.errors_510)
-            valid_530: 'bool33' = True
-            def fn_9572(f_531: 'SafeIdentifier') -> 'None':
-                nonlocal valid_530
-                t_9570: 'ChangesetError'
-                t_9567: 'str27' = f_531.sql_value
-                if not mapped_has_9683(this_167.changes_509, t_9567):
-                    t_9570 = ChangesetError(f_531.sql_value, 'is required')
-                    eb_529.append(t_9570)
-                    valid_530 = False
-            list_for_each_9680(fields_527, fn_9572)
-            t_5480 = this_167.table_def_507
-            t_5481 = this_167.params_508
-            t_5482 = this_167.changes_509
-            t_9576 = tuple_9685(eb_529)
-            return_284 = ChangesetImpl_161(t_5480, t_5481, t_5482, t_9576, valid_530)
-        return return_284
-    def validate_length(this_168, field_533: 'SafeIdentifier', min_534: 'int31', max_535: 'int31') -> 'Changeset':
-        return_285: 'Changeset'
-        t_9554: 'str27'
-        t_9565: 'Sequence29[ChangesetError]'
-        t_5463: 'bool33'
-        t_5469: 'TableDef'
-        t_5470: 'MappingProxyType32[str27, str27]'
-        t_5471: 'MappingProxyType32[str27, str27]'
-        with Label35() as fn_536:
-            if not this_168.is_valid_511:
-                return_285 = this_168
-                fn_536.break_()
-            t_9554 = field_533.sql_value
-            val_537: 'str27' = this_168.changes_509.get(t_9554, '')
-            len_538: 'int31' = string_count_between_9687(val_537, 0, len_9686(val_537))
-            if len_538 < min_534:
-                t_5463 = True
-            else:
-                t_5463 = len_538 > max_535
-            if t_5463:
-                msg_539: 'str27' = str_cat_9688('must be between ', int_to_string_9689(min_534), ' and ', int_to_string_9689(max_535), ' characters')
-                eb_540: 'MutableSequence36[ChangesetError]' = list_9682(this_168.errors_510)
-                eb_540.append(ChangesetError(field_533.sql_value, msg_539))
-                t_5469 = this_168.table_def_507
-                t_5470 = this_168.params_508
-                t_5471 = this_168.changes_509
-                t_9565 = tuple_9685(eb_540)
-                return_285 = ChangesetImpl_161(t_5469, t_5470, t_5471, t_9565, False)
-                fn_536.break_()
-            return_285 = this_168
-        return return_285
-    def validate_int(this_169, field_542: 'SafeIdentifier') -> 'Changeset':
-        return_286: 'Changeset'
-        t_9545: 'str27'
-        t_9552: 'Sequence29[ChangesetError]'
-        t_5454: 'TableDef'
-        t_5455: 'MappingProxyType32[str27, str27]'
-        t_5456: 'MappingProxyType32[str27, str27]'
-        with Label35() as fn_543:
-            if not this_169.is_valid_511:
-                return_286 = this_169
-                fn_543.break_()
-            t_9545 = field_542.sql_value
-            val_544: 'str27' = this_169.changes_509.get(t_9545, '')
-            if not val_544:
-                return_286 = this_169
-                fn_543.break_()
-            parse_ok_545: 'bool33'
-            try:
-                string_to_int32_9690(val_544)
-                parse_ok_545 = True
-            except Exception37:
-                parse_ok_545 = False
-            if not parse_ok_545:
-                eb_546: 'MutableSequence36[ChangesetError]' = list_9682(this_169.errors_510)
-                eb_546.append(ChangesetError(field_542.sql_value, 'must be an integer'))
-                t_5454 = this_169.table_def_507
-                t_5455 = this_169.params_508
-                t_5456 = this_169.changes_509
-                t_9552 = tuple_9685(eb_546)
-                return_286 = ChangesetImpl_161(t_5454, t_5455, t_5456, t_9552, False)
-                fn_543.break_()
-            return_286 = this_169
-        return return_286
-    def validate_int64(this_170, field_548: 'SafeIdentifier') -> 'Changeset':
-        return_287: 'Changeset'
-        t_9536: 'str27'
-        t_9543: 'Sequence29[ChangesetError]'
-        t_5441: 'TableDef'
-        t_5442: 'MappingProxyType32[str27, str27]'
-        t_5443: 'MappingProxyType32[str27, str27]'
-        with Label35() as fn_549:
-            if not this_170.is_valid_511:
-                return_287 = this_170
-                fn_549.break_()
-            t_9536 = field_548.sql_value
-            val_550: 'str27' = this_170.changes_509.get(t_9536, '')
-            if not val_550:
-                return_287 = this_170
-                fn_549.break_()
-            parse_ok_551: 'bool33'
-            try:
-                string_to_int64_9691(val_550)
-                parse_ok_551 = True
-            except Exception37:
-                parse_ok_551 = False
-            if not parse_ok_551:
-                eb_552: 'MutableSequence36[ChangesetError]' = list_9682(this_170.errors_510)
-                eb_552.append(ChangesetError(field_548.sql_value, 'must be a 64-bit integer'))
-                t_5441 = this_170.table_def_507
-                t_5442 = this_170.params_508
-                t_5443 = this_170.changes_509
-                t_9543 = tuple_9685(eb_552)
-                return_287 = ChangesetImpl_161(t_5441, t_5442, t_5443, t_9543, False)
-                fn_549.break_()
-            return_287 = this_170
-        return return_287
-    def validate_float(this_171, field_554: 'SafeIdentifier') -> 'Changeset':
-        return_288: 'Changeset'
-        t_9527: 'str27'
-        t_9534: 'Sequence29[ChangesetError]'
-        t_5428: 'TableDef'
-        t_5429: 'MappingProxyType32[str27, str27]'
-        t_5430: 'MappingProxyType32[str27, str27]'
-        with Label35() as fn_555:
-            if not this_171.is_valid_511:
-                return_288 = this_171
-                fn_555.break_()
-            t_9527 = field_554.sql_value
-            val_556: 'str27' = this_171.changes_509.get(t_9527, '')
-            if not val_556:
-                return_288 = this_171
-                fn_555.break_()
-            parse_ok_557: 'bool33'
-            try:
-                string_to_float64_9692(val_556)
-                parse_ok_557 = True
-            except Exception37:
-                parse_ok_557 = False
-            if not parse_ok_557:
-                eb_558: 'MutableSequence36[ChangesetError]' = list_9682(this_171.errors_510)
-                eb_558.append(ChangesetError(field_554.sql_value, 'must be a number'))
-                t_5428 = this_171.table_def_507
-                t_5429 = this_171.params_508
-                t_5430 = this_171.changes_509
-                t_9534 = tuple_9685(eb_558)
-                return_288 = ChangesetImpl_161(t_5428, t_5429, t_5430, t_9534, False)
-                fn_555.break_()
-            return_288 = this_171
-        return return_288
-    def validate_bool(this_172, field_560: 'SafeIdentifier') -> 'Changeset':
-        return_289: 'Changeset'
-        t_9518: 'str27'
-        t_9525: 'Sequence29[ChangesetError]'
-        t_5403: 'bool33'
-        t_5404: 'bool33'
-        t_5406: 'bool33'
-        t_5407: 'bool33'
-        t_5409: 'bool33'
-        t_5415: 'TableDef'
-        t_5416: 'MappingProxyType32[str27, str27]'
-        t_5417: 'MappingProxyType32[str27, str27]'
-        with Label35() as fn_561:
-            if not this_172.is_valid_511:
-                return_289 = this_172
-                fn_561.break_()
-            t_9518 = field_560.sql_value
-            val_562: 'str27' = this_172.changes_509.get(t_9518, '')
-            if not val_562:
-                return_289 = this_172
-                fn_561.break_()
-            is_true_563: 'bool33'
-            if val_562 == 'true':
-                is_true_563 = True
-            else:
-                if val_562 == '1':
-                    t_5404 = True
-                else:
-                    if val_562 == 'yes':
-                        t_5403 = True
-                    else:
-                        t_5403 = val_562 == 'on'
-                    t_5404 = t_5403
-                is_true_563 = t_5404
-            is_false_564: 'bool33'
-            if val_562 == 'false':
-                is_false_564 = True
-            else:
-                if val_562 == '0':
-                    t_5407 = True
-                else:
-                    if val_562 == 'no':
-                        t_5406 = True
-                    else:
-                        t_5406 = val_562 == 'off'
-                    t_5407 = t_5406
-                is_false_564 = t_5407
-            if not is_true_563:
-                t_5409 = not is_false_564
-            else:
-                t_5409 = False
-            if t_5409:
-                eb_565: 'MutableSequence36[ChangesetError]' = list_9682(this_172.errors_510)
-                eb_565.append(ChangesetError(field_560.sql_value, 'must be a boolean (true/false/1/0/yes/no/on/off)'))
-                t_5415 = this_172.table_def_507
-                t_5416 = this_172.params_508
-                t_5417 = this_172.changes_509
-                t_9525 = tuple_9685(eb_565)
-                return_289 = ChangesetImpl_161(t_5415, t_5416, t_5417, t_9525, False)
-                fn_561.break_()
-            return_289 = this_172
-        return return_289
-    def parse_bool_sql_part_566(this_173, val_567: 'str27') -> 'SqlBoolean':
-        return_290: 'SqlBoolean'
-        t_5392: 'bool33'
-        t_5393: 'bool33'
-        t_5394: 'bool33'
-        t_5396: 'bool33'
-        t_5397: 'bool33'
-        t_5398: 'bool33'
-        with Label35() as fn_568:
-            if val_567 == 'true':
-                t_5394 = True
-            else:
-                if val_567 == '1':
-                    t_5393 = True
-                else:
-                    if val_567 == 'yes':
-                        t_5392 = True
-                    else:
-                        t_5392 = val_567 == 'on'
-                    t_5393 = t_5392
-                t_5394 = t_5393
-            if t_5394:
-                return_290 = SqlBoolean(True)
-                fn_568.break_()
-            if val_567 == 'false':
-                t_5398 = True
-            else:
-                if val_567 == '0':
-                    t_5397 = True
-                else:
-                    if val_567 == 'no':
-                        t_5396 = True
-                    else:
-                        t_5396 = val_567 == 'off'
-                    t_5397 = t_5396
-                t_5398 = t_5397
-            if t_5398:
-                return_290 = SqlBoolean(False)
-                fn_568.break_()
-            raise RuntimeError30()
-        return return_290
-    def value_to_sql_part_569(this_174, field_def_570: 'FieldDef', val_571: 'str27') -> 'SqlPart':
-        return_291: 'SqlPart'
-        t_5379: 'int31'
-        t_5382: 'int64_23'
-        t_5385: 'float38'
-        t_5390: 'date26'
+    def is_valid(this_178) -> 'bool33':
+        return this_178.is_valid_555
+    def cast(this_179, allowed_fields_565: 'Sequence29[SafeIdentifier]') -> 'Changeset':
+        mb_567: 'Dict34[str27, str27]' = {}
+        def fn_10837(f_568: 'SafeIdentifier') -> 'None':
+            t_10835: 'str27'
+            t_10832: 'str27' = f_568.sql_value
+            val_569: 'str27' = this_179.params_552.get(t_10832, '')
+            if not (not val_569):
+                t_10835 = f_568.sql_value
+                map_builder_set_10933(mb_567, t_10835, val_569)
+        list_for_each_10934(allowed_fields_565, fn_10837)
+        return ChangesetImpl_174(this_179.table_def_551, this_179.params_552, mapped_to_map_10935(mb_567), this_179.errors_554, this_179.is_valid_555)
+    def validate_required(this_180, fields_571: 'Sequence29[SafeIdentifier]') -> 'Changeset':
+        return_306: 'Changeset'
+        t_10830: 'Sequence29[ChangesetError]'
+        t_6226: 'TableDef'
+        t_6227: 'MappingProxyType32[str27, str27]'
+        t_6228: 'MappingProxyType32[str27, str27]'
         with Label35() as fn_572:
-            ft_573: 'FieldType' = field_def_570.field_type
-            if isinstance39(ft_573, StringField):
-                return_291 = SqlString(val_571)
+            if not this_180.is_valid_555:
+                return_306 = this_180
                 fn_572.break_()
-            if isinstance39(ft_573, IntField):
-                t_5379 = string_to_int32_9690(val_571)
-                return_291 = SqlInt32(t_5379)
-                fn_572.break_()
-            if isinstance39(ft_573, Int64Field):
-                t_5382 = string_to_int64_9691(val_571)
-                return_291 = SqlInt64(t_5382)
-                fn_572.break_()
-            if isinstance39(ft_573, FloatField):
-                t_5385 = string_to_float64_9692(val_571)
-                return_291 = SqlFloat64(t_5385)
-                fn_572.break_()
-            if isinstance39(ft_573, BoolField):
-                return_291 = this_174.parse_bool_sql_part_566(val_571)
-                fn_572.break_()
-            if isinstance39(ft_573, DateField):
-                t_5390 = date_from_iso_string_9693(val_571)
-                return_291 = SqlDate(t_5390)
-                fn_572.break_()
-            raise RuntimeError30()
-        return return_291
-    def to_insert_sql(this_175) -> 'SqlFragment':
-        t_9466: 'int31'
-        t_9471: 'str27'
-        t_9472: 'bool33'
-        t_9477: 'int31'
-        t_9479: 'str27'
-        t_9483: 'str27'
-        t_9498: 'int31'
-        t_5343: 'bool33'
-        t_5351: 'FieldDef'
-        t_5356: 'SqlPart'
-        if not this_175.is_valid_511:
-            raise RuntimeError30()
-        i_576: 'int31' = 0
-        while True:
-            t_9466 = len_9686(this_175.table_def_507.fields)
-            if not i_576 < t_9466:
-                break
-            f_577: 'FieldDef' = list_get_9694(this_175.table_def_507.fields, i_576)
-            if not f_577.nullable:
-                t_9471 = f_577.name.sql_value
-                t_9472 = mapped_has_9683(this_175.changes_509, t_9471)
-                t_5343 = not t_9472
+            eb_573: 'MutableSequence36[ChangesetError]' = list_10936(this_180.errors_554)
+            valid_574: 'bool33' = True
+            def fn_10826(f_575: 'SafeIdentifier') -> 'None':
+                nonlocal valid_574
+                t_10824: 'ChangesetError'
+                t_10821: 'str27' = f_575.sql_value
+                if not mapped_has_10937(this_180.changes_553, t_10821):
+                    t_10824 = ChangesetError(f_575.sql_value, 'is required')
+                    eb_573.append(t_10824)
+                    valid_574 = False
+            list_for_each_10934(fields_571, fn_10826)
+            t_6226 = this_180.table_def_551
+            t_6227 = this_180.params_552
+            t_6228 = this_180.changes_553
+            t_10830 = tuple_10939(eb_573)
+            return_306 = ChangesetImpl_174(t_6226, t_6227, t_6228, t_10830, valid_574)
+        return return_306
+    def validate_length(this_181, field_577: 'SafeIdentifier', min_578: 'int31', max_579: 'int31') -> 'Changeset':
+        return_307: 'Changeset'
+        t_10808: 'str27'
+        t_10819: 'Sequence29[ChangesetError]'
+        t_6209: 'bool33'
+        t_6215: 'TableDef'
+        t_6216: 'MappingProxyType32[str27, str27]'
+        t_6217: 'MappingProxyType32[str27, str27]'
+        with Label35() as fn_580:
+            if not this_181.is_valid_555:
+                return_307 = this_181
+                fn_580.break_()
+            t_10808 = field_577.sql_value
+            val_581: 'str27' = this_181.changes_553.get(t_10808, '')
+            len_582: 'int31' = string_count_between_10941(val_581, 0, len_10940(val_581))
+            if len_582 < min_578:
+                t_6209 = True
             else:
-                t_5343 = False
-            if t_5343:
+                t_6209 = len_582 > max_579
+            if t_6209:
+                msg_583: 'str27' = str_cat_10942('must be between ', int_to_string_10943(min_578), ' and ', int_to_string_10943(max_579), ' characters')
+                eb_584: 'MutableSequence36[ChangesetError]' = list_10936(this_181.errors_554)
+                eb_584.append(ChangesetError(field_577.sql_value, msg_583))
+                t_6215 = this_181.table_def_551
+                t_6216 = this_181.params_552
+                t_6217 = this_181.changes_553
+                t_10819 = tuple_10939(eb_584)
+                return_307 = ChangesetImpl_174(t_6215, t_6216, t_6217, t_10819, False)
+                fn_580.break_()
+            return_307 = this_181
+        return return_307
+    def validate_int(this_182, field_586: 'SafeIdentifier') -> 'Changeset':
+        return_308: 'Changeset'
+        t_10799: 'str27'
+        t_10806: 'Sequence29[ChangesetError]'
+        t_6200: 'TableDef'
+        t_6201: 'MappingProxyType32[str27, str27]'
+        t_6202: 'MappingProxyType32[str27, str27]'
+        with Label35() as fn_587:
+            if not this_182.is_valid_555:
+                return_308 = this_182
+                fn_587.break_()
+            t_10799 = field_586.sql_value
+            val_588: 'str27' = this_182.changes_553.get(t_10799, '')
+            if not val_588:
+                return_308 = this_182
+                fn_587.break_()
+            parse_ok_589: 'bool33'
+            try:
+                string_to_int32_10944(val_588)
+                parse_ok_589 = True
+            except Exception37:
+                parse_ok_589 = False
+            if not parse_ok_589:
+                eb_590: 'MutableSequence36[ChangesetError]' = list_10936(this_182.errors_554)
+                eb_590.append(ChangesetError(field_586.sql_value, 'must be an integer'))
+                t_6200 = this_182.table_def_551
+                t_6201 = this_182.params_552
+                t_6202 = this_182.changes_553
+                t_10806 = tuple_10939(eb_590)
+                return_308 = ChangesetImpl_174(t_6200, t_6201, t_6202, t_10806, False)
+                fn_587.break_()
+            return_308 = this_182
+        return return_308
+    def validate_int64(this_183, field_592: 'SafeIdentifier') -> 'Changeset':
+        return_309: 'Changeset'
+        t_10790: 'str27'
+        t_10797: 'Sequence29[ChangesetError]'
+        t_6187: 'TableDef'
+        t_6188: 'MappingProxyType32[str27, str27]'
+        t_6189: 'MappingProxyType32[str27, str27]'
+        with Label35() as fn_593:
+            if not this_183.is_valid_555:
+                return_309 = this_183
+                fn_593.break_()
+            t_10790 = field_592.sql_value
+            val_594: 'str27' = this_183.changes_553.get(t_10790, '')
+            if not val_594:
+                return_309 = this_183
+                fn_593.break_()
+            parse_ok_595: 'bool33'
+            try:
+                string_to_int64_10945(val_594)
+                parse_ok_595 = True
+            except Exception37:
+                parse_ok_595 = False
+            if not parse_ok_595:
+                eb_596: 'MutableSequence36[ChangesetError]' = list_10936(this_183.errors_554)
+                eb_596.append(ChangesetError(field_592.sql_value, 'must be a 64-bit integer'))
+                t_6187 = this_183.table_def_551
+                t_6188 = this_183.params_552
+                t_6189 = this_183.changes_553
+                t_10797 = tuple_10939(eb_596)
+                return_309 = ChangesetImpl_174(t_6187, t_6188, t_6189, t_10797, False)
+                fn_593.break_()
+            return_309 = this_183
+        return return_309
+    def validate_float(this_184, field_598: 'SafeIdentifier') -> 'Changeset':
+        return_310: 'Changeset'
+        t_10781: 'str27'
+        t_10788: 'Sequence29[ChangesetError]'
+        t_6174: 'TableDef'
+        t_6175: 'MappingProxyType32[str27, str27]'
+        t_6176: 'MappingProxyType32[str27, str27]'
+        with Label35() as fn_599:
+            if not this_184.is_valid_555:
+                return_310 = this_184
+                fn_599.break_()
+            t_10781 = field_598.sql_value
+            val_600: 'str27' = this_184.changes_553.get(t_10781, '')
+            if not val_600:
+                return_310 = this_184
+                fn_599.break_()
+            parse_ok_601: 'bool33'
+            try:
+                string_to_float64_10946(val_600)
+                parse_ok_601 = True
+            except Exception37:
+                parse_ok_601 = False
+            if not parse_ok_601:
+                eb_602: 'MutableSequence36[ChangesetError]' = list_10936(this_184.errors_554)
+                eb_602.append(ChangesetError(field_598.sql_value, 'must be a number'))
+                t_6174 = this_184.table_def_551
+                t_6175 = this_184.params_552
+                t_6176 = this_184.changes_553
+                t_10788 = tuple_10939(eb_602)
+                return_310 = ChangesetImpl_174(t_6174, t_6175, t_6176, t_10788, False)
+                fn_599.break_()
+            return_310 = this_184
+        return return_310
+    def validate_bool(this_185, field_604: 'SafeIdentifier') -> 'Changeset':
+        return_311: 'Changeset'
+        t_10772: 'str27'
+        t_10779: 'Sequence29[ChangesetError]'
+        t_6149: 'bool33'
+        t_6150: 'bool33'
+        t_6152: 'bool33'
+        t_6153: 'bool33'
+        t_6155: 'bool33'
+        t_6161: 'TableDef'
+        t_6162: 'MappingProxyType32[str27, str27]'
+        t_6163: 'MappingProxyType32[str27, str27]'
+        with Label35() as fn_605:
+            if not this_185.is_valid_555:
+                return_311 = this_185
+                fn_605.break_()
+            t_10772 = field_604.sql_value
+            val_606: 'str27' = this_185.changes_553.get(t_10772, '')
+            if not val_606:
+                return_311 = this_185
+                fn_605.break_()
+            is_true_607: 'bool33'
+            if val_606 == 'true':
+                is_true_607 = True
+            else:
+                if val_606 == '1':
+                    t_6150 = True
+                else:
+                    if val_606 == 'yes':
+                        t_6149 = True
+                    else:
+                        t_6149 = val_606 == 'on'
+                    t_6150 = t_6149
+                is_true_607 = t_6150
+            is_false_608: 'bool33'
+            if val_606 == 'false':
+                is_false_608 = True
+            else:
+                if val_606 == '0':
+                    t_6153 = True
+                else:
+                    if val_606 == 'no':
+                        t_6152 = True
+                    else:
+                        t_6152 = val_606 == 'off'
+                    t_6153 = t_6152
+                is_false_608 = t_6153
+            if not is_true_607:
+                t_6155 = not is_false_608
+            else:
+                t_6155 = False
+            if t_6155:
+                eb_609: 'MutableSequence36[ChangesetError]' = list_10936(this_185.errors_554)
+                eb_609.append(ChangesetError(field_604.sql_value, 'must be a boolean (true/false/1/0/yes/no/on/off)'))
+                t_6161 = this_185.table_def_551
+                t_6162 = this_185.params_552
+                t_6163 = this_185.changes_553
+                t_10779 = tuple_10939(eb_609)
+                return_311 = ChangesetImpl_174(t_6161, t_6162, t_6163, t_10779, False)
+                fn_605.break_()
+            return_311 = this_185
+        return return_311
+    def parse_bool_sql_part_610(this_186, val_611: 'str27') -> 'SqlBoolean':
+        return_312: 'SqlBoolean'
+        t_6138: 'bool33'
+        t_6139: 'bool33'
+        t_6140: 'bool33'
+        t_6142: 'bool33'
+        t_6143: 'bool33'
+        t_6144: 'bool33'
+        with Label35() as fn_612:
+            if val_611 == 'true':
+                t_6140 = True
+            else:
+                if val_611 == '1':
+                    t_6139 = True
+                else:
+                    if val_611 == 'yes':
+                        t_6138 = True
+                    else:
+                        t_6138 = val_611 == 'on'
+                    t_6139 = t_6138
+                t_6140 = t_6139
+            if t_6140:
+                return_312 = SqlBoolean(True)
+                fn_612.break_()
+            if val_611 == 'false':
+                t_6144 = True
+            else:
+                if val_611 == '0':
+                    t_6143 = True
+                else:
+                    if val_611 == 'no':
+                        t_6142 = True
+                    else:
+                        t_6142 = val_611 == 'off'
+                    t_6143 = t_6142
+                t_6144 = t_6143
+            if t_6144:
+                return_312 = SqlBoolean(False)
+                fn_612.break_()
+            raise RuntimeError30()
+        return return_312
+    def value_to_sql_part_613(this_187, field_def_614: 'FieldDef', val_615: 'str27') -> 'SqlPart':
+        return_313: 'SqlPart'
+        t_6125: 'int31'
+        t_6128: 'int64_23'
+        t_6131: 'float38'
+        t_6136: 'date26'
+        with Label35() as fn_616:
+            ft_617: 'FieldType' = field_def_614.field_type
+            if isinstance39(ft_617, StringField):
+                return_313 = SqlString(val_615)
+                fn_616.break_()
+            if isinstance39(ft_617, IntField):
+                t_6125 = string_to_int32_10944(val_615)
+                return_313 = SqlInt32(t_6125)
+                fn_616.break_()
+            if isinstance39(ft_617, Int64Field):
+                t_6128 = string_to_int64_10945(val_615)
+                return_313 = SqlInt64(t_6128)
+                fn_616.break_()
+            if isinstance39(ft_617, FloatField):
+                t_6131 = string_to_float64_10946(val_615)
+                return_313 = SqlFloat64(t_6131)
+                fn_616.break_()
+            if isinstance39(ft_617, BoolField):
+                return_313 = this_187.parse_bool_sql_part_610(val_615)
+                fn_616.break_()
+            if isinstance39(ft_617, DateField):
+                t_6136 = date_from_iso_string_10947(val_615)
+                return_313 = SqlDate(t_6136)
+                fn_616.break_()
+            raise RuntimeError30()
+        return return_313
+    def to_insert_sql(this_188) -> 'SqlFragment':
+        t_10720: 'int31'
+        t_10725: 'str27'
+        t_10726: 'bool33'
+        t_10731: 'int31'
+        t_10733: 'str27'
+        t_10737: 'str27'
+        t_10752: 'int31'
+        t_6089: 'bool33'
+        t_6097: 'FieldDef'
+        t_6102: 'SqlPart'
+        if not this_188.is_valid_555:
+            raise RuntimeError30()
+        i_620: 'int31' = 0
+        while True:
+            t_10720 = len_10940(this_188.table_def_551.fields)
+            if not i_620 < t_10720:
+                break
+            f_621: 'FieldDef' = list_get_10948(this_188.table_def_551.fields, i_620)
+            if not f_621.nullable:
+                t_10725 = f_621.name.sql_value
+                t_10726 = mapped_has_10937(this_188.changes_553, t_10725)
+                t_6089 = not t_10726
+            else:
+                t_6089 = False
+            if t_6089:
                 raise RuntimeError30()
-            i_576 = int_add_9695(i_576, 1)
-        pairs_578: 'Sequence29[(Pair25[str27, str27])]' = mapped_to_list_9696(this_175.changes_509)
-        if len_9686(pairs_578) == 0:
+            i_620 = int_add_10949(i_620, 1)
+        pairs_622: 'Sequence29[(Pair25[str27, str27])]' = mapped_to_list_10950(this_188.changes_553)
+        if len_10940(pairs_622) == 0:
             raise RuntimeError30()
-        col_names_579: 'MutableSequence36[str27]' = list_9682()
-        val_parts_580: 'MutableSequence36[SqlPart]' = list_9682()
-        i_581: 'int31' = 0
+        col_names_623: 'MutableSequence36[str27]' = list_10936()
+        val_parts_624: 'MutableSequence36[SqlPart]' = list_10936()
+        i_625: 'int31' = 0
         while True:
-            t_9477 = len_9686(pairs_578)
-            if not i_581 < t_9477:
+            t_10731 = len_10940(pairs_622)
+            if not i_625 < t_10731:
                 break
-            pair_582: 'Pair25[str27, str27]' = list_get_9694(pairs_578, i_581)
-            t_9479 = pair_582.key
-            t_5351 = this_175.table_def_507.field(t_9479)
-            fd_583: 'FieldDef' = t_5351
-            col_names_579.append(fd_583.name.sql_value)
-            t_9483 = pair_582.value
-            t_5356 = this_175.value_to_sql_part_569(fd_583, t_9483)
-            val_parts_580.append(t_5356)
-            i_581 = int_add_9695(i_581, 1)
-        b_584: 'SqlBuilder' = SqlBuilder()
-        b_584.append_safe('INSERT INTO ')
-        b_584.append_safe(this_175.table_def_507.table_name.sql_value)
-        b_584.append_safe(' (')
-        t_9491: 'Sequence29[str27]' = tuple_9685(col_names_579)
-        def fn_9464(c_585: 'str27') -> 'str27':
-            return c_585
-        b_584.append_safe(list_join_9697(t_9491, ', ', fn_9464))
-        b_584.append_safe(') VALUES (')
-        b_584.append_part(list_get_9694(val_parts_580, 0))
-        j_586: 'int31' = 1
+            pair_626: 'Pair25[str27, str27]' = list_get_10948(pairs_622, i_625)
+            t_10733 = pair_626.key
+            t_6097 = this_188.table_def_551.field(t_10733)
+            fd_627: 'FieldDef' = t_6097
+            col_names_623.append(fd_627.name.sql_value)
+            t_10737 = pair_626.value
+            t_6102 = this_188.value_to_sql_part_613(fd_627, t_10737)
+            val_parts_624.append(t_6102)
+            i_625 = int_add_10949(i_625, 1)
+        b_628: 'SqlBuilder' = SqlBuilder()
+        b_628.append_safe('INSERT INTO ')
+        b_628.append_safe(this_188.table_def_551.table_name.sql_value)
+        b_628.append_safe(' (')
+        t_10745: 'Sequence29[str27]' = tuple_10939(col_names_623)
+        def fn_10718(c_629: 'str27') -> 'str27':
+            return c_629
+        b_628.append_safe(list_join_10951(t_10745, ', ', fn_10718))
+        b_628.append_safe(') VALUES (')
+        b_628.append_part(list_get_10948(val_parts_624, 0))
+        j_630: 'int31' = 1
         while True:
-            t_9498 = len_9686(val_parts_580)
-            if not j_586 < t_9498:
+            t_10752 = len_10940(val_parts_624)
+            if not j_630 < t_10752:
                 break
-            b_584.append_safe(', ')
-            b_584.append_part(list_get_9694(val_parts_580, j_586))
-            j_586 = int_add_9695(j_586, 1)
-        b_584.append_safe(')')
-        return b_584.accumulated
-    def to_update_sql(this_176, id_588: 'int31') -> 'SqlFragment':
-        t_9451: 'int31'
-        t_9454: 'str27'
-        t_9459: 'str27'
-        t_5324: 'FieldDef'
-        t_5330: 'SqlPart'
-        if not this_176.is_valid_511:
+            b_628.append_safe(', ')
+            b_628.append_part(list_get_10948(val_parts_624, j_630))
+            j_630 = int_add_10949(j_630, 1)
+        b_628.append_safe(')')
+        return b_628.accumulated
+    def to_update_sql(this_189, id_632: 'int31') -> 'SqlFragment':
+        t_10705: 'int31'
+        t_10708: 'str27'
+        t_10713: 'str27'
+        t_6070: 'FieldDef'
+        t_6076: 'SqlPart'
+        if not this_189.is_valid_555:
             raise RuntimeError30()
-        pairs_590: 'Sequence29[(Pair25[str27, str27])]' = mapped_to_list_9696(this_176.changes_509)
-        if len_9686(pairs_590) == 0:
+        pairs_634: 'Sequence29[(Pair25[str27, str27])]' = mapped_to_list_10950(this_189.changes_553)
+        if len_10940(pairs_634) == 0:
             raise RuntimeError30()
-        b_591: 'SqlBuilder' = SqlBuilder()
-        b_591.append_safe('UPDATE ')
-        b_591.append_safe(this_176.table_def_507.table_name.sql_value)
-        b_591.append_safe(' SET ')
-        i_592: 'int31' = 0
+        b_635: 'SqlBuilder' = SqlBuilder()
+        b_635.append_safe('UPDATE ')
+        b_635.append_safe(this_189.table_def_551.table_name.sql_value)
+        b_635.append_safe(' SET ')
+        i_636: 'int31' = 0
         while True:
-            t_9451 = len_9686(pairs_590)
-            if not i_592 < t_9451:
+            t_10705 = len_10940(pairs_634)
+            if not i_636 < t_10705:
                 break
-            if i_592 > 0:
-                b_591.append_safe(', ')
-            pair_593: 'Pair25[str27, str27]' = list_get_9694(pairs_590, i_592)
-            t_9454 = pair_593.key
-            t_5324 = this_176.table_def_507.field(t_9454)
-            fd_594: 'FieldDef' = t_5324
-            b_591.append_safe(fd_594.name.sql_value)
-            b_591.append_safe(' = ')
-            t_9459 = pair_593.value
-            t_5330 = this_176.value_to_sql_part_569(fd_594, t_9459)
-            b_591.append_part(t_5330)
-            i_592 = int_add_9695(i_592, 1)
-        b_591.append_safe(' WHERE id = ')
-        b_591.append_int32(id_588)
-        return b_591.accumulated
-    def __init__(this_274, table_def_596: 'TableDef', params_597: 'MappingProxyType32[str27, str27]', changes_598: 'MappingProxyType32[str27, str27]', errors_599: 'Sequence29[ChangesetError]', is_valid_600: 'bool33') -> None:
-        this_274.table_def_507 = table_def_596
-        this_274.params_508 = params_597
-        this_274.changes_509 = changes_598
-        this_274.errors_510 = errors_599
-        this_274.is_valid_511 = is_valid_600
+            if i_636 > 0:
+                b_635.append_safe(', ')
+            pair_637: 'Pair25[str27, str27]' = list_get_10948(pairs_634, i_636)
+            t_10708 = pair_637.key
+            t_6070 = this_189.table_def_551.field(t_10708)
+            fd_638: 'FieldDef' = t_6070
+            b_635.append_safe(fd_638.name.sql_value)
+            b_635.append_safe(' = ')
+            t_10713 = pair_637.value
+            t_6076 = this_189.value_to_sql_part_613(fd_638, t_10713)
+            b_635.append_part(t_6076)
+            i_636 = int_add_10949(i_636, 1)
+        b_635.append_safe(' WHERE id = ')
+        b_635.append_int32(id_632)
+        return b_635.accumulated
+    def __init__(this_296, table_def_640: 'TableDef', params_641: 'MappingProxyType32[str27, str27]', changes_642: 'MappingProxyType32[str27, str27]', errors_643: 'Sequence29[ChangesetError]', is_valid_644: 'bool33') -> None:
+        this_296.table_def_551 = table_def_640
+        this_296.params_552 = params_641
+        this_296.changes_553 = changes_642
+        this_296.errors_554 = errors_643
+        this_296.is_valid_555 = is_valid_644
 class JoinType(metaclass = ABCMeta28):
-    def keyword(this_177) -> 'str27':
+    def keyword(this_190) -> 'str27':
         raise RuntimeError30()
 class InnerJoin(JoinType):
     __slots__ = ()
-    def keyword(this_178) -> 'str27':
+    def keyword(this_191) -> 'str27':
         return 'INNER JOIN'
-    def __init__(this_299) -> None:
+    def __init__(this_321) -> None:
         pass
 class LeftJoin(JoinType):
     __slots__ = ()
-    def keyword(this_179) -> 'str27':
+    def keyword(this_192) -> 'str27':
         return 'LEFT JOIN'
-    def __init__(this_302) -> None:
+    def __init__(this_324) -> None:
         pass
 class RightJoin(JoinType):
     __slots__ = ()
-    def keyword(this_180) -> 'str27':
+    def keyword(this_193) -> 'str27':
         return 'RIGHT JOIN'
-    def __init__(this_305) -> None:
+    def __init__(this_327) -> None:
         pass
 class FullJoin(JoinType):
     __slots__ = ()
-    def keyword(this_181) -> 'str27':
+    def keyword(this_194) -> 'str27':
         return 'FULL OUTER JOIN'
-    def __init__(this_308) -> None:
+    def __init__(this_330) -> None:
         pass
 class JoinClause:
-    join_type_709: 'JoinType'
-    table_710: 'SafeIdentifier'
-    on_condition_711: 'SqlFragment'
-    __slots__ = ('join_type_709', 'table_710', 'on_condition_711')
-    def __init__(this_311, join_type_713: 'JoinType', table_714: 'SafeIdentifier', on_condition_715: 'SqlFragment') -> None:
-        this_311.join_type_709 = join_type_713
-        this_311.table_710 = table_714
-        this_311.on_condition_711 = on_condition_715
+    join_type_753: 'JoinType'
+    table_754: 'SafeIdentifier'
+    on_condition_755: 'SqlFragment'
+    __slots__ = ('join_type_753', 'table_754', 'on_condition_755')
+    def __init__(this_333, join_type_757: 'JoinType', table_758: 'SafeIdentifier', on_condition_759: 'SqlFragment') -> None:
+        this_333.join_type_753 = join_type_757
+        this_333.table_754 = table_758
+        this_333.on_condition_755 = on_condition_759
     @property
-    def join_type(this_1428) -> 'JoinType':
-        return this_1428.join_type_709
+    def join_type(this_1570) -> 'JoinType':
+        return this_1570.join_type_753
     @property
-    def table(this_1431) -> 'SafeIdentifier':
-        return this_1431.table_710
+    def table(this_1573) -> 'SafeIdentifier':
+        return this_1573.table_754
     @property
-    def on_condition(this_1434) -> 'SqlFragment':
-        return this_1434.on_condition_711
+    def on_condition(this_1576) -> 'SqlFragment':
+        return this_1576.on_condition_755
 class OrderClause:
-    field_716: 'SafeIdentifier'
-    ascending_717: 'bool33'
-    __slots__ = ('field_716', 'ascending_717')
-    def __init__(this_313, field_719: 'SafeIdentifier', ascending_720: 'bool33') -> None:
-        this_313.field_716 = field_719
-        this_313.ascending_717 = ascending_720
+    field_760: 'SafeIdentifier'
+    ascending_761: 'bool33'
+    __slots__ = ('field_760', 'ascending_761')
+    def __init__(this_335, field_763: 'SafeIdentifier', ascending_764: 'bool33') -> None:
+        this_335.field_760 = field_763
+        this_335.ascending_761 = ascending_764
     @property
-    def field(this_1437) -> 'SafeIdentifier':
-        return this_1437.field_716
+    def field(this_1579) -> 'SafeIdentifier':
+        return this_1579.field_760
     @property
-    def ascending(this_1440) -> 'bool33':
-        return this_1440.ascending_717
+    def ascending(this_1582) -> 'bool33':
+        return this_1582.ascending_761
 class WhereClause(metaclass = ABCMeta28):
-    def keyword(this_183) -> 'str27':
+    def keyword(this_196) -> 'str27':
         raise RuntimeError30()
 class AndCondition(WhereClause):
-    condition_725: 'SqlFragment'
-    __slots__ = ('condition_725',)
+    condition_769: 'SqlFragment'
+    __slots__ = ('condition_769',)
     @property
-    def condition(this_184) -> 'SqlFragment':
-        return this_184.condition_725
-    def keyword(this_185) -> 'str27':
+    def condition(this_197) -> 'SqlFragment':
+        return this_197.condition_769
+    def keyword(this_198) -> 'str27':
         return 'AND'
-    def __init__(this_319, condition_731: 'SqlFragment') -> None:
-        this_319.condition_725 = condition_731
+    def __init__(this_341, condition_775: 'SqlFragment') -> None:
+        this_341.condition_769 = condition_775
 class OrCondition(WhereClause):
-    condition_732: 'SqlFragment'
-    __slots__ = ('condition_732',)
+    condition_776: 'SqlFragment'
+    __slots__ = ('condition_776',)
     @property
-    def condition(this_186) -> 'SqlFragment':
-        return this_186.condition_732
-    def keyword(this_187) -> 'str27':
+    def condition(this_199) -> 'SqlFragment':
+        return this_199.condition_776
+    def keyword(this_200) -> 'str27':
         return 'OR'
-    def __init__(this_324, condition_738: 'SqlFragment') -> None:
-        this_324.condition_732 = condition_738
+    def __init__(this_346, condition_782: 'SqlFragment') -> None:
+        this_346.condition_776 = condition_782
 class Query:
-    table_name_739: 'SafeIdentifier'
-    conditions_740: 'Sequence29[WhereClause]'
-    selected_fields_741: 'Sequence29[SafeIdentifier]'
-    order_clauses_742: 'Sequence29[OrderClause]'
-    limit_val_743: 'Union40[int31, None]'
-    offset_val_744: 'Union40[int31, None]'
-    join_clauses_745: 'Sequence29[JoinClause]'
-    group_by_fields_746: 'Sequence29[SafeIdentifier]'
-    having_conditions_747: 'Sequence29[WhereClause]'
-    is_distinct_748: 'bool33'
-    select_exprs_749: 'Sequence29[SqlFragment]'
-    __slots__ = ('table_name_739', 'conditions_740', 'selected_fields_741', 'order_clauses_742', 'limit_val_743', 'offset_val_744', 'join_clauses_745', 'group_by_fields_746', 'having_conditions_747', 'is_distinct_748', 'select_exprs_749')
-    def where(this_188, condition_751: 'SqlFragment') -> 'Query':
-        nb_753: 'MutableSequence36[WhereClause]' = list_9682(this_188.conditions_740)
-        nb_753.append(AndCondition(condition_751))
-        return Query(this_188.table_name_739, tuple_9685(nb_753), this_188.selected_fields_741, this_188.order_clauses_742, this_188.limit_val_743, this_188.offset_val_744, this_188.join_clauses_745, this_188.group_by_fields_746, this_188.having_conditions_747, this_188.is_distinct_748, this_188.select_exprs_749)
-    def or_where(this_189, condition_755: 'SqlFragment') -> 'Query':
-        nb_757: 'MutableSequence36[WhereClause]' = list_9682(this_189.conditions_740)
-        nb_757.append(OrCondition(condition_755))
-        return Query(this_189.table_name_739, tuple_9685(nb_757), this_189.selected_fields_741, this_189.order_clauses_742, this_189.limit_val_743, this_189.offset_val_744, this_189.join_clauses_745, this_189.group_by_fields_746, this_189.having_conditions_747, this_189.is_distinct_748, this_189.select_exprs_749)
-    def where_null(this_190, field_759: 'SafeIdentifier') -> 'Query':
-        b_761: 'SqlBuilder' = SqlBuilder()
-        b_761.append_safe(field_759.sql_value)
-        b_761.append_safe(' IS NULL')
-        t_9050: 'SqlFragment' = b_761.accumulated
-        return this_190.where(t_9050)
-    def where_not_null(this_191, field_763: 'SafeIdentifier') -> 'Query':
-        b_765: 'SqlBuilder' = SqlBuilder()
-        b_765.append_safe(field_763.sql_value)
-        b_765.append_safe(' IS NOT NULL')
-        t_9044: 'SqlFragment' = b_765.accumulated
-        return this_191.where(t_9044)
-    def where_in(this_192, field_767: 'SafeIdentifier', values_768: 'Sequence29[SqlPart]') -> 'Query':
-        return_343: 'Query'
-        t_9025: 'SqlFragment'
-        t_9033: 'int31'
-        t_9038: 'SqlFragment'
-        with Label35() as fn_769:
-            if not values_768:
-                b_770: 'SqlBuilder' = SqlBuilder()
-                b_770.append_safe('1 = 0')
-                t_9025 = b_770.accumulated
-                return_343 = this_192.where(t_9025)
-                fn_769.break_()
-            b_771: 'SqlBuilder' = SqlBuilder()
-            b_771.append_safe(field_767.sql_value)
-            b_771.append_safe(' IN (')
-            b_771.append_part(list_get_9694(values_768, 0))
-            i_772: 'int31' = 1
+    table_name_783: 'SafeIdentifier'
+    conditions_784: 'Sequence29[WhereClause]'
+    selected_fields_785: 'Sequence29[SafeIdentifier]'
+    order_clauses_786: 'Sequence29[OrderClause]'
+    limit_val_787: 'Union40[int31, None]'
+    offset_val_788: 'Union40[int31, None]'
+    join_clauses_789: 'Sequence29[JoinClause]'
+    group_by_fields_790: 'Sequence29[SafeIdentifier]'
+    having_conditions_791: 'Sequence29[WhereClause]'
+    is_distinct_792: 'bool33'
+    select_exprs_793: 'Sequence29[SqlFragment]'
+    __slots__ = ('table_name_783', 'conditions_784', 'selected_fields_785', 'order_clauses_786', 'limit_val_787', 'offset_val_788', 'join_clauses_789', 'group_by_fields_790', 'having_conditions_791', 'is_distinct_792', 'select_exprs_793')
+    def where(this_201, condition_795: 'SqlFragment') -> 'Query':
+        nb_797: 'MutableSequence36[WhereClause]' = list_10936(this_201.conditions_784)
+        nb_797.append(AndCondition(condition_795))
+        return Query(this_201.table_name_783, tuple_10939(nb_797), this_201.selected_fields_785, this_201.order_clauses_786, this_201.limit_val_787, this_201.offset_val_788, this_201.join_clauses_789, this_201.group_by_fields_790, this_201.having_conditions_791, this_201.is_distinct_792, this_201.select_exprs_793)
+    def or_where(this_202, condition_799: 'SqlFragment') -> 'Query':
+        nb_801: 'MutableSequence36[WhereClause]' = list_10936(this_202.conditions_784)
+        nb_801.append(OrCondition(condition_799))
+        return Query(this_202.table_name_783, tuple_10939(nb_801), this_202.selected_fields_785, this_202.order_clauses_786, this_202.limit_val_787, this_202.offset_val_788, this_202.join_clauses_789, this_202.group_by_fields_790, this_202.having_conditions_791, this_202.is_distinct_792, this_202.select_exprs_793)
+    def where_null(this_203, field_803: 'SafeIdentifier') -> 'Query':
+        b_805: 'SqlBuilder' = SqlBuilder()
+        b_805.append_safe(field_803.sql_value)
+        b_805.append_safe(' IS NULL')
+        t_10304: 'SqlFragment' = b_805.accumulated
+        return this_203.where(t_10304)
+    def where_not_null(this_204, field_807: 'SafeIdentifier') -> 'Query':
+        b_809: 'SqlBuilder' = SqlBuilder()
+        b_809.append_safe(field_807.sql_value)
+        b_809.append_safe(' IS NOT NULL')
+        t_10298: 'SqlFragment' = b_809.accumulated
+        return this_204.where(t_10298)
+    def where_in(this_205, field_811: 'SafeIdentifier', values_812: 'Sequence29[SqlPart]') -> 'Query':
+        return_365: 'Query'
+        t_10279: 'SqlFragment'
+        t_10287: 'int31'
+        t_10292: 'SqlFragment'
+        with Label35() as fn_813:
+            if not values_812:
+                b_814: 'SqlBuilder' = SqlBuilder()
+                b_814.append_safe('1 = 0')
+                t_10279 = b_814.accumulated
+                return_365 = this_205.where(t_10279)
+                fn_813.break_()
+            b_815: 'SqlBuilder' = SqlBuilder()
+            b_815.append_safe(field_811.sql_value)
+            b_815.append_safe(' IN (')
+            b_815.append_part(list_get_10948(values_812, 0))
+            i_816: 'int31' = 1
             while True:
-                t_9033 = len_9686(values_768)
-                if not i_772 < t_9033:
+                t_10287 = len_10940(values_812)
+                if not i_816 < t_10287:
                     break
-                b_771.append_safe(', ')
-                b_771.append_part(list_get_9694(values_768, i_772))
-                i_772 = int_add_9695(i_772, 1)
-            b_771.append_safe(')')
-            t_9038 = b_771.accumulated
-            return_343 = this_192.where(t_9038)
-        return return_343
-    def where_in_subquery(this_193, field_774: 'SafeIdentifier', sub_775: 'Query') -> 'Query':
-        b_777: 'SqlBuilder' = SqlBuilder()
-        b_777.append_safe(field_774.sql_value)
-        b_777.append_safe(' IN (')
-        b_777.append_fragment(sub_775.to_sql())
-        b_777.append_safe(')')
-        t_9020: 'SqlFragment' = b_777.accumulated
-        return this_193.where(t_9020)
-    def where_not(this_194, condition_779: 'SqlFragment') -> 'Query':
-        b_781: 'SqlBuilder' = SqlBuilder()
-        b_781.append_safe('NOT (')
-        b_781.append_fragment(condition_779)
-        b_781.append_safe(')')
-        t_9011: 'SqlFragment' = b_781.accumulated
-        return this_194.where(t_9011)
-    def where_between(this_195, field_783: 'SafeIdentifier', low_784: 'SqlPart', high_785: 'SqlPart') -> 'Query':
-        b_787: 'SqlBuilder' = SqlBuilder()
-        b_787.append_safe(field_783.sql_value)
-        b_787.append_safe(' BETWEEN ')
-        b_787.append_part(low_784)
-        b_787.append_safe(' AND ')
-        b_787.append_part(high_785)
-        t_9005: 'SqlFragment' = b_787.accumulated
-        return this_195.where(t_9005)
-    def where_like(this_196, field_789: 'SafeIdentifier', pattern_790: 'str27') -> 'Query':
-        b_792: 'SqlBuilder' = SqlBuilder()
-        b_792.append_safe(field_789.sql_value)
-        b_792.append_safe(' LIKE ')
-        b_792.append_string(pattern_790)
-        t_8996: 'SqlFragment' = b_792.accumulated
-        return this_196.where(t_8996)
-    def where_i_like(this_197, field_794: 'SafeIdentifier', pattern_795: 'str27') -> 'Query':
-        b_797: 'SqlBuilder' = SqlBuilder()
-        b_797.append_safe(field_794.sql_value)
-        b_797.append_safe(' ILIKE ')
-        b_797.append_string(pattern_795)
-        t_8989: 'SqlFragment' = b_797.accumulated
-        return this_197.where(t_8989)
-    def select(this_198, fields_799: 'Sequence29[SafeIdentifier]') -> 'Query':
-        return Query(this_198.table_name_739, this_198.conditions_740, fields_799, this_198.order_clauses_742, this_198.limit_val_743, this_198.offset_val_744, this_198.join_clauses_745, this_198.group_by_fields_746, this_198.having_conditions_747, this_198.is_distinct_748, this_198.select_exprs_749)
-    def select_expr(this_199, exprs_802: 'Sequence29[SqlFragment]') -> 'Query':
-        return Query(this_199.table_name_739, this_199.conditions_740, this_199.selected_fields_741, this_199.order_clauses_742, this_199.limit_val_743, this_199.offset_val_744, this_199.join_clauses_745, this_199.group_by_fields_746, this_199.having_conditions_747, this_199.is_distinct_748, exprs_802)
-    def order_by(this_200, field_805: 'SafeIdentifier', ascending_806: 'bool33') -> 'Query':
-        nb_808: 'MutableSequence36[OrderClause]' = list_9682(this_200.order_clauses_742)
-        nb_808.append(OrderClause(field_805, ascending_806))
-        return Query(this_200.table_name_739, this_200.conditions_740, this_200.selected_fields_741, tuple_9685(nb_808), this_200.limit_val_743, this_200.offset_val_744, this_200.join_clauses_745, this_200.group_by_fields_746, this_200.having_conditions_747, this_200.is_distinct_748, this_200.select_exprs_749)
-    def limit(this_201, n_810: 'int31') -> 'Query':
-        if n_810 < 0:
-            raise RuntimeError30()
-        return Query(this_201.table_name_739, this_201.conditions_740, this_201.selected_fields_741, this_201.order_clauses_742, n_810, this_201.offset_val_744, this_201.join_clauses_745, this_201.group_by_fields_746, this_201.having_conditions_747, this_201.is_distinct_748, this_201.select_exprs_749)
-    def offset(this_202, n_813: 'int31') -> 'Query':
-        if n_813 < 0:
-            raise RuntimeError30()
-        return Query(this_202.table_name_739, this_202.conditions_740, this_202.selected_fields_741, this_202.order_clauses_742, this_202.limit_val_743, n_813, this_202.join_clauses_745, this_202.group_by_fields_746, this_202.having_conditions_747, this_202.is_distinct_748, this_202.select_exprs_749)
-    def join(this_203, join_type_816: 'JoinType', table_817: 'SafeIdentifier', on_condition_818: 'SqlFragment') -> 'Query':
-        nb_820: 'MutableSequence36[JoinClause]' = list_9682(this_203.join_clauses_745)
-        nb_820.append(JoinClause(join_type_816, table_817, on_condition_818))
-        return Query(this_203.table_name_739, this_203.conditions_740, this_203.selected_fields_741, this_203.order_clauses_742, this_203.limit_val_743, this_203.offset_val_744, tuple_9685(nb_820), this_203.group_by_fields_746, this_203.having_conditions_747, this_203.is_distinct_748, this_203.select_exprs_749)
-    def inner_join(this_204, table_822: 'SafeIdentifier', on_condition_823: 'SqlFragment') -> 'Query':
-        t_8959: 'InnerJoin' = InnerJoin()
-        return this_204.join(t_8959, table_822, on_condition_823)
-    def left_join(this_205, table_826: 'SafeIdentifier', on_condition_827: 'SqlFragment') -> 'Query':
-        t_8957: 'LeftJoin' = LeftJoin()
-        return this_205.join(t_8957, table_826, on_condition_827)
-    def right_join(this_206, table_830: 'SafeIdentifier', on_condition_831: 'SqlFragment') -> 'Query':
-        t_8955: 'RightJoin' = RightJoin()
-        return this_206.join(t_8955, table_830, on_condition_831)
-    def full_join(this_207, table_834: 'SafeIdentifier', on_condition_835: 'SqlFragment') -> 'Query':
-        t_8953: 'FullJoin' = FullJoin()
-        return this_207.join(t_8953, table_834, on_condition_835)
-    def group_by(this_208, field_838: 'SafeIdentifier') -> 'Query':
-        nb_840: 'MutableSequence36[SafeIdentifier]' = list_9682(this_208.group_by_fields_746)
-        nb_840.append(field_838)
-        return Query(this_208.table_name_739, this_208.conditions_740, this_208.selected_fields_741, this_208.order_clauses_742, this_208.limit_val_743, this_208.offset_val_744, this_208.join_clauses_745, tuple_9685(nb_840), this_208.having_conditions_747, this_208.is_distinct_748, this_208.select_exprs_749)
-    def having(this_209, condition_842: 'SqlFragment') -> 'Query':
-        nb_844: 'MutableSequence36[WhereClause]' = list_9682(this_209.having_conditions_747)
-        nb_844.append(AndCondition(condition_842))
-        return Query(this_209.table_name_739, this_209.conditions_740, this_209.selected_fields_741, this_209.order_clauses_742, this_209.limit_val_743, this_209.offset_val_744, this_209.join_clauses_745, this_209.group_by_fields_746, tuple_9685(nb_844), this_209.is_distinct_748, this_209.select_exprs_749)
-    def or_having(this_210, condition_846: 'SqlFragment') -> 'Query':
-        nb_848: 'MutableSequence36[WhereClause]' = list_9682(this_210.having_conditions_747)
-        nb_848.append(OrCondition(condition_846))
-        return Query(this_210.table_name_739, this_210.conditions_740, this_210.selected_fields_741, this_210.order_clauses_742, this_210.limit_val_743, this_210.offset_val_744, this_210.join_clauses_745, this_210.group_by_fields_746, tuple_9685(nb_848), this_210.is_distinct_748, this_210.select_exprs_749)
-    def distinct(this_211) -> 'Query':
-        return Query(this_211.table_name_739, this_211.conditions_740, this_211.selected_fields_741, this_211.order_clauses_742, this_211.limit_val_743, this_211.offset_val_744, this_211.join_clauses_745, this_211.group_by_fields_746, this_211.having_conditions_747, True, this_211.select_exprs_749)
-    def to_sql(this_212) -> 'SqlFragment':
-        t_8859: 'int31'
-        t_8878: 'int31'
-        t_8897: 'int31'
-        b_853: 'SqlBuilder' = SqlBuilder()
-        if this_212.is_distinct_748:
-            b_853.append_safe('SELECT DISTINCT ')
-        else:
-            b_853.append_safe('SELECT ')
-        if not (not this_212.select_exprs_749):
-            b_853.append_fragment(list_get_9694(this_212.select_exprs_749, 0))
-            i_854: 'int31' = 1
-            while True:
-                t_8859 = len_9686(this_212.select_exprs_749)
-                if not i_854 < t_8859:
-                    break
-                b_853.append_safe(', ')
-                b_853.append_fragment(list_get_9694(this_212.select_exprs_749, i_854))
-                i_854 = int_add_9695(i_854, 1)
-        elif not this_212.selected_fields_741:
-            b_853.append_safe('*')
-        else:
-            def fn_8852(f_855: 'SafeIdentifier') -> 'str27':
-                return f_855.sql_value
-            b_853.append_safe(list_join_9697(this_212.selected_fields_741, ', ', fn_8852))
-        b_853.append_safe(' FROM ')
-        b_853.append_safe(this_212.table_name_739.sql_value)
-        def fn_8851(jc_856: 'JoinClause') -> 'None':
-            b_853.append_safe(' ')
-            t_8839: 'str27' = jc_856.join_type.keyword()
-            b_853.append_safe(t_8839)
-            b_853.append_safe(' ')
-            t_8843: 'str27' = jc_856.table.sql_value
-            b_853.append_safe(t_8843)
-            b_853.append_safe(' ON ')
-            t_8846: 'SqlFragment' = jc_856.on_condition
-            b_853.append_fragment(t_8846)
-        list_for_each_9680(this_212.join_clauses_745, fn_8851)
-        if not (not this_212.conditions_740):
-            b_853.append_safe(' WHERE ')
-            b_853.append_fragment(list_get_9694(this_212.conditions_740, 0).condition)
-            i_857: 'int31' = 1
-            while True:
-                t_8878 = len_9686(this_212.conditions_740)
-                if not i_857 < t_8878:
-                    break
-                b_853.append_safe(' ')
-                b_853.append_safe(list_get_9694(this_212.conditions_740, i_857).keyword())
-                b_853.append_safe(' ')
-                b_853.append_fragment(list_get_9694(this_212.conditions_740, i_857).condition)
-                i_857 = int_add_9695(i_857, 1)
-        if not (not this_212.group_by_fields_746):
-            b_853.append_safe(' GROUP BY ')
-            def fn_8850(f_858: 'SafeIdentifier') -> 'str27':
-                return f_858.sql_value
-            b_853.append_safe(list_join_9697(this_212.group_by_fields_746, ', ', fn_8850))
-        if not (not this_212.having_conditions_747):
-            b_853.append_safe(' HAVING ')
-            b_853.append_fragment(list_get_9694(this_212.having_conditions_747, 0).condition)
-            i_859: 'int31' = 1
-            while True:
-                t_8897 = len_9686(this_212.having_conditions_747)
-                if not i_859 < t_8897:
-                    break
-                b_853.append_safe(' ')
-                b_853.append_safe(list_get_9694(this_212.having_conditions_747, i_859).keyword())
-                b_853.append_safe(' ')
-                b_853.append_fragment(list_get_9694(this_212.having_conditions_747, i_859).condition)
-                i_859 = int_add_9695(i_859, 1)
-        if not (not this_212.order_clauses_742):
-            b_853.append_safe(' ORDER BY ')
-            first_860: 'bool33' = True
-            def fn_8849(oc_861: 'OrderClause') -> 'None':
-                nonlocal first_860
-                t_4769: 'str27'
-                if not first_860:
-                    b_853.append_safe(', ')
-                first_860 = False
-                t_8832: 'str27' = oc_861.field.sql_value
-                b_853.append_safe(t_8832)
-                if oc_861.ascending:
-                    t_4769 = ' ASC'
-                else:
-                    t_4769 = ' DESC'
-                b_853.append_safe(t_4769)
-            list_for_each_9680(this_212.order_clauses_742, fn_8849)
-        lv_862: 'Union40[int31, None]' = this_212.limit_val_743
-        if not lv_862 is None:
-            lv_1742: 'int31' = lv_862
-            b_853.append_safe(' LIMIT ')
-            b_853.append_int32(lv_1742)
-        ov_863: 'Union40[int31, None]' = this_212.offset_val_744
-        if not ov_863 is None:
-            ov_1743: 'int31' = ov_863
-            b_853.append_safe(' OFFSET ')
-            b_853.append_int32(ov_1743)
-        return b_853.accumulated
-    def count_sql(this_213) -> 'SqlFragment':
-        t_8801: 'int31'
-        t_8820: 'int31'
-        b_866: 'SqlBuilder' = SqlBuilder()
-        b_866.append_safe('SELECT COUNT(*) FROM ')
-        b_866.append_safe(this_213.table_name_739.sql_value)
-        def fn_8789(jc_867: 'JoinClause') -> 'None':
-            b_866.append_safe(' ')
-            t_8779: 'str27' = jc_867.join_type.keyword()
-            b_866.append_safe(t_8779)
-            b_866.append_safe(' ')
-            t_8783: 'str27' = jc_867.table.sql_value
-            b_866.append_safe(t_8783)
-            b_866.append_safe(' ON ')
-            t_8786: 'SqlFragment' = jc_867.on_condition
-            b_866.append_fragment(t_8786)
-        list_for_each_9680(this_213.join_clauses_745, fn_8789)
-        if not (not this_213.conditions_740):
-            b_866.append_safe(' WHERE ')
-            b_866.append_fragment(list_get_9694(this_213.conditions_740, 0).condition)
-            i_868: 'int31' = 1
-            while True:
-                t_8801 = len_9686(this_213.conditions_740)
-                if not i_868 < t_8801:
-                    break
-                b_866.append_safe(' ')
-                b_866.append_safe(list_get_9694(this_213.conditions_740, i_868).keyword())
-                b_866.append_safe(' ')
-                b_866.append_fragment(list_get_9694(this_213.conditions_740, i_868).condition)
-                i_868 = int_add_9695(i_868, 1)
-        if not (not this_213.group_by_fields_746):
-            b_866.append_safe(' GROUP BY ')
-            def fn_8788(f_869: 'SafeIdentifier') -> 'str27':
-                return f_869.sql_value
-            b_866.append_safe(list_join_9697(this_213.group_by_fields_746, ', ', fn_8788))
-        if not (not this_213.having_conditions_747):
-            b_866.append_safe(' HAVING ')
-            b_866.append_fragment(list_get_9694(this_213.having_conditions_747, 0).condition)
-            i_870: 'int31' = 1
-            while True:
-                t_8820 = len_9686(this_213.having_conditions_747)
-                if not i_870 < t_8820:
-                    break
-                b_866.append_safe(' ')
-                b_866.append_safe(list_get_9694(this_213.having_conditions_747, i_870).keyword())
-                b_866.append_safe(' ')
-                b_866.append_fragment(list_get_9694(this_213.having_conditions_747, i_870).condition)
-                i_870 = int_add_9695(i_870, 1)
-        return b_866.accumulated
-    def safe_to_sql(this_214, default_limit_872: 'int31') -> 'SqlFragment':
-        return_365: 'SqlFragment'
-        t_4718: 'Query'
-        if default_limit_872 < 0:
-            raise RuntimeError30()
-        if not this_214.limit_val_743 is None:
-            return_365 = this_214.to_sql()
-        else:
-            t_4718 = this_214.limit(default_limit_872)
-            return_365 = t_4718.to_sql()
+                b_815.append_safe(', ')
+                b_815.append_part(list_get_10948(values_812, i_816))
+                i_816 = int_add_10949(i_816, 1)
+            b_815.append_safe(')')
+            t_10292 = b_815.accumulated
+            return_365 = this_205.where(t_10292)
         return return_365
-    def __init__(this_328, table_name_875: 'SafeIdentifier', conditions_876: 'Sequence29[WhereClause]', selected_fields_877: 'Sequence29[SafeIdentifier]', order_clauses_878: 'Sequence29[OrderClause]', limit_val_879: 'Union40[int31, None]', offset_val_880: 'Union40[int31, None]', join_clauses_881: 'Sequence29[JoinClause]', group_by_fields_882: 'Sequence29[SafeIdentifier]', having_conditions_883: 'Sequence29[WhereClause]', is_distinct_884: 'bool33', select_exprs_885: 'Sequence29[SqlFragment]') -> None:
-        this_328.table_name_739 = table_name_875
-        this_328.conditions_740 = conditions_876
-        this_328.selected_fields_741 = selected_fields_877
-        this_328.order_clauses_742 = order_clauses_878
-        this_328.limit_val_743 = limit_val_879
-        this_328.offset_val_744 = offset_val_880
-        this_328.join_clauses_745 = join_clauses_881
-        this_328.group_by_fields_746 = group_by_fields_882
-        this_328.having_conditions_747 = having_conditions_883
-        this_328.is_distinct_748 = is_distinct_884
-        this_328.select_exprs_749 = select_exprs_885
+    def where_in_subquery(this_206, field_818: 'SafeIdentifier', sub_819: 'Query') -> 'Query':
+        b_821: 'SqlBuilder' = SqlBuilder()
+        b_821.append_safe(field_818.sql_value)
+        b_821.append_safe(' IN (')
+        b_821.append_fragment(sub_819.to_sql())
+        b_821.append_safe(')')
+        t_10274: 'SqlFragment' = b_821.accumulated
+        return this_206.where(t_10274)
+    def where_not(this_207, condition_823: 'SqlFragment') -> 'Query':
+        b_825: 'SqlBuilder' = SqlBuilder()
+        b_825.append_safe('NOT (')
+        b_825.append_fragment(condition_823)
+        b_825.append_safe(')')
+        t_10265: 'SqlFragment' = b_825.accumulated
+        return this_207.where(t_10265)
+    def where_between(this_208, field_827: 'SafeIdentifier', low_828: 'SqlPart', high_829: 'SqlPart') -> 'Query':
+        b_831: 'SqlBuilder' = SqlBuilder()
+        b_831.append_safe(field_827.sql_value)
+        b_831.append_safe(' BETWEEN ')
+        b_831.append_part(low_828)
+        b_831.append_safe(' AND ')
+        b_831.append_part(high_829)
+        t_10259: 'SqlFragment' = b_831.accumulated
+        return this_208.where(t_10259)
+    def where_like(this_209, field_833: 'SafeIdentifier', pattern_834: 'str27') -> 'Query':
+        b_836: 'SqlBuilder' = SqlBuilder()
+        b_836.append_safe(field_833.sql_value)
+        b_836.append_safe(' LIKE ')
+        b_836.append_string(pattern_834)
+        t_10250: 'SqlFragment' = b_836.accumulated
+        return this_209.where(t_10250)
+    def where_i_like(this_210, field_838: 'SafeIdentifier', pattern_839: 'str27') -> 'Query':
+        b_841: 'SqlBuilder' = SqlBuilder()
+        b_841.append_safe(field_838.sql_value)
+        b_841.append_safe(' ILIKE ')
+        b_841.append_string(pattern_839)
+        t_10243: 'SqlFragment' = b_841.accumulated
+        return this_210.where(t_10243)
+    def select(this_211, fields_843: 'Sequence29[SafeIdentifier]') -> 'Query':
+        return Query(this_211.table_name_783, this_211.conditions_784, fields_843, this_211.order_clauses_786, this_211.limit_val_787, this_211.offset_val_788, this_211.join_clauses_789, this_211.group_by_fields_790, this_211.having_conditions_791, this_211.is_distinct_792, this_211.select_exprs_793)
+    def select_expr(this_212, exprs_846: 'Sequence29[SqlFragment]') -> 'Query':
+        return Query(this_212.table_name_783, this_212.conditions_784, this_212.selected_fields_785, this_212.order_clauses_786, this_212.limit_val_787, this_212.offset_val_788, this_212.join_clauses_789, this_212.group_by_fields_790, this_212.having_conditions_791, this_212.is_distinct_792, exprs_846)
+    def order_by(this_213, field_849: 'SafeIdentifier', ascending_850: 'bool33') -> 'Query':
+        nb_852: 'MutableSequence36[OrderClause]' = list_10936(this_213.order_clauses_786)
+        nb_852.append(OrderClause(field_849, ascending_850))
+        return Query(this_213.table_name_783, this_213.conditions_784, this_213.selected_fields_785, tuple_10939(nb_852), this_213.limit_val_787, this_213.offset_val_788, this_213.join_clauses_789, this_213.group_by_fields_790, this_213.having_conditions_791, this_213.is_distinct_792, this_213.select_exprs_793)
+    def limit(this_214, n_854: 'int31') -> 'Query':
+        if n_854 < 0:
+            raise RuntimeError30()
+        return Query(this_214.table_name_783, this_214.conditions_784, this_214.selected_fields_785, this_214.order_clauses_786, n_854, this_214.offset_val_788, this_214.join_clauses_789, this_214.group_by_fields_790, this_214.having_conditions_791, this_214.is_distinct_792, this_214.select_exprs_793)
+    def offset(this_215, n_857: 'int31') -> 'Query':
+        if n_857 < 0:
+            raise RuntimeError30()
+        return Query(this_215.table_name_783, this_215.conditions_784, this_215.selected_fields_785, this_215.order_clauses_786, this_215.limit_val_787, n_857, this_215.join_clauses_789, this_215.group_by_fields_790, this_215.having_conditions_791, this_215.is_distinct_792, this_215.select_exprs_793)
+    def join(this_216, join_type_860: 'JoinType', table_861: 'SafeIdentifier', on_condition_862: 'SqlFragment') -> 'Query':
+        nb_864: 'MutableSequence36[JoinClause]' = list_10936(this_216.join_clauses_789)
+        nb_864.append(JoinClause(join_type_860, table_861, on_condition_862))
+        return Query(this_216.table_name_783, this_216.conditions_784, this_216.selected_fields_785, this_216.order_clauses_786, this_216.limit_val_787, this_216.offset_val_788, tuple_10939(nb_864), this_216.group_by_fields_790, this_216.having_conditions_791, this_216.is_distinct_792, this_216.select_exprs_793)
+    def inner_join(this_217, table_866: 'SafeIdentifier', on_condition_867: 'SqlFragment') -> 'Query':
+        t_10213: 'InnerJoin' = InnerJoin()
+        return this_217.join(t_10213, table_866, on_condition_867)
+    def left_join(this_218, table_870: 'SafeIdentifier', on_condition_871: 'SqlFragment') -> 'Query':
+        t_10211: 'LeftJoin' = LeftJoin()
+        return this_218.join(t_10211, table_870, on_condition_871)
+    def right_join(this_219, table_874: 'SafeIdentifier', on_condition_875: 'SqlFragment') -> 'Query':
+        t_10209: 'RightJoin' = RightJoin()
+        return this_219.join(t_10209, table_874, on_condition_875)
+    def full_join(this_220, table_878: 'SafeIdentifier', on_condition_879: 'SqlFragment') -> 'Query':
+        t_10207: 'FullJoin' = FullJoin()
+        return this_220.join(t_10207, table_878, on_condition_879)
+    def group_by(this_221, field_882: 'SafeIdentifier') -> 'Query':
+        nb_884: 'MutableSequence36[SafeIdentifier]' = list_10936(this_221.group_by_fields_790)
+        nb_884.append(field_882)
+        return Query(this_221.table_name_783, this_221.conditions_784, this_221.selected_fields_785, this_221.order_clauses_786, this_221.limit_val_787, this_221.offset_val_788, this_221.join_clauses_789, tuple_10939(nb_884), this_221.having_conditions_791, this_221.is_distinct_792, this_221.select_exprs_793)
+    def having(this_222, condition_886: 'SqlFragment') -> 'Query':
+        nb_888: 'MutableSequence36[WhereClause]' = list_10936(this_222.having_conditions_791)
+        nb_888.append(AndCondition(condition_886))
+        return Query(this_222.table_name_783, this_222.conditions_784, this_222.selected_fields_785, this_222.order_clauses_786, this_222.limit_val_787, this_222.offset_val_788, this_222.join_clauses_789, this_222.group_by_fields_790, tuple_10939(nb_888), this_222.is_distinct_792, this_222.select_exprs_793)
+    def or_having(this_223, condition_890: 'SqlFragment') -> 'Query':
+        nb_892: 'MutableSequence36[WhereClause]' = list_10936(this_223.having_conditions_791)
+        nb_892.append(OrCondition(condition_890))
+        return Query(this_223.table_name_783, this_223.conditions_784, this_223.selected_fields_785, this_223.order_clauses_786, this_223.limit_val_787, this_223.offset_val_788, this_223.join_clauses_789, this_223.group_by_fields_790, tuple_10939(nb_892), this_223.is_distinct_792, this_223.select_exprs_793)
+    def distinct(this_224) -> 'Query':
+        return Query(this_224.table_name_783, this_224.conditions_784, this_224.selected_fields_785, this_224.order_clauses_786, this_224.limit_val_787, this_224.offset_val_788, this_224.join_clauses_789, this_224.group_by_fields_790, this_224.having_conditions_791, True, this_224.select_exprs_793)
+    def to_sql(this_225) -> 'SqlFragment':
+        t_10113: 'int31'
+        t_10132: 'int31'
+        t_10151: 'int31'
+        b_897: 'SqlBuilder' = SqlBuilder()
+        if this_225.is_distinct_792:
+            b_897.append_safe('SELECT DISTINCT ')
+        else:
+            b_897.append_safe('SELECT ')
+        if not (not this_225.select_exprs_793):
+            b_897.append_fragment(list_get_10948(this_225.select_exprs_793, 0))
+            i_898: 'int31' = 1
+            while True:
+                t_10113 = len_10940(this_225.select_exprs_793)
+                if not i_898 < t_10113:
+                    break
+                b_897.append_safe(', ')
+                b_897.append_fragment(list_get_10948(this_225.select_exprs_793, i_898))
+                i_898 = int_add_10949(i_898, 1)
+        elif not this_225.selected_fields_785:
+            b_897.append_safe('*')
+        else:
+            def fn_10106(f_899: 'SafeIdentifier') -> 'str27':
+                return f_899.sql_value
+            b_897.append_safe(list_join_10951(this_225.selected_fields_785, ', ', fn_10106))
+        b_897.append_safe(' FROM ')
+        b_897.append_safe(this_225.table_name_783.sql_value)
+        def fn_10105(jc_900: 'JoinClause') -> 'None':
+            b_897.append_safe(' ')
+            t_10093: 'str27' = jc_900.join_type.keyword()
+            b_897.append_safe(t_10093)
+            b_897.append_safe(' ')
+            t_10097: 'str27' = jc_900.table.sql_value
+            b_897.append_safe(t_10097)
+            b_897.append_safe(' ON ')
+            t_10100: 'SqlFragment' = jc_900.on_condition
+            b_897.append_fragment(t_10100)
+        list_for_each_10934(this_225.join_clauses_789, fn_10105)
+        if not (not this_225.conditions_784):
+            b_897.append_safe(' WHERE ')
+            b_897.append_fragment(list_get_10948(this_225.conditions_784, 0).condition)
+            i_901: 'int31' = 1
+            while True:
+                t_10132 = len_10940(this_225.conditions_784)
+                if not i_901 < t_10132:
+                    break
+                b_897.append_safe(' ')
+                b_897.append_safe(list_get_10948(this_225.conditions_784, i_901).keyword())
+                b_897.append_safe(' ')
+                b_897.append_fragment(list_get_10948(this_225.conditions_784, i_901).condition)
+                i_901 = int_add_10949(i_901, 1)
+        if not (not this_225.group_by_fields_790):
+            b_897.append_safe(' GROUP BY ')
+            def fn_10104(f_902: 'SafeIdentifier') -> 'str27':
+                return f_902.sql_value
+            b_897.append_safe(list_join_10951(this_225.group_by_fields_790, ', ', fn_10104))
+        if not (not this_225.having_conditions_791):
+            b_897.append_safe(' HAVING ')
+            b_897.append_fragment(list_get_10948(this_225.having_conditions_791, 0).condition)
+            i_903: 'int31' = 1
+            while True:
+                t_10151 = len_10940(this_225.having_conditions_791)
+                if not i_903 < t_10151:
+                    break
+                b_897.append_safe(' ')
+                b_897.append_safe(list_get_10948(this_225.having_conditions_791, i_903).keyword())
+                b_897.append_safe(' ')
+                b_897.append_fragment(list_get_10948(this_225.having_conditions_791, i_903).condition)
+                i_903 = int_add_10949(i_903, 1)
+        if not (not this_225.order_clauses_786):
+            b_897.append_safe(' ORDER BY ')
+            first_904: 'bool33' = True
+            def fn_10103(oc_905: 'OrderClause') -> 'None':
+                nonlocal first_904
+                t_5515: 'str27'
+                if not first_904:
+                    b_897.append_safe(', ')
+                first_904 = False
+                t_10086: 'str27' = oc_905.field.sql_value
+                b_897.append_safe(t_10086)
+                if oc_905.ascending:
+                    t_5515 = ' ASC'
+                else:
+                    t_5515 = ' DESC'
+                b_897.append_safe(t_5515)
+            list_for_each_10934(this_225.order_clauses_786, fn_10103)
+        lv_906: 'Union40[int31, None]' = this_225.limit_val_787
+        if not lv_906 is None:
+            lv_1952: 'int31' = lv_906
+            b_897.append_safe(' LIMIT ')
+            b_897.append_int32(lv_1952)
+        ov_907: 'Union40[int31, None]' = this_225.offset_val_788
+        if not ov_907 is None:
+            ov_1953: 'int31' = ov_907
+            b_897.append_safe(' OFFSET ')
+            b_897.append_int32(ov_1953)
+        return b_897.accumulated
+    def count_sql(this_226) -> 'SqlFragment':
+        t_10055: 'int31'
+        t_10074: 'int31'
+        b_910: 'SqlBuilder' = SqlBuilder()
+        b_910.append_safe('SELECT COUNT(*) FROM ')
+        b_910.append_safe(this_226.table_name_783.sql_value)
+        def fn_10043(jc_911: 'JoinClause') -> 'None':
+            b_910.append_safe(' ')
+            t_10033: 'str27' = jc_911.join_type.keyword()
+            b_910.append_safe(t_10033)
+            b_910.append_safe(' ')
+            t_10037: 'str27' = jc_911.table.sql_value
+            b_910.append_safe(t_10037)
+            b_910.append_safe(' ON ')
+            t_10040: 'SqlFragment' = jc_911.on_condition
+            b_910.append_fragment(t_10040)
+        list_for_each_10934(this_226.join_clauses_789, fn_10043)
+        if not (not this_226.conditions_784):
+            b_910.append_safe(' WHERE ')
+            b_910.append_fragment(list_get_10948(this_226.conditions_784, 0).condition)
+            i_912: 'int31' = 1
+            while True:
+                t_10055 = len_10940(this_226.conditions_784)
+                if not i_912 < t_10055:
+                    break
+                b_910.append_safe(' ')
+                b_910.append_safe(list_get_10948(this_226.conditions_784, i_912).keyword())
+                b_910.append_safe(' ')
+                b_910.append_fragment(list_get_10948(this_226.conditions_784, i_912).condition)
+                i_912 = int_add_10949(i_912, 1)
+        if not (not this_226.group_by_fields_790):
+            b_910.append_safe(' GROUP BY ')
+            def fn_10042(f_913: 'SafeIdentifier') -> 'str27':
+                return f_913.sql_value
+            b_910.append_safe(list_join_10951(this_226.group_by_fields_790, ', ', fn_10042))
+        if not (not this_226.having_conditions_791):
+            b_910.append_safe(' HAVING ')
+            b_910.append_fragment(list_get_10948(this_226.having_conditions_791, 0).condition)
+            i_914: 'int31' = 1
+            while True:
+                t_10074 = len_10940(this_226.having_conditions_791)
+                if not i_914 < t_10074:
+                    break
+                b_910.append_safe(' ')
+                b_910.append_safe(list_get_10948(this_226.having_conditions_791, i_914).keyword())
+                b_910.append_safe(' ')
+                b_910.append_fragment(list_get_10948(this_226.having_conditions_791, i_914).condition)
+                i_914 = int_add_10949(i_914, 1)
+        return b_910.accumulated
+    def safe_to_sql(this_227, default_limit_916: 'int31') -> 'SqlFragment':
+        return_387: 'SqlFragment'
+        t_5464: 'Query'
+        if default_limit_916 < 0:
+            raise RuntimeError30()
+        if not this_227.limit_val_787 is None:
+            return_387 = this_227.to_sql()
+        else:
+            t_5464 = this_227.limit(default_limit_916)
+            return_387 = t_5464.to_sql()
+        return return_387
+    def __init__(this_350, table_name_919: 'SafeIdentifier', conditions_920: 'Sequence29[WhereClause]', selected_fields_921: 'Sequence29[SafeIdentifier]', order_clauses_922: 'Sequence29[OrderClause]', limit_val_923: 'Union40[int31, None]', offset_val_924: 'Union40[int31, None]', join_clauses_925: 'Sequence29[JoinClause]', group_by_fields_926: 'Sequence29[SafeIdentifier]', having_conditions_927: 'Sequence29[WhereClause]', is_distinct_928: 'bool33', select_exprs_929: 'Sequence29[SqlFragment]') -> None:
+        this_350.table_name_783 = table_name_919
+        this_350.conditions_784 = conditions_920
+        this_350.selected_fields_785 = selected_fields_921
+        this_350.order_clauses_786 = order_clauses_922
+        this_350.limit_val_787 = limit_val_923
+        this_350.offset_val_788 = offset_val_924
+        this_350.join_clauses_789 = join_clauses_925
+        this_350.group_by_fields_790 = group_by_fields_926
+        this_350.having_conditions_791 = having_conditions_927
+        this_350.is_distinct_792 = is_distinct_928
+        this_350.select_exprs_793 = select_exprs_929
     @property
-    def table_name(this_1443) -> 'SafeIdentifier':
-        return this_1443.table_name_739
+    def table_name(this_1585) -> 'SafeIdentifier':
+        return this_1585.table_name_783
     @property
-    def conditions(this_1446) -> 'Sequence29[WhereClause]':
-        return this_1446.conditions_740
+    def conditions(this_1588) -> 'Sequence29[WhereClause]':
+        return this_1588.conditions_784
     @property
-    def selected_fields(this_1449) -> 'Sequence29[SafeIdentifier]':
-        return this_1449.selected_fields_741
+    def selected_fields(this_1591) -> 'Sequence29[SafeIdentifier]':
+        return this_1591.selected_fields_785
     @property
-    def order_clauses(this_1452) -> 'Sequence29[OrderClause]':
-        return this_1452.order_clauses_742
+    def order_clauses(this_1594) -> 'Sequence29[OrderClause]':
+        return this_1594.order_clauses_786
     @property
-    def limit_val(this_1455) -> 'Union40[int31, None]':
-        return this_1455.limit_val_743
+    def limit_val(this_1597) -> 'Union40[int31, None]':
+        return this_1597.limit_val_787
     @property
-    def offset_val(this_1458) -> 'Union40[int31, None]':
-        return this_1458.offset_val_744
+    def offset_val(this_1600) -> 'Union40[int31, None]':
+        return this_1600.offset_val_788
     @property
-    def join_clauses(this_1461) -> 'Sequence29[JoinClause]':
-        return this_1461.join_clauses_745
+    def join_clauses(this_1603) -> 'Sequence29[JoinClause]':
+        return this_1603.join_clauses_789
     @property
-    def group_by_fields(this_1464) -> 'Sequence29[SafeIdentifier]':
-        return this_1464.group_by_fields_746
+    def group_by_fields(this_1606) -> 'Sequence29[SafeIdentifier]':
+        return this_1606.group_by_fields_790
     @property
-    def having_conditions(this_1467) -> 'Sequence29[WhereClause]':
-        return this_1467.having_conditions_747
+    def having_conditions(this_1609) -> 'Sequence29[WhereClause]':
+        return this_1609.having_conditions_791
     @property
-    def is_distinct(this_1470) -> 'bool33':
-        return this_1470.is_distinct_748
+    def is_distinct(this_1612) -> 'bool33':
+        return this_1612.is_distinct_792
     @property
-    def select_exprs(this_1473) -> 'Sequence29[SqlFragment]':
-        return this_1473.select_exprs_749
+    def select_exprs(this_1615) -> 'Sequence29[SqlFragment]':
+        return this_1615.select_exprs_793
+class SetClause:
+    field_976: 'SafeIdentifier'
+    value_977: 'SqlPart'
+    __slots__ = ('field_976', 'value_977')
+    def __init__(this_402, field_979: 'SafeIdentifier', value_980: 'SqlPart') -> None:
+        this_402.field_976 = field_979
+        this_402.value_977 = value_980
+    @property
+    def field(this_1618) -> 'SafeIdentifier':
+        return this_1618.field_976
+    @property
+    def value(this_1621) -> 'SqlPart':
+        return this_1621.value_977
+class UpdateQuery:
+    table_name_981: 'SafeIdentifier'
+    set_clauses_982: 'Sequence29[SetClause]'
+    conditions_983: 'Sequence29[WhereClause]'
+    limit_val_984: 'Union40[int31, None]'
+    __slots__ = ('table_name_981', 'set_clauses_982', 'conditions_983', 'limit_val_984')
+    def set(this_228, field_986: 'SafeIdentifier', value_987: 'SqlPart') -> 'UpdateQuery':
+        nb_989: 'MutableSequence36[SetClause]' = list_10936(this_228.set_clauses_982)
+        nb_989.append(SetClause(field_986, value_987))
+        return UpdateQuery(this_228.table_name_981, tuple_10939(nb_989), this_228.conditions_983, this_228.limit_val_984)
+    def where(this_229, condition_991: 'SqlFragment') -> 'UpdateQuery':
+        nb_993: 'MutableSequence36[WhereClause]' = list_10936(this_229.conditions_983)
+        nb_993.append(AndCondition(condition_991))
+        return UpdateQuery(this_229.table_name_981, this_229.set_clauses_982, tuple_10939(nb_993), this_229.limit_val_984)
+    def or_where(this_230, condition_995: 'SqlFragment') -> 'UpdateQuery':
+        nb_997: 'MutableSequence36[WhereClause]' = list_10936(this_230.conditions_983)
+        nb_997.append(OrCondition(condition_995))
+        return UpdateQuery(this_230.table_name_981, this_230.set_clauses_982, tuple_10939(nb_997), this_230.limit_val_984)
+    def limit(this_231, n_999: 'int31') -> 'UpdateQuery':
+        if n_999 < 0:
+            raise RuntimeError30()
+        return UpdateQuery(this_231.table_name_981, this_231.set_clauses_982, this_231.conditions_983, n_999)
+    def to_sql(this_232) -> 'SqlFragment':
+        t_9890: 'int31'
+        t_9904: 'int31'
+        if not this_232.conditions_983:
+            raise RuntimeError30()
+        if not this_232.set_clauses_982:
+            raise RuntimeError30()
+        b_1003: 'SqlBuilder' = SqlBuilder()
+        b_1003.append_safe('UPDATE ')
+        b_1003.append_safe(this_232.table_name_981.sql_value)
+        b_1003.append_safe(' SET ')
+        b_1003.append_safe(list_get_10948(this_232.set_clauses_982, 0).field.sql_value)
+        b_1003.append_safe(' = ')
+        b_1003.append_part(list_get_10948(this_232.set_clauses_982, 0).value)
+        i_1004: 'int31' = 1
+        while True:
+            t_9890 = len_10940(this_232.set_clauses_982)
+            if not i_1004 < t_9890:
+                break
+            b_1003.append_safe(', ')
+            b_1003.append_safe(list_get_10948(this_232.set_clauses_982, i_1004).field.sql_value)
+            b_1003.append_safe(' = ')
+            b_1003.append_part(list_get_10948(this_232.set_clauses_982, i_1004).value)
+            i_1004 = int_add_10949(i_1004, 1)
+        b_1003.append_safe(' WHERE ')
+        b_1003.append_fragment(list_get_10948(this_232.conditions_983, 0).condition)
+        i_1005: 'int31' = 1
+        while True:
+            t_9904 = len_10940(this_232.conditions_983)
+            if not i_1005 < t_9904:
+                break
+            b_1003.append_safe(' ')
+            b_1003.append_safe(list_get_10948(this_232.conditions_983, i_1005).keyword())
+            b_1003.append_safe(' ')
+            b_1003.append_fragment(list_get_10948(this_232.conditions_983, i_1005).condition)
+            i_1005 = int_add_10949(i_1005, 1)
+        lv_1006: 'Union40[int31, None]' = this_232.limit_val_984
+        if not lv_1006 is None:
+            lv_1954: 'int31' = lv_1006
+            b_1003.append_safe(' LIMIT ')
+            b_1003.append_int32(lv_1954)
+        return b_1003.accumulated
+    def __init__(this_404, table_name_1008: 'SafeIdentifier', set_clauses_1009: 'Sequence29[SetClause]', conditions_1010: 'Sequence29[WhereClause]', limit_val_1011: 'Union40[int31, None]') -> None:
+        this_404.table_name_981 = table_name_1008
+        this_404.set_clauses_982 = set_clauses_1009
+        this_404.conditions_983 = conditions_1010
+        this_404.limit_val_984 = limit_val_1011
+    @property
+    def table_name(this_1624) -> 'SafeIdentifier':
+        return this_1624.table_name_981
+    @property
+    def set_clauses(this_1627) -> 'Sequence29[SetClause]':
+        return this_1627.set_clauses_982
+    @property
+    def conditions(this_1630) -> 'Sequence29[WhereClause]':
+        return this_1630.conditions_983
+    @property
+    def limit_val(this_1633) -> 'Union40[int31, None]':
+        return this_1633.limit_val_984
+class DeleteQuery:
+    table_name_1012: 'SafeIdentifier'
+    conditions_1013: 'Sequence29[WhereClause]'
+    limit_val_1014: 'Union40[int31, None]'
+    __slots__ = ('table_name_1012', 'conditions_1013', 'limit_val_1014')
+    def where(this_233, condition_1016: 'SqlFragment') -> 'DeleteQuery':
+        nb_1018: 'MutableSequence36[WhereClause]' = list_10936(this_233.conditions_1013)
+        nb_1018.append(AndCondition(condition_1016))
+        return DeleteQuery(this_233.table_name_1012, tuple_10939(nb_1018), this_233.limit_val_1014)
+    def or_where(this_234, condition_1020: 'SqlFragment') -> 'DeleteQuery':
+        nb_1022: 'MutableSequence36[WhereClause]' = list_10936(this_234.conditions_1013)
+        nb_1022.append(OrCondition(condition_1020))
+        return DeleteQuery(this_234.table_name_1012, tuple_10939(nb_1022), this_234.limit_val_1014)
+    def limit(this_235, n_1024: 'int31') -> 'DeleteQuery':
+        if n_1024 < 0:
+            raise RuntimeError30()
+        return DeleteQuery(this_235.table_name_1012, this_235.conditions_1013, n_1024)
+    def to_sql(this_236) -> 'SqlFragment':
+        t_9850: 'int31'
+        if not this_236.conditions_1013:
+            raise RuntimeError30()
+        b_1028: 'SqlBuilder' = SqlBuilder()
+        b_1028.append_safe('DELETE FROM ')
+        b_1028.append_safe(this_236.table_name_1012.sql_value)
+        b_1028.append_safe(' WHERE ')
+        b_1028.append_fragment(list_get_10948(this_236.conditions_1013, 0).condition)
+        i_1029: 'int31' = 1
+        while True:
+            t_9850 = len_10940(this_236.conditions_1013)
+            if not i_1029 < t_9850:
+                break
+            b_1028.append_safe(' ')
+            b_1028.append_safe(list_get_10948(this_236.conditions_1013, i_1029).keyword())
+            b_1028.append_safe(' ')
+            b_1028.append_fragment(list_get_10948(this_236.conditions_1013, i_1029).condition)
+            i_1029 = int_add_10949(i_1029, 1)
+        lv_1030: 'Union40[int31, None]' = this_236.limit_val_1014
+        if not lv_1030 is None:
+            lv_1955: 'int31' = lv_1030
+            b_1028.append_safe(' LIMIT ')
+            b_1028.append_int32(lv_1955)
+        return b_1028.accumulated
+    def __init__(this_414, table_name_1032: 'SafeIdentifier', conditions_1033: 'Sequence29[WhereClause]', limit_val_1034: 'Union40[int31, None]') -> None:
+        this_414.table_name_1012 = table_name_1032
+        this_414.conditions_1013 = conditions_1033
+        this_414.limit_val_1014 = limit_val_1034
+    @property
+    def table_name(this_1636) -> 'SafeIdentifier':
+        return this_1636.table_name_1012
+    @property
+    def conditions(this_1639) -> 'Sequence29[WhereClause]':
+        return this_1639.conditions_1013
+    @property
+    def limit_val(this_1642) -> 'Union40[int31, None]':
+        return this_1642.limit_val_1014
 class SafeIdentifier(metaclass = ABCMeta28):
     pass
-class ValidatedIdentifier_216(SafeIdentifier):
-    value_1116: 'str27'
-    __slots__ = ('value_1116',)
+class ValidatedIdentifier_238(SafeIdentifier):
+    value_1249: 'str27'
+    __slots__ = ('value_1249',)
     @property
-    def sql_value(this_217) -> 'str27':
-        return this_217.value_1116
-    def __init__(this_384, value_1120: 'str27') -> None:
-        this_384.value_1116 = value_1120
+    def sql_value(this_239) -> 'str27':
+        return this_239.value_1249
+    def __init__(this_428, value_1253: 'str27') -> None:
+        this_428.value_1249 = value_1253
 class FieldType(metaclass = ABCMeta28):
     pass
 class StringField(FieldType):
     __slots__ = ()
-    def __init__(this_390) -> None:
+    def __init__(this_434) -> None:
         pass
 class IntField(FieldType):
     __slots__ = ()
-    def __init__(this_392) -> None:
+    def __init__(this_436) -> None:
         pass
 class Int64Field(FieldType):
     __slots__ = ()
-    def __init__(this_394) -> None:
+    def __init__(this_438) -> None:
         pass
 class FloatField(FieldType):
     __slots__ = ()
-    def __init__(this_396) -> None:
+    def __init__(this_440) -> None:
         pass
 class BoolField(FieldType):
     __slots__ = ()
-    def __init__(this_398) -> None:
+    def __init__(this_442) -> None:
         pass
 class DateField(FieldType):
     __slots__ = ()
-    def __init__(this_400) -> None:
+    def __init__(this_444) -> None:
         pass
 class FieldDef:
-    name_1134: 'SafeIdentifier'
-    field_type_1135: 'FieldType'
-    nullable_1136: 'bool33'
-    __slots__ = ('name_1134', 'field_type_1135', 'nullable_1136')
-    def __init__(this_402, name_1138: 'SafeIdentifier', field_type_1139: 'FieldType', nullable_1140: 'bool33') -> None:
-        this_402.name_1134 = name_1138
-        this_402.field_type_1135 = field_type_1139
-        this_402.nullable_1136 = nullable_1140
+    name_1267: 'SafeIdentifier'
+    field_type_1268: 'FieldType'
+    nullable_1269: 'bool33'
+    __slots__ = ('name_1267', 'field_type_1268', 'nullable_1269')
+    def __init__(this_446, name_1271: 'SafeIdentifier', field_type_1272: 'FieldType', nullable_1273: 'bool33') -> None:
+        this_446.name_1267 = name_1271
+        this_446.field_type_1268 = field_type_1272
+        this_446.nullable_1269 = nullable_1273
     @property
-    def name(this_1366) -> 'SafeIdentifier':
-        return this_1366.name_1134
+    def name(this_1508) -> 'SafeIdentifier':
+        return this_1508.name_1267
     @property
-    def field_type(this_1369) -> 'FieldType':
-        return this_1369.field_type_1135
+    def field_type(this_1511) -> 'FieldType':
+        return this_1511.field_type_1268
     @property
-    def nullable(this_1372) -> 'bool33':
-        return this_1372.nullable_1136
+    def nullable(this_1514) -> 'bool33':
+        return this_1514.nullable_1269
 class TableDef:
-    table_name_1141: 'SafeIdentifier'
-    fields_1142: 'Sequence29[FieldDef]'
-    __slots__ = ('table_name_1141', 'fields_1142')
-    def field(this_218, name_1144: 'str27') -> 'FieldDef':
-        return_407: 'FieldDef'
-        with Label35() as fn_1145:
-            this_5723: 'Sequence29[FieldDef]' = this_218.fields_1142
-            n_5724: 'int31' = len_9686(this_5723)
-            i_5725: 'int31' = 0
-            while i_5725 < n_5724:
-                el_5726: 'FieldDef' = list_get_9694(this_5723, i_5725)
-                i_5725 = int_add_9695(i_5725, 1)
-                f_1146: 'FieldDef' = el_5726
-                if f_1146.name.sql_value == name_1144:
-                    return_407 = f_1146
-                    fn_1145.break_()
+    table_name_1274: 'SafeIdentifier'
+    fields_1275: 'Sequence29[FieldDef]'
+    __slots__ = ('table_name_1274', 'fields_1275')
+    def field(this_240, name_1277: 'str27') -> 'FieldDef':
+        return_451: 'FieldDef'
+        with Label35() as fn_1278:
+            this_6482: 'Sequence29[FieldDef]' = this_240.fields_1275
+            n_6483: 'int31' = len_10940(this_6482)
+            i_6484: 'int31' = 0
+            while i_6484 < n_6483:
+                el_6485: 'FieldDef' = list_get_10948(this_6482, i_6484)
+                i_6484 = int_add_10949(i_6484, 1)
+                f_1279: 'FieldDef' = el_6485
+                if f_1279.name.sql_value == name_1277:
+                    return_451 = f_1279
+                    fn_1278.break_()
             raise RuntimeError30()
-        return return_407
-    def __init__(this_404, table_name_1148: 'SafeIdentifier', fields_1149: 'Sequence29[FieldDef]') -> None:
-        this_404.table_name_1141 = table_name_1148
-        this_404.fields_1142 = fields_1149
+        return return_451
+    def __init__(this_448, table_name_1281: 'SafeIdentifier', fields_1282: 'Sequence29[FieldDef]') -> None:
+        this_448.table_name_1274 = table_name_1281
+        this_448.fields_1275 = fields_1282
     @property
-    def table_name(this_1375) -> 'SafeIdentifier':
-        return this_1375.table_name_1141
+    def table_name(this_1517) -> 'SafeIdentifier':
+        return this_1517.table_name_1274
     @property
-    def fields(this_1378) -> 'Sequence29[FieldDef]':
-        return this_1378.fields_1142
-T_237 = TypeVar42('T_237', bound = Any41)
+    def fields(this_1520) -> 'Sequence29[FieldDef]':
+        return this_1520.fields_1275
+T_259 = TypeVar42('T_259', bound = Any41)
 class SqlBuilder:
-    buffer_1169: 'MutableSequence36[SqlPart]'
-    __slots__ = ('buffer_1169',)
-    def append_safe(this_219, sql_source_1171: 'str27') -> 'None':
-        t_9641: 'SqlSource' = SqlSource(sql_source_1171)
-        this_219.buffer_1169.append(t_9641)
-    def append_fragment(this_220, fragment_1174: 'SqlFragment') -> 'None':
-        t_9639: 'Sequence29[SqlPart]' = fragment_1174.parts
-        list_builder_add_all_9698(this_220.buffer_1169, t_9639)
-    def append_part(this_221, part_1177: 'SqlPart') -> 'None':
-        this_221.buffer_1169.append(part_1177)
-    def append_part_list(this_222, values_1180: 'Sequence29[SqlPart]') -> 'None':
-        def fn_9635(x_1182: 'SqlPart') -> 'None':
-            this_222.append_part(x_1182)
-        this_222.append_list_1225(values_1180, fn_9635)
-    def append_boolean(this_223, value_1184: 'bool33') -> 'None':
-        t_9632: 'SqlBoolean' = SqlBoolean(value_1184)
-        this_223.buffer_1169.append(t_9632)
-    def append_boolean_list(this_224, values_1187: 'Sequence29[bool33]') -> 'None':
-        def fn_9629(x_1189: 'bool33') -> 'None':
-            this_224.append_boolean(x_1189)
-        this_224.append_list_1225(values_1187, fn_9629)
-    def append_date(this_225, value_1191: 'date26') -> 'None':
-        t_9626: 'SqlDate' = SqlDate(value_1191)
-        this_225.buffer_1169.append(t_9626)
-    def append_date_list(this_226, values_1194: 'Sequence29[date26]') -> 'None':
-        def fn_9623(x_1196: 'date26') -> 'None':
-            this_226.append_date(x_1196)
-        this_226.append_list_1225(values_1194, fn_9623)
-    def append_float64(this_227, value_1198: 'float38') -> 'None':
-        t_9620: 'SqlFloat64' = SqlFloat64(value_1198)
-        this_227.buffer_1169.append(t_9620)
-    def append_float64_list(this_228, values_1201: 'Sequence29[float38]') -> 'None':
-        def fn_9617(x_1203: 'float38') -> 'None':
-            this_228.append_float64(x_1203)
-        this_228.append_list_1225(values_1201, fn_9617)
-    def append_int32(this_229, value_1205: 'int31') -> 'None':
-        t_9614: 'SqlInt32' = SqlInt32(value_1205)
-        this_229.buffer_1169.append(t_9614)
-    def append_int32_list(this_230, values_1208: 'Sequence29[int31]') -> 'None':
-        def fn_9611(x_1210: 'int31') -> 'None':
-            this_230.append_int32(x_1210)
-        this_230.append_list_1225(values_1208, fn_9611)
-    def append_int64(this_231, value_1212: 'int64_23') -> 'None':
-        t_9608: 'SqlInt64' = SqlInt64(value_1212)
-        this_231.buffer_1169.append(t_9608)
-    def append_int64_list(this_232, values_1215: 'Sequence29[int64_23]') -> 'None':
-        def fn_9605(x_1217: 'int64_23') -> 'None':
-            this_232.append_int64(x_1217)
-        this_232.append_list_1225(values_1215, fn_9605)
-    def append_string(this_233, value_1219: 'str27') -> 'None':
-        t_9602: 'SqlString' = SqlString(value_1219)
-        this_233.buffer_1169.append(t_9602)
-    def append_string_list(this_234, values_1222: 'Sequence29[str27]') -> 'None':
-        def fn_9599(x_1224: 'str27') -> 'None':
-            this_234.append_string(x_1224)
-        this_234.append_list_1225(values_1222, fn_9599)
-    def append_list_1225(this_235, values_1226: 'Sequence29[T_237]', append_value_1227: 'Callable43[[T_237], None]') -> 'None':
-        t_9594: 'int31'
-        t_9596: 'T_237'
-        i_1229: 'int31' = 0
+    buffer_1302: 'MutableSequence36[SqlPart]'
+    __slots__ = ('buffer_1302',)
+    def append_safe(this_241, sql_source_1304: 'str27') -> 'None':
+        t_10895: 'SqlSource' = SqlSource(sql_source_1304)
+        this_241.buffer_1302.append(t_10895)
+    def append_fragment(this_242, fragment_1307: 'SqlFragment') -> 'None':
+        t_10893: 'Sequence29[SqlPart]' = fragment_1307.parts
+        list_builder_add_all_10952(this_242.buffer_1302, t_10893)
+    def append_part(this_243, part_1310: 'SqlPart') -> 'None':
+        this_243.buffer_1302.append(part_1310)
+    def append_part_list(this_244, values_1313: 'Sequence29[SqlPart]') -> 'None':
+        def fn_10889(x_1315: 'SqlPart') -> 'None':
+            this_244.append_part(x_1315)
+        this_244.append_list_1358(values_1313, fn_10889)
+    def append_boolean(this_245, value_1317: 'bool33') -> 'None':
+        t_10886: 'SqlBoolean' = SqlBoolean(value_1317)
+        this_245.buffer_1302.append(t_10886)
+    def append_boolean_list(this_246, values_1320: 'Sequence29[bool33]') -> 'None':
+        def fn_10883(x_1322: 'bool33') -> 'None':
+            this_246.append_boolean(x_1322)
+        this_246.append_list_1358(values_1320, fn_10883)
+    def append_date(this_247, value_1324: 'date26') -> 'None':
+        t_10880: 'SqlDate' = SqlDate(value_1324)
+        this_247.buffer_1302.append(t_10880)
+    def append_date_list(this_248, values_1327: 'Sequence29[date26]') -> 'None':
+        def fn_10877(x_1329: 'date26') -> 'None':
+            this_248.append_date(x_1329)
+        this_248.append_list_1358(values_1327, fn_10877)
+    def append_float64(this_249, value_1331: 'float38') -> 'None':
+        t_10874: 'SqlFloat64' = SqlFloat64(value_1331)
+        this_249.buffer_1302.append(t_10874)
+    def append_float64_list(this_250, values_1334: 'Sequence29[float38]') -> 'None':
+        def fn_10871(x_1336: 'float38') -> 'None':
+            this_250.append_float64(x_1336)
+        this_250.append_list_1358(values_1334, fn_10871)
+    def append_int32(this_251, value_1338: 'int31') -> 'None':
+        t_10868: 'SqlInt32' = SqlInt32(value_1338)
+        this_251.buffer_1302.append(t_10868)
+    def append_int32_list(this_252, values_1341: 'Sequence29[int31]') -> 'None':
+        def fn_10865(x_1343: 'int31') -> 'None':
+            this_252.append_int32(x_1343)
+        this_252.append_list_1358(values_1341, fn_10865)
+    def append_int64(this_253, value_1345: 'int64_23') -> 'None':
+        t_10862: 'SqlInt64' = SqlInt64(value_1345)
+        this_253.buffer_1302.append(t_10862)
+    def append_int64_list(this_254, values_1348: 'Sequence29[int64_23]') -> 'None':
+        def fn_10859(x_1350: 'int64_23') -> 'None':
+            this_254.append_int64(x_1350)
+        this_254.append_list_1358(values_1348, fn_10859)
+    def append_string(this_255, value_1352: 'str27') -> 'None':
+        t_10856: 'SqlString' = SqlString(value_1352)
+        this_255.buffer_1302.append(t_10856)
+    def append_string_list(this_256, values_1355: 'Sequence29[str27]') -> 'None':
+        def fn_10853(x_1357: 'str27') -> 'None':
+            this_256.append_string(x_1357)
+        this_256.append_list_1358(values_1355, fn_10853)
+    def append_list_1358(this_257, values_1359: 'Sequence29[T_259]', append_value_1360: 'Callable43[[T_259], None]') -> 'None':
+        t_10848: 'int31'
+        t_10850: 'T_259'
+        i_1362: 'int31' = 0
         while True:
-            t_9594 = len_9686(values_1226)
-            if not i_1229 < t_9594:
+            t_10848 = len_10940(values_1359)
+            if not i_1362 < t_10848:
                 break
-            if i_1229 > 0:
-                this_235.append_safe(', ')
-            t_9596 = list_get_9694(values_1226, i_1229)
-            append_value_1227(t_9596)
-            i_1229 = int_add_9695(i_1229, 1)
+            if i_1362 > 0:
+                this_257.append_safe(', ')
+            t_10850 = list_get_10948(values_1359, i_1362)
+            append_value_1360(t_10850)
+            i_1362 = int_add_10949(i_1362, 1)
     @property
-    def accumulated(this_236) -> 'SqlFragment':
-        return SqlFragment(tuple_9685(this_236.buffer_1169))
-    def __init__(this_409) -> None:
-        t_9591: 'MutableSequence36[SqlPart]' = list_9682()
-        this_409.buffer_1169 = t_9591
+    def accumulated(this_258) -> 'SqlFragment':
+        return SqlFragment(tuple_10939(this_258.buffer_1302))
+    def __init__(this_453) -> None:
+        t_10845: 'MutableSequence36[SqlPart]' = list_10936()
+        this_453.buffer_1302 = t_10845
 class SqlFragment:
-    parts_1236: 'Sequence29[SqlPart]'
-    __slots__ = ('parts_1236',)
-    def to_source(this_241) -> 'SqlSource':
-        return SqlSource(this_241.to_string())
-    def to_string(this_242) -> 'str27':
-        t_9665: 'int31'
-        builder_1241: 'list3[str27]' = ['']
-        i_1242: 'int31' = 0
+    parts_1369: 'Sequence29[SqlPart]'
+    __slots__ = ('parts_1369',)
+    def to_source(this_263) -> 'SqlSource':
+        return SqlSource(this_263.to_string())
+    def to_string(this_264) -> 'str27':
+        t_10919: 'int31'
+        builder_1374: 'list3[str27]' = ['']
+        i_1375: 'int31' = 0
         while True:
-            t_9665 = len_9686(this_242.parts_1236)
-            if not i_1242 < t_9665:
+            t_10919 = len_10940(this_264.parts_1369)
+            if not i_1375 < t_10919:
                 break
-            list_get_9694(this_242.parts_1236, i_1242).format_to(builder_1241)
-            i_1242 = int_add_9695(i_1242, 1)
-        return ''.join(builder_1241)
-    def __init__(this_430, parts_1244: 'Sequence29[SqlPart]') -> None:
-        this_430.parts_1236 = parts_1244
+            list_get_10948(this_264.parts_1369, i_1375).format_to(builder_1374)
+            i_1375 = int_add_10949(i_1375, 1)
+        return ''.join(builder_1374)
+    def __init__(this_474, parts_1377: 'Sequence29[SqlPart]') -> None:
+        this_474.parts_1369 = parts_1377
     @property
-    def parts(this_1384) -> 'Sequence29[SqlPart]':
-        return this_1384.parts_1236
+    def parts(this_1526) -> 'Sequence29[SqlPart]':
+        return this_1526.parts_1369
 class SqlPart(metaclass = ABCMeta28):
-    def format_to(this_243, builder_1246: 'list3[str27]') -> 'None':
+    def format_to(this_265, builder_1379: 'list3[str27]') -> 'None':
         raise RuntimeError30()
 class SqlSource(SqlPart):
     "`SqlSource` represents known-safe SQL source code that doesn't need escaped."
-    source_1248: 'str27'
-    __slots__ = ('source_1248',)
-    def format_to(this_244, builder_1250: 'list3[str27]') -> 'None':
-        builder_1250.append(this_244.source_1248)
-    def __init__(this_436, source_1253: 'str27') -> None:
-        this_436.source_1248 = source_1253
+    source_1381: 'str27'
+    __slots__ = ('source_1381',)
+    def format_to(this_266, builder_1383: 'list3[str27]') -> 'None':
+        builder_1383.append(this_266.source_1381)
+    def __init__(this_480, source_1386: 'str27') -> None:
+        this_480.source_1381 = source_1386
     @property
-    def source(this_1381) -> 'str27':
-        return this_1381.source_1248
+    def source(this_1523) -> 'str27':
+        return this_1523.source_1381
 class SqlBoolean(SqlPart):
-    value_1254: 'bool33'
-    __slots__ = ('value_1254',)
-    def format_to(this_245, builder_1256: 'list3[str27]') -> 'None':
-        t_5535: 'str27'
-        if this_245.value_1254:
-            t_5535 = 'TRUE'
+    value_1387: 'bool33'
+    __slots__ = ('value_1387',)
+    def format_to(this_267, builder_1389: 'list3[str27]') -> 'None':
+        t_6281: 'str27'
+        if this_267.value_1387:
+            t_6281 = 'TRUE'
         else:
-            t_5535 = 'FALSE'
-        builder_1256.append(t_5535)
-    def __init__(this_439, value_1259: 'bool33') -> None:
-        this_439.value_1254 = value_1259
+            t_6281 = 'FALSE'
+        builder_1389.append(t_6281)
+    def __init__(this_483, value_1392: 'bool33') -> None:
+        this_483.value_1387 = value_1392
     @property
-    def value(this_1387) -> 'bool33':
-        return this_1387.value_1254
+    def value(this_1529) -> 'bool33':
+        return this_1529.value_1387
 class SqlDate(SqlPart):
-    value_1260: 'date26'
-    __slots__ = ('value_1260',)
-    def format_to(this_246, builder_1262: 'list3[str27]') -> 'None':
-        builder_1262.append("'")
-        t_9646: 'str27' = date_to_string_9702(this_246.value_1260)
-        def fn_9644(c_1264: 'int31') -> 'None':
-            if c_1264 == 39:
-                builder_1262.append("''")
+    value_1393: 'date26'
+    __slots__ = ('value_1393',)
+    def format_to(this_268, builder_1395: 'list3[str27]') -> 'None':
+        builder_1395.append("'")
+        t_10900: 'str27' = date_to_string_10956(this_268.value_1393)
+        def fn_10898(c_1397: 'int31') -> 'None':
+            if c_1397 == 39:
+                builder_1395.append("''")
             else:
-                builder_1262.append(string_from_code_point44(c_1264))
-        string_for_each_9704(t_9646, fn_9644)
-        builder_1262.append("'")
-    def __init__(this_442, value_1266: 'date26') -> None:
-        this_442.value_1260 = value_1266
+                builder_1395.append(string_from_code_point44(c_1397))
+        string_for_each_10958(t_10900, fn_10898)
+        builder_1395.append("'")
+    def __init__(this_486, value_1399: 'date26') -> None:
+        this_486.value_1393 = value_1399
     @property
-    def value(this_1402) -> 'date26':
-        return this_1402.value_1260
+    def value(this_1544) -> 'date26':
+        return this_1544.value_1393
 class SqlFloat64(SqlPart):
-    value_1267: 'float38'
-    __slots__ = ('value_1267',)
-    def format_to(this_247, builder_1269: 'list3[str27]') -> 'None':
-        t_5524: 'bool33'
-        t_5525: 'bool33'
-        s_1271: 'str27' = float64_to_string_9705(this_247.value_1267)
-        if s_1271 == 'NaN':
-            t_5525 = True
+    value_1400: 'float38'
+    __slots__ = ('value_1400',)
+    def format_to(this_269, builder_1402: 'list3[str27]') -> 'None':
+        t_6270: 'bool33'
+        t_6271: 'bool33'
+        s_1404: 'str27' = float64_to_string_10959(this_269.value_1400)
+        if s_1404 == 'NaN':
+            t_6271 = True
         else:
-            if s_1271 == 'Infinity':
-                t_5524 = True
+            if s_1404 == 'Infinity':
+                t_6270 = True
             else:
-                t_5524 = s_1271 == '-Infinity'
-            t_5525 = t_5524
-        if t_5525:
-            builder_1269.append('NULL')
+                t_6270 = s_1404 == '-Infinity'
+            t_6271 = t_6270
+        if t_6271:
+            builder_1402.append('NULL')
         else:
-            builder_1269.append(s_1271)
-    def __init__(this_445, value_1273: 'float38') -> None:
-        this_445.value_1267 = value_1273
+            builder_1402.append(s_1404)
+    def __init__(this_489, value_1406: 'float38') -> None:
+        this_489.value_1400 = value_1406
     @property
-    def value(this_1399) -> 'float38':
-        return this_1399.value_1267
+    def value(this_1541) -> 'float38':
+        return this_1541.value_1400
 class SqlInt32(SqlPart):
-    value_1274: 'int31'
-    __slots__ = ('value_1274',)
-    def format_to(this_248, builder_1276: 'list3[str27]') -> 'None':
-        t_9655: 'str27' = int_to_string_9689(this_248.value_1274)
-        builder_1276.append(t_9655)
-    def __init__(this_448, value_1279: 'int31') -> None:
-        this_448.value_1274 = value_1279
+    value_1407: 'int31'
+    __slots__ = ('value_1407',)
+    def format_to(this_270, builder_1409: 'list3[str27]') -> 'None':
+        t_10909: 'str27' = int_to_string_10943(this_270.value_1407)
+        builder_1409.append(t_10909)
+    def __init__(this_492, value_1412: 'int31') -> None:
+        this_492.value_1407 = value_1412
     @property
-    def value(this_1393) -> 'int31':
-        return this_1393.value_1274
+    def value(this_1535) -> 'int31':
+        return this_1535.value_1407
 class SqlInt64(SqlPart):
-    value_1280: 'int64_23'
-    __slots__ = ('value_1280',)
-    def format_to(this_249, builder_1282: 'list3[str27]') -> 'None':
-        t_9653: 'str27' = int_to_string_9689(this_249.value_1280)
-        builder_1282.append(t_9653)
-    def __init__(this_451, value_1285: 'int64_23') -> None:
-        this_451.value_1280 = value_1285
+    value_1413: 'int64_23'
+    __slots__ = ('value_1413',)
+    def format_to(this_271, builder_1415: 'list3[str27]') -> 'None':
+        t_10907: 'str27' = int_to_string_10943(this_271.value_1413)
+        builder_1415.append(t_10907)
+    def __init__(this_495, value_1418: 'int64_23') -> None:
+        this_495.value_1413 = value_1418
     @property
-    def value(this_1396) -> 'int64_23':
-        return this_1396.value_1280
+    def value(this_1538) -> 'int64_23':
+        return this_1538.value_1413
 class SqlString(SqlPart):
     '`SqlString` represents text data that needs escaped.'
-    value_1286: 'str27'
-    __slots__ = ('value_1286',)
-    def format_to(this_250, builder_1288: 'list3[str27]') -> 'None':
-        builder_1288.append("'")
-        def fn_9658(c_1290: 'int31') -> 'None':
-            if c_1290 == 39:
-                builder_1288.append("''")
+    value_1419: 'str27'
+    __slots__ = ('value_1419',)
+    def format_to(this_272, builder_1421: 'list3[str27]') -> 'None':
+        builder_1421.append("'")
+        def fn_10912(c_1423: 'int31') -> 'None':
+            if c_1423 == 39:
+                builder_1421.append("''")
             else:
-                builder_1288.append(string_from_code_point44(c_1290))
-        string_for_each_9704(this_250.value_1286, fn_9658)
-        builder_1288.append("'")
-    def __init__(this_454, value_1292: 'str27') -> None:
-        this_454.value_1286 = value_1292
+                builder_1421.append(string_from_code_point44(c_1423))
+        string_for_each_10958(this_272.value_1419, fn_10912)
+        builder_1421.append("'")
+    def __init__(this_498, value_1425: 'str27') -> None:
+        this_498.value_1419 = value_1425
     @property
-    def value(this_1390) -> 'str27':
-        return this_1390.value_1286
-def changeset(table_def_601: 'TableDef', params_602: 'MappingProxyType32[str27, str27]') -> 'Changeset':
-    t_9441: 'MappingProxyType32[str27, str27]' = map_constructor_9706(())
-    return ChangesetImpl_161(table_def_601, params_602, t_9441, (), True)
-def is_ident_start_462(c_1121: 'int31') -> 'bool33':
-    return_387: 'bool33'
-    t_5298: 'bool33'
-    t_5299: 'bool33'
-    if c_1121 >= 97:
-        t_5298 = c_1121 <= 122
+    def value(this_1532) -> 'str27':
+        return this_1532.value_1419
+def changeset(table_def_645: 'TableDef', params_646: 'MappingProxyType32[str27, str27]') -> 'Changeset':
+    t_10695: 'MappingProxyType32[str27, str27]' = map_constructor_10960(())
+    return ChangesetImpl_174(table_def_645, params_646, t_10695, (), True)
+def is_ident_start_506(c_1254: 'int31') -> 'bool33':
+    return_431: 'bool33'
+    t_6044: 'bool33'
+    t_6045: 'bool33'
+    if c_1254 >= 97:
+        t_6044 = c_1254 <= 122
     else:
-        t_5298 = False
-    if t_5298:
-        return_387 = True
+        t_6044 = False
+    if t_6044:
+        return_431 = True
     else:
-        if c_1121 >= 65:
-            t_5299 = c_1121 <= 90
+        if c_1254 >= 65:
+            t_6045 = c_1254 <= 90
         else:
-            t_5299 = False
-        if t_5299:
-            return_387 = True
+            t_6045 = False
+        if t_6045:
+            return_431 = True
         else:
-            return_387 = c_1121 == 95
-    return return_387
-def is_ident_part_463(c_1123: 'int31') -> 'bool33':
-    return_388: 'bool33'
-    if is_ident_start_462(c_1123):
-        return_388 = True
-    elif c_1123 >= 48:
-        return_388 = c_1123 <= 57
+            return_431 = c_1254 == 95
+    return return_431
+def is_ident_part_507(c_1256: 'int31') -> 'bool33':
+    return_432: 'bool33'
+    if is_ident_start_506(c_1256):
+        return_432 = True
+    elif c_1256 >= 48:
+        return_432 = c_1256 <= 57
     else:
-        return_388 = False
-    return return_388
-def safe_identifier(name_1125: 'str27') -> 'SafeIdentifier':
-    t_9439: 'int31'
-    if not name_1125:
+        return_432 = False
+    return return_432
+def safe_identifier(name_1258: 'str27') -> 'SafeIdentifier':
+    t_10693: 'int31'
+    if not name_1258:
         raise RuntimeError30()
-    idx_1127: 'int31' = 0
-    if not is_ident_start_462(string_get_9707(name_1125, idx_1127)):
+    idx_1260: 'int31' = 0
+    if not is_ident_start_506(string_get_10961(name_1258, idx_1260)):
         raise RuntimeError30()
-    t_9436: 'int31' = string_next_9708(name_1125, idx_1127)
-    idx_1127 = t_9436
+    t_10690: 'int31' = string_next_10962(name_1258, idx_1260)
+    idx_1260 = t_10690
     while True:
-        if not len6(name_1125) > idx_1127:
+        if not len6(name_1258) > idx_1260:
             break
-        if not is_ident_part_463(string_get_9707(name_1125, idx_1127)):
+        if not is_ident_part_507(string_get_10961(name_1258, idx_1260)):
             raise RuntimeError30()
-        t_9439 = string_next_9708(name_1125, idx_1127)
-        idx_1127 = t_9439
-    return ValidatedIdentifier_216(name_1125)
-def delete_sql(table_def_691: 'TableDef', id_692: 'int31') -> 'SqlFragment':
-    b_694: 'SqlBuilder' = SqlBuilder()
-    b_694.append_safe('DELETE FROM ')
-    b_694.append_safe(table_def_691.table_name.sql_value)
-    b_694.append_safe(' WHERE id = ')
-    b_694.append_int32(id_692)
-    return b_694.accumulated
-def from_(table_name_886: 'SafeIdentifier') -> 'Query':
-    return Query(table_name_886, (), (), (), None, None, (), (), (), False, ())
-def col(table_888: 'SafeIdentifier', column_889: 'SafeIdentifier') -> 'SqlFragment':
-    b_891: 'SqlBuilder' = SqlBuilder()
-    b_891.append_safe(table_888.sql_value)
-    b_891.append_safe('.')
-    b_891.append_safe(column_889.sql_value)
-    return b_891.accumulated
+        t_10693 = string_next_10962(name_1258, idx_1260)
+        idx_1260 = t_10693
+    return ValidatedIdentifier_238(name_1258)
+def delete_sql(table_def_735: 'TableDef', id_736: 'int31') -> 'SqlFragment':
+    b_738: 'SqlBuilder' = SqlBuilder()
+    b_738.append_safe('DELETE FROM ')
+    b_738.append_safe(table_def_735.table_name.sql_value)
+    b_738.append_safe(' WHERE id = ')
+    b_738.append_int32(id_736)
+    return b_738.accumulated
+def from_(table_name_930: 'SafeIdentifier') -> 'Query':
+    return Query(table_name_930, (), (), (), None, None, (), (), (), False, ())
+def col(table_932: 'SafeIdentifier', column_933: 'SafeIdentifier') -> 'SqlFragment':
+    b_935: 'SqlBuilder' = SqlBuilder()
+    b_935.append_safe(table_932.sql_value)
+    b_935.append_safe('.')
+    b_935.append_safe(column_933.sql_value)
+    return b_935.accumulated
 def count_all() -> 'SqlFragment':
-    b_893: 'SqlBuilder' = SqlBuilder()
-    b_893.append_safe('COUNT(*)')
-    return b_893.accumulated
-def count_col(field_894: 'SafeIdentifier') -> 'SqlFragment':
-    b_896: 'SqlBuilder' = SqlBuilder()
-    b_896.append_safe('COUNT(')
-    b_896.append_safe(field_894.sql_value)
-    b_896.append_safe(')')
-    return b_896.accumulated
-def sum_col(field_897: 'SafeIdentifier') -> 'SqlFragment':
-    b_899: 'SqlBuilder' = SqlBuilder()
-    b_899.append_safe('SUM(')
-    b_899.append_safe(field_897.sql_value)
-    b_899.append_safe(')')
-    return b_899.accumulated
-def avg_col(field_900: 'SafeIdentifier') -> 'SqlFragment':
-    b_902: 'SqlBuilder' = SqlBuilder()
-    b_902.append_safe('AVG(')
-    b_902.append_safe(field_900.sql_value)
-    b_902.append_safe(')')
-    return b_902.accumulated
-def min_col(field_903: 'SafeIdentifier') -> 'SqlFragment':
-    b_905: 'SqlBuilder' = SqlBuilder()
-    b_905.append_safe('MIN(')
-    b_905.append_safe(field_903.sql_value)
-    b_905.append_safe(')')
-    return b_905.accumulated
-def max_col(field_906: 'SafeIdentifier') -> 'SqlFragment':
-    b_908: 'SqlBuilder' = SqlBuilder()
-    b_908.append_safe('MAX(')
-    b_908.append_safe(field_906.sql_value)
-    b_908.append_safe(')')
-    return b_908.accumulated
-def union_sql(a_909: 'Query', b_910: 'Query') -> 'SqlFragment':
-    sb_912: 'SqlBuilder' = SqlBuilder()
-    sb_912.append_safe('(')
-    sb_912.append_fragment(a_909.to_sql())
-    sb_912.append_safe(') UNION (')
-    sb_912.append_fragment(b_910.to_sql())
-    sb_912.append_safe(')')
-    return sb_912.accumulated
-def union_all_sql(a_913: 'Query', b_914: 'Query') -> 'SqlFragment':
-    sb_916: 'SqlBuilder' = SqlBuilder()
-    sb_916.append_safe('(')
-    sb_916.append_fragment(a_913.to_sql())
-    sb_916.append_safe(') UNION ALL (')
-    sb_916.append_fragment(b_914.to_sql())
-    sb_916.append_safe(')')
-    return sb_916.accumulated
-def intersect_sql(a_917: 'Query', b_918: 'Query') -> 'SqlFragment':
-    sb_920: 'SqlBuilder' = SqlBuilder()
-    sb_920.append_safe('(')
-    sb_920.append_fragment(a_917.to_sql())
-    sb_920.append_safe(') INTERSECT (')
-    sb_920.append_fragment(b_918.to_sql())
-    sb_920.append_safe(')')
-    return sb_920.accumulated
-def except_sql(a_921: 'Query', b_922: 'Query') -> 'SqlFragment':
-    sb_924: 'SqlBuilder' = SqlBuilder()
-    sb_924.append_safe('(')
-    sb_924.append_fragment(a_921.to_sql())
-    sb_924.append_safe(') EXCEPT (')
-    sb_924.append_fragment(b_922.to_sql())
-    sb_924.append_safe(')')
-    return sb_924.accumulated
-def subquery(q_925: 'Query', alias_926: 'SafeIdentifier') -> 'SqlFragment':
-    b_928: 'SqlBuilder' = SqlBuilder()
-    b_928.append_safe('(')
-    b_928.append_fragment(q_925.to_sql())
-    b_928.append_safe(') AS ')
-    b_928.append_safe(alias_926.sql_value)
-    return b_928.accumulated
-def exists_sql(q_929: 'Query') -> 'SqlFragment':
-    b_931: 'SqlBuilder' = SqlBuilder()
-    b_931.append_safe('EXISTS (')
-    b_931.append_fragment(q_929.to_sql())
-    b_931.append_safe(')')
-    return b_931.accumulated
+    b_937: 'SqlBuilder' = SqlBuilder()
+    b_937.append_safe('COUNT(*)')
+    return b_937.accumulated
+def count_col(field_938: 'SafeIdentifier') -> 'SqlFragment':
+    b_940: 'SqlBuilder' = SqlBuilder()
+    b_940.append_safe('COUNT(')
+    b_940.append_safe(field_938.sql_value)
+    b_940.append_safe(')')
+    return b_940.accumulated
+def sum_col(field_941: 'SafeIdentifier') -> 'SqlFragment':
+    b_943: 'SqlBuilder' = SqlBuilder()
+    b_943.append_safe('SUM(')
+    b_943.append_safe(field_941.sql_value)
+    b_943.append_safe(')')
+    return b_943.accumulated
+def avg_col(field_944: 'SafeIdentifier') -> 'SqlFragment':
+    b_946: 'SqlBuilder' = SqlBuilder()
+    b_946.append_safe('AVG(')
+    b_946.append_safe(field_944.sql_value)
+    b_946.append_safe(')')
+    return b_946.accumulated
+def min_col(field_947: 'SafeIdentifier') -> 'SqlFragment':
+    b_949: 'SqlBuilder' = SqlBuilder()
+    b_949.append_safe('MIN(')
+    b_949.append_safe(field_947.sql_value)
+    b_949.append_safe(')')
+    return b_949.accumulated
+def max_col(field_950: 'SafeIdentifier') -> 'SqlFragment':
+    b_952: 'SqlBuilder' = SqlBuilder()
+    b_952.append_safe('MAX(')
+    b_952.append_safe(field_950.sql_value)
+    b_952.append_safe(')')
+    return b_952.accumulated
+def union_sql(a_953: 'Query', b_954: 'Query') -> 'SqlFragment':
+    sb_956: 'SqlBuilder' = SqlBuilder()
+    sb_956.append_safe('(')
+    sb_956.append_fragment(a_953.to_sql())
+    sb_956.append_safe(') UNION (')
+    sb_956.append_fragment(b_954.to_sql())
+    sb_956.append_safe(')')
+    return sb_956.accumulated
+def union_all_sql(a_957: 'Query', b_958: 'Query') -> 'SqlFragment':
+    sb_960: 'SqlBuilder' = SqlBuilder()
+    sb_960.append_safe('(')
+    sb_960.append_fragment(a_957.to_sql())
+    sb_960.append_safe(') UNION ALL (')
+    sb_960.append_fragment(b_958.to_sql())
+    sb_960.append_safe(')')
+    return sb_960.accumulated
+def intersect_sql(a_961: 'Query', b_962: 'Query') -> 'SqlFragment':
+    sb_964: 'SqlBuilder' = SqlBuilder()
+    sb_964.append_safe('(')
+    sb_964.append_fragment(a_961.to_sql())
+    sb_964.append_safe(') INTERSECT (')
+    sb_964.append_fragment(b_962.to_sql())
+    sb_964.append_safe(')')
+    return sb_964.accumulated
+def except_sql(a_965: 'Query', b_966: 'Query') -> 'SqlFragment':
+    sb_968: 'SqlBuilder' = SqlBuilder()
+    sb_968.append_safe('(')
+    sb_968.append_fragment(a_965.to_sql())
+    sb_968.append_safe(') EXCEPT (')
+    sb_968.append_fragment(b_966.to_sql())
+    sb_968.append_safe(')')
+    return sb_968.accumulated
+def subquery(q_969: 'Query', alias_970: 'SafeIdentifier') -> 'SqlFragment':
+    b_972: 'SqlBuilder' = SqlBuilder()
+    b_972.append_safe('(')
+    b_972.append_fragment(q_969.to_sql())
+    b_972.append_safe(') AS ')
+    b_972.append_safe(alias_970.sql_value)
+    return b_972.accumulated
+def exists_sql(q_973: 'Query') -> 'SqlFragment':
+    b_975: 'SqlBuilder' = SqlBuilder()
+    b_975.append_safe('EXISTS (')
+    b_975.append_fragment(q_973.to_sql())
+    b_975.append_safe(')')
+    return b_975.accumulated
+def update(table_name_1035: 'SafeIdentifier') -> 'UpdateQuery':
+    return UpdateQuery(table_name_1035, (), (), None)
+def delete_from(table_name_1037: 'SafeIdentifier') -> 'DeleteQuery':
+    return DeleteQuery(table_name_1037, (), None)
