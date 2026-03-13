@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}{{ list.name }} - Page {{ page }}{% endblock %}
+
+{% block content %}
+<div class="win95-window">
+  <div class="win95-titlebar">
+    <span class="title-text">{{ list.name }} - Page {{ page }} of {{ total_pages }}</span>
+    <div class="win95-titlebar-buttons">
+      <button class="win95-titlebar-btn">_</button>
+      <button class="win95-titlebar-btn">&#9633;</button>
+      <a href="{{ url_for('show_list', list_id=list.id) }}" class="win95-titlebar-btn" title="Close"
+         style="text-decoration:none; color:inherit;">X</a>
+    </div>
+  </div>
+
+  <div class="app-nav">
+    <a href="{{ url_for('show_list', list_id=list.id) }}">&#9664; Back to {{ list.name }}</a>
+    <a href="{{ url_for('index') }}">Lists</a>
+  </div>
+
+  <div class="win95-body">
+    <p style="font-size:14px; margin-bottom:8px;">
+      Showing {{ todos|length }} of {{ total }} todos ({{ per_page }} per page).
+      Uses <b>limit</b>, <b>offset</b>, <b>countSql</b>.
+    </p>
+
+    <div class="win95-sunken" style="min-height:100px; max-height:300px;">
+      {% for todo in todos %}
+      <div class="todo-item {{ 'completed' if todo.completed }}">
+        <span class="priority-badge priority-{{ todo.priority }}">{{ todo.priority }}</span>
+        <span class="todo-text">
+          {{ todo.title }}
+          {% if todo.due_date %}
+            <span style="font-size:12px; color:#666;"> ({{ todo.due_date }})</span>
+          {% endif %}
+        </span>
+      </div>
+      {% endfor %}
+      {% if not todos %}
+      <div class="empty-state">No todos on this page.</div>
+      {% endif %}
+    </div>
+
+    <!-- Pagination controls -->
+    <div style="margin-top:8px; display:flex; gap:4px; align-items:center; justify-content:center;">
+      {% if page > 1 %}
+        <a href="{{ url_for('paginated_list', list_id=list.id, page=1) }}" class="win95-btn" style="min-width:auto;">&#9664;&#9664;</a>
+        <a href="{{ url_for('paginated_list', list_id=list.id, page=page-1) }}" class="win95-btn" style="min-width:auto;">&#9664;</a>
+      {% endif %}
+
+      {% for p in range(1, total_pages + 1) %}
+        {% if p == page %}
+          <span class="win95-btn primary" style="min-width:auto; padding:2px 8px;">{{ p }}</span>
+        {% else %}
+          <a href="{{ url_for('paginated_list', list_id=list.id, page=p) }}"
+             class="win95-btn" style="min-width:auto; padding:2px 8px; text-decoration:none;">{{ p }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page < total_pages %}
+        <a href="{{ url_for('paginated_list', list_id=list.id, page=page+1) }}" class="win95-btn" style="min-width:auto;">&#9654;</a>
+        <a href="{{ url_for('paginated_list', list_id=list.id, page=total_pages) }}" class="win95-btn" style="min-width:auto;">&#9654;&#9654;</a>
+      {% endif %}
+    </div>
+
+    <div class="win95-groupbox">
+      <legend>Page Query SQL</legend>
+      <div class="sql-debug">{{ orm_sql }}</div>
+    </div>
+
+    <div class="win95-groupbox">
+      <legend>Count Query SQL</legend>
+      <div class="sql-debug">{{ count_sql }}</div>
+    </div>
+  </div>
+
+  <div class="win95-statusbar">
+    <div class="status-section">
+      Page {{ page }} of {{ total_pages }} ({{ total }} total)
+    </div>
+    <div class="status-section">
+      ORM: limit, offset, countSql
+    </div>
+  </div>
+</div>
+{% endblock %}

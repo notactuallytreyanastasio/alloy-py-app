@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Lock Demo - {{ list.name }}{% endblock %}
+
+{% block content %}
+<div class="win95-window">
+  <div class="win95-titlebar">
+    <span class="title-text">Lock Demo - {{ list.name }}</span>
+    <div class="win95-titlebar-buttons">
+      <button class="win95-titlebar-btn">_</button>
+      <button class="win95-titlebar-btn">&#9633;</button>
+      <a href="{{ url_for('show_list', list_id=list.id) }}" class="win95-titlebar-btn" title="Close"
+         style="text-decoration:none; color:inherit;">X</a>
+    </div>
+  </div>
+
+  <div class="app-nav">
+    <a href="{{ url_for('show_list', list_id=list.id) }}">&#9664; Back to {{ list.name }}</a>
+    <a href="{{ url_for('index') }}">Lists</a>
+  </div>
+
+  <div class="win95-body">
+    <p style="font-size:14px; margin-bottom:8px;">
+      Demonstrates <b>lock(ForUpdate)</b> and <b>lock(ForShare)</b> query generation.
+      These are used for row-level locking in PostgreSQL/MySQL but are shown here as
+      generated SQL since SQLite does not support them.
+    </p>
+
+    <div class="win95-groupbox">
+      <legend>FOR UPDATE (exclusive lock for writes)</legend>
+      <div class="sql-debug">{{ for_update_sql }}</div>
+    </div>
+
+    <div class="win95-groupbox">
+      <legend>FOR SHARE (shared lock for reads)</legend>
+      <div class="sql-debug">{{ for_share_sql }}</div>
+    </div>
+
+    <div class="win95-groupbox">
+      <legend>Query Results (without lock)</legend>
+      <div class="win95-sunken" style="max-height:200px;">
+        {% for todo in todos %}
+        <div class="list-row">
+          <span class="todo-text">
+            {% if todo.completed %}[x]{% else %}[ ]{% endif %}
+            {{ todo.title }}
+          </span>
+        </div>
+        {% endfor %}
+        {% if not todos %}
+        <div class="empty-state">No todos in this list.</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="win95-statusbar">
+    <div class="status-section">
+      ORM: lock(ForUpdate), lock(ForShare)
+    </div>
+  </div>
+</div>
+{% endblock %}

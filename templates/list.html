@@ -15,13 +15,24 @@
     </div>
   </div>
 
+  <!-- Navigation -->
+  <div class="app-nav">
+    <a href="{{ url_for('index') }}">&#9664; Back</a>
+    <a href="{{ url_for('search') }}">Search</a>
+    <a href="{{ url_for('stats') }}">Stats</a>
+    <a href="{{ url_for('paginated_list', list_id=list.id, page=1) }}">Paginated</a>
+    <a href="{{ url_for('high_priority', list_id=list.id) }}">High Priority</a>
+    <a href="{{ url_for('has_completed', list_id=list.id) }}">Completed?</a>
+    <a href="{{ url_for('lock_demo', list_id=list.id) }}">Lock Demo</a>
+  </div>
+
   <!-- Window body -->
   <div class="win95-body">
 
-    <!-- Toolbar: Add Todo + Back -->
+    <!-- Toolbar: Add Todo + Bulk Complete -->
     <div class="win95-toolbar">
-      <a href="{{ url_for('index') }}" class="win95-btn">&#9664; Back</a>
       <button class="win95-btn" onclick="toggleAddForm()">Add Todo</button>
+      <button class="win95-btn" onclick="toggleBulkForm()">Bulk Complete</button>
     </div>
 
     <!-- Inline add-todo form -->
@@ -31,14 +42,59 @@
           <label for="new-todo-title">Todo:</label>
           <input type="text" name="title" id="new-todo-title"
                  class="win95-input" placeholder="What needs doing..." required>
+        </div>
+        <div class="form-row">
+          <label for="new-todo-priority">Priority:</label>
+          <select name="priority" id="new-todo-priority" class="win95-select" style="width:auto;">
+            <option value="1">1 (Low)</option>
+            <option value="2">2</option>
+            <option value="3" selected>3 (Normal)</option>
+            <option value="4">4</option>
+            <option value="5">5 (High)</option>
+          </select>
+          <label for="new-todo-due" style="min-width:auto; margin-left:8px;">Due:</label>
+          <input type="date" name="due_date" id="new-todo-due" class="win95-input" style="width:auto;">
+        </div>
+        {% if all_tags %}
+        <div class="form-row">
+          <label>Tags:</label>
+          <div style="display:flex; flex-wrap:wrap; gap:4px;">
+            {% for tag in all_tags %}
+            <label style="font-size:13px; min-width:auto;">
+              <input type="checkbox" name="tag_ids" value="{{ tag['id'] }}"> {{ tag['name'] }}
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        <div class="form-row" style="justify-content:flex-end;">
           <button type="submit" class="win95-btn primary">OK</button>
           <button type="button" class="win95-btn" onclick="toggleAddForm()">Cancel</button>
         </div>
       </form>
     </div>
 
+    <!-- Bulk complete form (hidden) -->
+    <div class="inline-form" id="bulk-form">
+      <form method="POST" action="{{ url_for('bulk_complete') }}">
+        <input type="hidden" name="list_id" value="{{ list.id }}">
+        <p style="font-size:13px; margin-bottom:6px;">Select todos to mark as complete (uses <b>whereIn + SqlInt32</b>):</p>
+        {% for todo in todos %}
+          {% if not todo.completed %}
+          <label style="display:block; font-size:13px; padding:2px 0;">
+            <input type="checkbox" name="todo_ids" value="{{ todo.id }}"> {{ todo.title }}
+          </label>
+          {% endif %}
+        {% endfor %}
+        <div class="form-row" style="justify-content:flex-end; margin-top:6px;">
+          <button type="submit" class="win95-btn primary">Complete Selected</button>
+          <button type="button" class="win95-btn" onclick="toggleBulkForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
     <!-- Todo items in a sunken panel -->
-    <div class="win95-sunken" style="min-height: 200px; max-height: 380px;">
+    <div class="win95-sunken" style="min-height: 200px; max-height: 420px;">
       {% if todos %}
         {% for todo in todos %}
         <!-- Normal display row -->
@@ -50,10 +106,21 @@
                    {{ 'checked' if todo.completed }}
                    onchange="this.form.submit()">
           </form>
-          <span class="todo-text">{{ todo.title }}</span>
+          <span class="priority-badge priority-{{ todo.priority }}">{{ todo.priority }}</span>
+          <span class="todo-text">
+            {{ todo.title }}
+            {% if todo.due_date %}
+              <span style="font-size:12px; color:#666;"> ({{ todo.due_date }})</span>
+            {% endif %}
+          </span>
+          <span>
+            {% for tag in todo.tags %}
+              <span class="tag-badge">{{ tag }}</span>
+            {% endfor %}
+          </span>
           <div class="todo-actions">
             <button class="win95-btn"
-                    onclick="startEditTodo({{ todo.id }}, '{{ todo.title|replace("'", "\\'")|e }}')"
+                    onclick="startEditTodo({{ todo.id }}, '{{ todo.title|replace("'", "\\'")|e }}', '{{ todo.priority }}', '{{ todo.due_date }}')"
                     title="Edit">Edit</button>
             <button class="win95-btn danger"
                     onclick="confirmDeleteTodo({{ todo.id }})"
@@ -64,11 +131,30 @@
         <!-- Edit row (hidden) -->
         <div class="edit-row" id="edit-todo-{{ todo.id }}">
           <form method="POST" action="{{ url_for('edit_todo', todo_id=todo.id) }}"
-                style="display:flex; align-items:center; gap:4px; width:100%;">
+                style="display:flex; align-items:center; gap:4px; width:100%; flex-wrap:wrap;">
             <input type="text" name="title" class="win95-input"
-                   id="edit-todo-input-{{ todo.id }}" required>
-            <button type="submit" class="win95-btn primary">OK</button>
-            <button type="button" class="win95-btn"
+                   id="edit-todo-input-{{ todo.id }}" required style="flex:2;">
+            <select name="priority" class="win95-select" style="width:auto; flex:0;" id="edit-todo-priority-{{ todo.id }}">
+              <option value="1">P1</option>
+              <option value="2">P2</option>
+              <option value="3">P3</option>
+              <option value="4">P4</option>
+              <option value="5">P5</option>
+            </select>
+            <input type="date" name="due_date" class="win95-input" style="width:auto; flex:0;"
+                   id="edit-todo-due-{{ todo.id }}">
+            {% if all_tags %}
+            <div style="display:flex; gap:2px; flex-wrap:wrap;">
+              {% for tag in all_tags %}
+              <label style="font-size:11px; min-width:auto;">
+                <input type="checkbox" name="tag_ids" value="{{ tag['id'] }}"
+                  {% if tag['name'] in todo.tags %}checked{% endif %}> {{ tag['name'] }}
+              </label>
+              {% endfor %}
+            </div>
+            {% endif %}
+            <button type="submit" class="win95-btn primary" style="min-width:auto;">OK</button>
+            <button type="button" class="win95-btn" style="min-width:auto;"
                     onclick="cancelEditTodo({{ todo.id }})">Cancel</button>
           </form>
         </div>
@@ -93,6 +179,12 @@
       {% endif %}
     </div>
 
+    <!-- ORM SQL Debug -->
+    <div class="win95-groupbox">
+      <legend>ORM SQL (where, orderBy, orderByNulls, select)</legend>
+      <div class="sql-debug">{{ orm_sql }}</div>
+    </div>
+
   </div>
 
   <!-- Status bar -->
@@ -102,6 +194,9 @@
     </div>
     <div class="status-section">
       {{ total - done }} remaining
+    </div>
+    <div class="status-section">
+      ORM: select, where, orderBy, orderByNulls(NullsLast)
     </div>
   </div>
 </div>
@@ -117,12 +212,21 @@ function toggleAddForm() {
   }
 }
 
-function startEditTodo(id, currentTitle) {
+function toggleBulkForm() {
+  var form = document.getElementById('bulk-form');
+  form.classList.toggle('active');
+}
+
+function startEditTodo(id, currentTitle, priority, dueDate) {
   document.getElementById('todo-row-' + id).style.display = 'none';
   var editRow = document.getElementById('edit-todo-' + id);
   editRow.classList.add('active');
   var input = document.getElementById('edit-todo-input-' + id);
   input.value = currentTitle;
+  var priSelect = document.getElementById('edit-todo-priority-' + id);
+  if (priSelect) priSelect.value = priority;
+  var dueInput = document.getElementById('edit-todo-due-' + id);
+  if (dueInput && dueDate) dueInput.value = dueDate;
   input.focus();
   input.select();
 }

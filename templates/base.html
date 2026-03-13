@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Todo Lists{% endblock %} - TodoManager</title>
+  <title>{% block title %}Todo Lists{% endblock %} - Alloy ORM Demo</title>
   <link rel="stylesheet" href="/retro.css">
   <style>
     /* --- App-specific overrides --- */
@@ -14,7 +14,7 @@
     }
 
     .win95-window {
-      max-width: 600px;
+      max-width: 720px;
     }
 
     /* List items in the sunken panel */
@@ -109,6 +109,115 @@
     .win95-toolbar .win95-input {
       max-width: none;
     }
+
+    /* Nav bar inside window */
+    .app-nav {
+      display: flex;
+      gap: 2px;
+      padding: 4px;
+      border-bottom: 1px solid var(--win95-btn-shadow);
+      flex-wrap: wrap;
+    }
+    .app-nav a {
+      font-family: 'VT323', 'Chicago', monospace;
+      font-size: 13px;
+      padding: 2px 10px;
+      background: var(--win95-btn-face);
+      border: 1px solid;
+      border-color: var(--win95-btn-highlight) var(--win95-btn-dark-shadow) var(--win95-btn-dark-shadow) var(--win95-btn-highlight);
+      color: var(--win95-text);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .app-nav a:hover {
+      background: var(--win95-selection);
+      color: var(--win95-selection-text);
+    }
+
+    /* SQL debug display */
+    .sql-debug {
+      background: #1a1a2e;
+      color: #00ff41;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      padding: 8px;
+      margin: 8px 0;
+      border: 2px solid;
+      border-color: var(--win95-btn-shadow) var(--win95-btn-highlight) var(--win95-btn-highlight) var(--win95-btn-shadow);
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* Priority badge */
+    .priority-badge {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: bold;
+      border: 1px solid #000;
+      margin-right: 4px;
+    }
+    .priority-1 { background: #90ee90; color: #000; }
+    .priority-2 { background: #98d8c8; color: #000; }
+    .priority-3 { background: #f7dc6f; color: #000; }
+    .priority-4 { background: #f0b27a; color: #000; }
+    .priority-5 { background: #e74c3c; color: #fff; }
+
+    /* Tag badge */
+    .tag-badge {
+      display: inline-block;
+      font-size: 11px;
+      padding: 1px 5px;
+      background: #e8daef;
+      border: 1px solid #8e44ad;
+      margin: 1px 2px;
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .data-table th, .data-table td {
+      border: 1px solid var(--win95-btn-shadow);
+      padding: 3px 6px;
+      text-align: left;
+    }
+    .data-table th {
+      background: var(--win95-btn-face);
+      font-weight: bold;
+    }
+    .data-table tr:hover td {
+      background: #ffffcc;
+    }
+
+    /* Error list */
+    .error-list {
+      background: #ffe0e0;
+      border: 1px solid #cc0000;
+      padding: 6px;
+      margin: 8px 0;
+      font-size: 13px;
+    }
+    .error-list li {
+      margin-left: 16px;
+      color: #cc0000;
+    }
+
+    /* Success box */
+    .success-box {
+      background: #e0ffe0;
+      border: 1px solid #00cc00;
+      padding: 6px;
+      margin: 8px 0;
+      font-size: 13px;
+      color: #006600;
+    }
   </style>
 </head>
 <body>
@@ -116,7 +225,7 @@
   <!-- Mac System 6 Menu Bar -->
   <div class="mac-menubar">
     <span class="apple-logo">&#63743;</span>
-    <span class="menu-item app-name">TodoManager</span>
+    <span class="menu-item app-name">Alloy ORM Demo</span>
     <span class="menu-item">File</span>
     <span class="menu-item">Edit</span>
     <span class="menu-item">Help</span>

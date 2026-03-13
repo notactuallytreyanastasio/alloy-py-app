@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Overdue Todos{% endblock %}
+
+{% block content %}
+<div class="win95-window">
+  <div class="win95-titlebar">
+    <span class="title-text">Overdue Todos</span>
+    <div class="win95-titlebar-buttons">
+      <button class="win95-titlebar-btn">_</button>
+      <button class="win95-titlebar-btn">&#9633;</button>
+      <a href="{{ url_for('index') }}" class="win95-titlebar-btn" title="Close"
+         style="text-decoration:none; color:inherit;">X</a>
+    </div>
+  </div>
+
+  <div class="app-nav">
+    <a href="{{ url_for('index') }}">&#9664; Back</a>
+    <a href="{{ url_for('search') }}">Search</a>
+    <a href="{{ url_for('stats') }}">Stats</a>
+    <a href="{{ url_for('combined_reports') }}">Reports</a>
+  </div>
+
+  <div class="win95-body">
+    <p style="font-size:14px; margin-bottom:8px;">
+      Incomplete todos past their due date (today: {{ today }}).<br>
+      Uses <b>whereNot</b> (NOT completed), <b>whereNotNull</b> (has due_date), <b>whereNull</b> demo.
+    </p>
+
+    <div class="win95-sunken" style="min-height: 100px; max-height: 300px;">
+      {% if todos %}
+        {% for todo in todos %}
+        <div class="todo-item">
+          <span class="priority-badge priority-{{ todo.priority }}">{{ todo.priority }}</span>
+          <span class="todo-text">
+            {{ todo.title }}
+            <span style="font-size:12px; color:#cc0000;"> (due: {{ todo.due_date }})</span>
+          </span>
+          <span class="list-meta">
+            <a href="{{ url_for('show_list', list_id=todo.list_id) }}" style="color:inherit;">{{ todo.list_name }}</a>
+          </span>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state">No overdue todos. Great job!</div>
+      {% endif %}
+    </div>
+
+    <div class="win95-groupbox">
+      <legend>ORM SQL: whereNot + whereNotNull</legend>
+      <div class="sql-debug">{{ orm_sql }}</div>
+    </div>
+
+    <div class="win95-groupbox">
+      <legend>ORM SQL: whereNull demo</legend>
+      <div class="sql-debug">{{ null_sql }}</div>
+    </div>
+  </div>
+
+  <div class="win95-statusbar">
+    <div class="status-section">
+      {{ todos|length }} overdue item{{ 's' if todos|length != 1 else '' }}
+    </div>
+    <div class="status-section">
+      ORM: whereNot, whereNull, whereNotNull
+    </div>
+  </div>
+</div>
+{% endblock %}

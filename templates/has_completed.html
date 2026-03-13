@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Completed Analysis - {{ list.name }}{% endblock %}
+
+{% block content %}
+<div class="win95-window">
+  <div class="win95-titlebar">
+    <span class="title-text">Completed Analysis - {{ list.name }}</span>
+    <div class="win95-titlebar-buttons">
+      <button class="win95-titlebar-btn">_</button>
+      <button class="win95-titlebar-btn">&#9633;</button>
+      <a href="{{ url_for('show_list', list_id=list.id) }}" class="win95-titlebar-btn" title="Close"
+         style="text-decoration:none; color:inherit;">X</a>
+    </div>
+  </div>
+
+  <div class="app-nav">
+    <a href="{{ url_for('show_list', list_id=list.id) }}">&#9664; Back to {{ list.name }}</a>
+    <a href="{{ url_for('index') }}">Lists</a>
+  </div>
+
+  <div class="win95-body">
+    <div class="win95-groupbox">
+      <legend>EXISTS Check</legend>
+      <p style="font-size:14px;">
+        Has any completed todos?
+        {% if has_any_completed %}
+          <span style="color:#006600; font-weight:bold;">YES</span>
+        {% else %}
+          <span style="color:#cc0000; font-weight:bold;">NO</span>
+        {% endif %}
+      </p>
+      <div class="sql-debug">SELECT {{ exists_sql }}</div>
+    </div>
+
+    <div class="win95-groupbox">
+      <legend>Completed Todos (via whereInSubquery)</legend>
+      <div class="win95-sunken" style="max-height:200px;">
+        {% for t in completed_todos %}
+        <div class="list-row">
+          <span class="priority-badge priority-{{ t.priority }}">{{ t.priority }}</span>
+          <span class="list-name" style="cursor:default;">{{ t.title }}</span>
+        </div>
+        {% endfor %}
+        {% if not completed_todos %}
+        <div class="empty-state">No completed todos in this list.</div>
+        {% endif %}
+      </div>
+      <div class="sql-debug">{{ main_sql }}</div>
+    </div>
+
+    <div class="win95-groupbox">
+      <legend>Subquery SQL</legend>
+      <div class="sql-debug">{{ subquery_sql }}</div>
+    </div>
+  </div>
+
+  <div class="win95-statusbar">
+    <div class="status-section">
+      ORM: existsSql, subquery, whereInSubquery
+    </div>
+  </div>
+</div>
+{% endblock %}

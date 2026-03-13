@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Validation Demo{% endblock %}
+
+{% block content %}
+<div class="win95-window">
+  <div class="win95-titlebar">
+    <span class="title-text">Changeset Validation Showcase</span>
+    <div class="win95-titlebar-buttons">
+      <button class="win95-titlebar-btn">_</button>
+      <button class="win95-titlebar-btn">&#9633;</button>
+      <a href="{{ url_for('index') }}" class="win95-titlebar-btn" title="Close"
+         style="text-decoration:none; color:inherit;">X</a>
+    </div>
+  </div>
+
+  <div class="app-nav">
+    <a href="{{ url_for('index') }}">&#9664; Back</a>
+    <a href="{{ url_for('stats') }}">Stats</a>
+  </div>
+
+  <div class="win95-body">
+    <p style="font-size:14px; margin-bottom:8px;">
+      This form exercises <b>every changeset validator</b>. Try submitting with invalid data to see
+      each validator's error messages. All validation happens server-side via the Alloy ORM changeset API.
+    </p>
+
+    {% if errors %}
+    <div class="error-list">
+      <b>Validation Errors:</b>
+      <ul>
+        {% for field, msg in errors %}
+        <li><b>{{ field }}</b>: {{ msg }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% if success %}
+    <div class="success-box">
+      All validations passed! The changeset is valid.
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('validation_demo') }}">
+      <div class="win95-groupbox">
+        <legend>User Profile (validates all fields)</legend>
+
+        <div class="form-row">
+          <label for="v-username">Username:</label>
+          <input type="text" name="username" id="v-username" class="win95-input"
+                 placeholder="Must start with 'u', 3-20 chars" value="u_testuser">
+        </div>
+        <p style="font-size:11px; color:#666; margin:-4px 0 4px 68px;">
+          Validators: validateRequired, validateLength(3,20), validateStartsWith("u")
+        </p>
+
+        <div class="form-row">
+          <label for="v-email">Email:</label>
+          <input type="text" name="email" id="v-email" class="win95-input"
+                 placeholder="Must contain @, end with .com" value="user@example.com">
+        </div>
+        <p style="font-size:11px; color:#666; margin:-4px 0 4px 68px;">
+          Validators: validateRequired, validateContains("@"), validateEndsWith(".com")
+        </p>
+
+        <div class="form-row">
+          <label for="v-email-c">Confirm:</label>
+          <input type="text" name="email_confirmation" id="v-email-c" class="win95-input"
+                 placeholder="Must match email" value="user@example.com">
+        </div>
+        <p style="font-size:11px; color:#666; margin:-4px 0 4px 68px;">
+          Validators: validateConfirmation(email, email_confirmation)
+        </p>
+
+        <div class="form-row">
+          <label for="v-age">Age:</label>
+          <input type="text" name="age" id="v-age" class="win95-input"
+                 placeholder="Integer 1-150" value="25" style="width:80px;">
+        </div>
+        <p style="font-size:11px; color:#666; margin:-4px 0 4px 68px;">
+          Validators: validateRequired, validateInt, validateNumber(gte=1, lte=150)
+        </p>
+
+        <div class="form-row">
+          <label for="v-score">Score:</label>
+          <input type="text" name="score" id="v-score" class="win95-input"
+                 placeholder="Float value" value="3.14" style="width:80px;">
+        </div>
+        <p style="font-size:11px; color:#666; margin:-4px 0 4px 68px;">
+          Validators: validateFloat
+        </p>
+
+        <div class="form-row">
+          <label for="v-role">Role:</label>
+          <select name="role" id="v-role" class="win95-select" style="width:auto;">
+            <option value="admin">admin</option>
+            <option value="editor" selected>editor</option>
+            <option value="viewer">viewer</option>
+            <option value="superadmin">superadmin (excluded!)</option>
+            <option value="root">root (excluded!)</option>
+          </select>
+        </div>
+        <p style="font-size:11px; color:#666; margin:-4px 0 4px 68px;">
+          Validators: validateInclusion(admin|editor|viewer), validateExclusion(superadmin|root)
+        </p>
+
+        <div class="form-row">
+          <label for="v-terms">Terms:</label>
+          <select name="accept_terms" id="v-terms" class="win95-select" style="width:auto;">
+            <option value="true" selected>true (accepted)</option>
+            <option value="false">false (rejected)</option>
+            <option value="maybe">maybe (invalid)</option>
+          </select>
+        </div>
+        <p style="font-size:11px; color:#666; margin:-4px 0 4px 68px;">
+          Validators: validateBool, validateAcceptance
+        </p>
+
+        <div class="form-row">
+          <label for="v-bigid">Big ID:</label>
+          <input type="text" name="big_id" id="v-bigid" class="win95-input"
+                 placeholder="64-bit integer" value="9999999999" style="width:140px;">
+        </div>
+        <p style="font-size:11px; color:#666; margin:-4px 0 4px 68px;">
+          Validators: validateInt64
+        </p>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="win95-btn primary">Validate</button>
+        <a href="{{ url_for('validation_demo') }}" class="win95-btn" style="text-decoration:none;">Reset</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="win95-statusbar">
+    <div class="status-section">
+      Validators: cast, required, length, int, int64, float, bool
+    </div>
+    <div class="status-section">
+      inclusion, exclusion, number, contains, startsWith, endsWith, acceptance, confirmation
+    </div>
+  </div>
+</div>
+{% endblock %}

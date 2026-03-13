@@ -6,12 +6,25 @@
 <div class="win95-window">
   <!-- Title bar -->
   <div class="win95-titlebar">
-    <span class="title-text">Todo Lists</span>
+    <span class="title-text">Todo Lists - Alloy ORM Feature Showcase</span>
     <div class="win95-titlebar-buttons">
       <button class="win95-titlebar-btn">_</button>
       <button class="win95-titlebar-btn">&#9633;</button>
       <button class="win95-titlebar-btn">X</button>
     </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="app-nav">
+    <a href="{{ url_for('index') }}">Lists</a>
+    <a href="{{ url_for('search') }}">Search</a>
+    <a href="{{ url_for('stats') }}">Stats</a>
+    <a href="{{ url_for('overdue') }}">Overdue</a>
+    <a href="{{ url_for('combined_reports') }}">Reports</a>
+    <a href="{{ url_for('join_demo') }}">Joins</a>
+    <a href="{{ url_for('manage_tags') }}">Tags</a>
+    <a href="{{ url_for('validation_demo') }}">Validators</a>
+    <a href="{{ url_for('orm_features') }}">API</a>
   </div>
 
   <!-- Window body -->
@@ -29,6 +42,13 @@
           <label for="new-list-name">Name:</label>
           <input type="text" name="name" id="new-list-name"
                  class="win95-input" placeholder="List name..." required>
+        </div>
+        <div class="form-row">
+          <label for="new-list-desc">Desc:</label>
+          <input type="text" name="description" id="new-list-desc"
+                 class="win95-input" placeholder="Optional description...">
+        </div>
+        <div class="form-row" style="justify-content:flex-end;">
           <button type="submit" class="win95-btn primary">OK</button>
           <button type="button" class="win95-btn" onclick="toggleNewListForm()">Cancel</button>
         </div>
@@ -36,19 +56,34 @@
     </div>
 
     <!-- List of lists in a sunken panel -->
-    <div class="win95-sunken" style="min-height: 200px; max-height: 380px;">
+    <div class="win95-sunken" style="min-height: 200px; max-height: 420px;">
       {% if list_data %}
         {% for item in list_data %}
         <div class="list-row" id="list-row-{{ item.list.id }}">
           <a class="list-name" href="{{ url_for('show_list', list_id=item.list.id) }}">
             {{ item.list.name }}
+            {% if item.list.description %}
+              <span style="font-size:12px; color:#666;"> - {{ item.list.description[:40] }}</span>
+            {% endif %}
           </a>
           <span class="list-meta">{{ item.done }}/{{ item.total }}</span>
           <div class="list-actions">
-            <button class="win95-btn"
+            <a class="win95-btn" style="font-size:12px; min-width:auto; padding:2px 6px; text-decoration:none;"
+               href="{{ url_for('paginated_list', list_id=item.list.id, page=1) }}"
+               title="Paginated View">Pg</a>
+            <a class="win95-btn" style="font-size:12px; min-width:auto; padding:2px 6px; text-decoration:none;"
+               href="{{ url_for('high_priority', list_id=item.list.id) }}"
+               title="High Priority">Hi</a>
+            <a class="win95-btn" style="font-size:12px; min-width:auto; padding:2px 6px; text-decoration:none;"
+               href="{{ url_for('has_completed', list_id=item.list.id) }}"
+               title="Completed Analysis">Ck</a>
+            <a class="win95-btn" style="font-size:12px; min-width:auto; padding:2px 6px; text-decoration:none;"
+               href="{{ url_for('lock_demo', list_id=item.list.id) }}"
+               title="Lock Demo">Lk</a>
+            <button class="win95-btn" style="font-size:12px; min-width:auto; padding:2px 6px;"
                     onclick="startEditList({{ item.list.id }}, '{{ item.list.name|e }}')"
                     title="Rename">Ren</button>
-            <button class="win95-btn danger"
+            <button class="win95-btn danger" style="font-size:12px; min-width:auto; padding:2px 6px;"
                     onclick="confirmDeleteList({{ item.list.id }})"
                     title="Delete">Del</button>
           </div>
@@ -86,12 +121,21 @@
       {% endif %}
     </div>
 
+    <!-- ORM SQL Debug -->
+    <div class="win95-groupbox">
+      <legend>ORM-Generated SQL (leftJoin + groupBy + countAll)</legend>
+      <div class="sql-debug">{{ orm_sql_demo }}</div>
+    </div>
+
   </div>
 
   <!-- Status bar -->
   <div class="win95-statusbar">
     <div class="status-section">
       {{ list_data|length }} list{{ 's' if list_data|length != 1 else '' }}
+    </div>
+    <div class="status-section">
+      ORM Features: from_, leftJoin, selectExpr, countAll, col, groupBy, orderBy
     </div>
   </div>
 </div>

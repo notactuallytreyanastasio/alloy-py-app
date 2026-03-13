@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Tags{% endblock %}
+
+{% block content %}
+<div class="win95-window">
+  <div class="win95-titlebar">
+    <span class="title-text">Manage Tags</span>
+    <div class="win95-titlebar-buttons">
+      <button class="win95-titlebar-btn">_</button>
+      <button class="win95-titlebar-btn">&#9633;</button>
+      <a href="{{ url_for('index') }}" class="win95-titlebar-btn" title="Close"
+         style="text-decoration:none; color:inherit;">X</a>
+    </div>
+  </div>
+
+  <div class="app-nav">
+    <a href="{{ url_for('index') }}">&#9664; Back</a>
+    <a href="{{ url_for('stats') }}">Stats</a>
+  </div>
+
+  <div class="win95-body">
+    <form method="POST" action="{{ url_for('manage_tags') }}">
+      <div class="form-row">
+        <label for="tag-name">New Tag:</label>
+        <input type="text" name="name" id="tag-name" class="win95-input"
+               placeholder="Tag name..." required>
+        <button type="submit" class="win95-btn primary">Add</button>
+      </div>
+    </form>
+
+    <div class="win95-sunken" style="min-height:100px; max-height:300px; margin-top:8px;">
+      {% for tag in tags %}
+      <div class="list-row">
+        <span class="tag-badge" style="font-size:14px;">{{ tag['name'] }}</span>
+        <span style="flex:1;"></span>
+        <form method="POST" action="{{ url_for('delete_tag', tag_id=tag['id']) }}"
+              style="display:inline;">
+          <button type="submit" class="win95-btn danger" style="min-width:auto; padding:2px 6px; font-size:12px;"
+                  onclick="return confirm('Delete tag?')">Del</button>
+        </form>
+      </div>
+      {% endfor %}
+      {% if not tags %}
+      <div class="empty-state">No tags yet.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="win95-statusbar">
+    <div class="status-section">
+      {{ tags|length }} tag{{ 's' if tags|length != 1 else '' }}
+    </div>
+    <div class="status-section">
+      ORM: changeset, cast, validateRequired, validateLength, deleteFrom
+    </div>
+  </div>
+</div>
+{% endblock %}

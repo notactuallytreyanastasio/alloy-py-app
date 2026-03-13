@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics{% endblock %}
+
+{% block content %}
+<div class="win95-window">
+  <div class="win95-titlebar">
+    <span class="title-text">Todo Statistics</span>
+    <div class="win95-titlebar-buttons">
+      <button class="win95-titlebar-btn">_</button>
+      <button class="win95-titlebar-btn">&#9633;</button>
+      <a href="{{ url_for('index') }}" class="win95-titlebar-btn" title="Close"
+         style="text-decoration:none; color:inherit;">X</a>
+    </div>
+  </div>
+
+  <div class="app-nav">
+    <a href="{{ url_for('index') }}">&#9664; Back</a>
+    <a href="{{ url_for('search') }}">Search</a>
+    <a href="{{ url_for('overdue') }}">Overdue</a>
+    <a href="{{ url_for('combined_reports') }}">Reports</a>
+  </div>
+
+  <div class="win95-body">
+    <div class="win95-groupbox">
+      <legend>Per-List Aggregates (innerJoin + groupBy + having + orHaving)</legend>
+      <table class="data-table">
+        <tr>
+          <th>List</th>
+          <th>Count</th>
+          <th>SUM(pri)</th>
+          <th>AVG(pri)</th>
+          <th>MIN(pri)</th>
+          <th>MAX(pri)</th>
+        </tr>
+        {% for s in list_stats %}
+        <tr>
+          <td>{{ s.name }}</td>
+          <td>{{ s.count }}</td>
+          <td>{{ s.sum_priority }}</td>
+          <td>{{ s.avg_priority }}</td>
+          <td>{{ s.min_priority }}</td>
+          <td>{{ s.max_priority }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div class="win95-groupbox">
+      <legend>Global Stats</legend>
+      <p style="font-size:14px;">
+        Total todos (via <b>countSql</b>): <b>{{ total_count }}</b>
+      </p>
+      <p style="font-size:14px;">
+        Distinct priorities in use (via <b>distinct</b>):
+        {% for p in distinct_priorities %}
+          <span class="priority-badge priority-{{ p }}">{{ p }}</span>
+        {% endfor %}
+      </p>
+    </div>
+
+    <div class="win95-groupbox">
+      <legend>Stats Query SQL</legend>
+      <div class="sql-debug">{{ stats_sql }}</div>
+    </div>
+
+    <div class="win95-groupbox">
+      <legend>Distinct Query SQL</legend>
+      <div class="sql-debug">{{ distinct_sql }}</div>
+    </div>
+
+    <div class="win95-groupbox">
+      <legend>Count Query SQL</legend>
+      <div class="sql-debug">{{ count_sql }}</div>
+    </div>
+  </div>
+
+  <div class="win95-statusbar">
+    <div class="status-section">
+      ORM: selectExpr, countAll, sumCol, avgCol, minCol, maxCol
+    </div>
+    <div class="status-section">
+      groupBy, having, orHaving, distinct, countSql
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Combined Reports{% endblock %}
+
+{% block content %}
+<div class="win95-window">
+  <div class="win95-titlebar">
+    <span class="title-text">Set Operations Reports</span>
+    <div class="win95-titlebar-buttons">
+      <button class="win95-titlebar-btn">_</button>
+      <button class="win95-titlebar-btn">&#9633;</button>
+      <a href="{{ url_for('index') }}" class="win95-titlebar-btn" title="Close"
+         style="text-decoration:none; color:inherit;">X</a>
+    </div>
+  </div>
+
+  <div class="app-nav">
+    <a href="{{ url_for('index') }}">&#9664; Back</a>
+    <a href="{{ url_for('stats') }}">Stats</a>
+    <a href="{{ url_for('overdue') }}">Overdue</a>
+    <a href="{{ url_for('join_demo') }}">Joins</a>
+  </div>
+
+  <div class="win95-body">
+    <!-- UNION -->
+    <div class="win95-groupbox">
+      <legend>UNION: High Priority (4-5) OR Completed</legend>
+      <div class="win95-sunken" style="max-height:150px;">
+        {% for t in union_todos %}
+        <div class="list-row">
+          <span class="priority-badge priority-{{ t.priority }}">{{ t.priority }}</span>
+          <span class="list-name" style="cursor:default;">{{ t.title }}</span>
+        </div>
+        {% endfor %}
+        {% if not union_todos %}
+        <div class="empty-state">No results.</div>
+        {% endif %}
+      </div>
+      <div class="sql-debug">{{ union_sql }}</div>
+    </div>
+
+    <!-- INTERSECT -->
+    <div class="win95-groupbox">
+      <legend>INTERSECT: High Priority AND Completed</legend>
+      <div class="win95-sunken" style="max-height:150px;">
+        {% for t in intersect_todos %}
+        <div class="list-row">
+          <span class="priority-badge priority-{{ t.priority }}">{{ t.priority }}</span>
+          <span class="list-name" style="cursor:default;">{{ t.title }}</span>
+        </div>
+        {% endfor %}
+        {% if not intersect_todos %}
+        <div class="empty-state">No results.</div>
+        {% endif %}
+      </div>
+      <div class="sql-debug">{{ intersect_sql }}</div>
+    </div>
+
+    <!-- EXCEPT -->
+    <div class="win95-groupbox">
+      <legend>EXCEPT: High Priority but NOT Completed</legend>
+      <div class="win95-sunken" style="max-height:150px;">
+        {% for t in except_todos %}
+        <div class="list-row">
+          <span class="priority-badge priority-{{ t.priority }}">{{ t.priority }}</span>
+          <span class="list-name" style="cursor:default;">{{ t.title }}</span>
+        </div>
+        {% endfor %}
+        {% if not except_todos %}
+        <div class="empty-state">No results.</div>
+        {% endif %}
+      </div>
+      <div class="sql-debug">{{ except_sql }}</div>
+    </div>
+  </div>
+
+  <div class="win95-statusbar">
+    <div class="status-section">
+      ORM: unionSql, intersectSql, exceptSql
+    </div>
+    <div class="status-section">
+      Also: unionAllSql (generated but not shown)
+    </div>
+  </div>
+</div>
+{% endblock %}
